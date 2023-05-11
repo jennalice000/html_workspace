@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<script>
+		console.log("원하는 문자열 입력");
+		function btn(){
+			let spanNode = document.createElement("div");
+			
+			spanNode.textContent = "원하는 문자열";
+			spanNode.appendChild(spanNode);
+		}
+
+		</script>
+	</head>
+
+	<body>
+		<button onClick="btn()">button</button>
+	</body>
+
+</html>

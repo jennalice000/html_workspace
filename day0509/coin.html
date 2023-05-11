@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>논리값뒤집기</title>
+		<script>
+		let y=true;;
+		function getResult(){
+			y=!y;
+			let x = (y === true)? "front":"back";
+			document.querySelector("img").src="../images/"+x+"_coin.jpeg";
+		}
+		</script>
+		<style>
+			div{
+				display: flex;
+				flex-direction: column;
+				width: 500px;
+				margin: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<button onClick="getResult()">flipButon</button>
+			<img src="../images/front_coin.jpeg">
+		</div>
+	</body>
+
+</html>

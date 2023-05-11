@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>scope</title>
+		<style>
+		background: yellow;
+		height: 300px;
+
+		</style>
+		<script>
+		let str='';
+		function setCount(){
+			let y = (i%3===0)?"star":i;
+			str=str+y+"";
+			document.querySelector("div").innerText=str;
+		}
+		</script>
+	</head>
+
+	<body>
+		<button onClick="setCount()">count</button>
+		<div>text</div>
+	</body>
+
+</html>
