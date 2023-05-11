@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>frame animation</title>
+		<script>
+				let count=0;
+		function next(){
+	
+			count = count + 1;
+			document.getElementById("hero").src="../images/hero/image"+count+".png";
+			
+			console.log('"../images/hero/image1" + count + ".png"');
+		}
+
+		function auto(){
+			setInterval("next()", 50)
+		}
+		</script>
+	</head>
+
+	<body>
+		<button onClick="auto()">next image</button>
+		<img src="../images/hero/image1.png" id="hero">
+
+	</body>
+
+</html>

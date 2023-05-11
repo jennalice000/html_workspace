@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>switch</title>
+		<style>
+		#wrapper{
+		width: 600px;
+		height: 500px;
+		margin: auto;
+		display: hidden;
+		}
+
+		.light{
+		width: 50px;
+		height: 100%;
+		float: left;
+		}
+
+		.room{
+		width: 550px;
+		height: 100%;
+		float: right;
+		}
+		
+		#btn {
+		width: 35px;
+		}
+		
+		.room{
+		width: 550px;
+		height: 100%;
+		}
+		</style>
+
+		<script>
+		let x = "off";
+		function turn(){
+			x=(flag)?"on":"off";
+			document.getElementById("btn").src="../images/"+x+".png";
+			flag=!flag;
+		}
+		</script>
+
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<div class="light">switch
+				<img Id="btn" src="../images/on.png" onClick="turn()">
+			</div>
+			<div class="room"><img class="room" src="../images/room.png"></div>
+		</div>
+	</body>
+
+</html>

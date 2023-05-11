@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>10의 배수 체크</title>
+		<script>
+			let x = 0;
+			function setCount(){
+				x++;
+				let y = (x%10===0)? "10의 배수" : x;
+				document.querySelector("div").innerText=y;
+			}
+		</script>
+		
+		<style>
+			div {
+				border: 1px solid red;
+				font-size: 50px;
+				font-weight: 600;
+				color: blue;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<button onClick="setCount()">counter</button>
+		<div>message</div>
+
+	</body>
+
+</html>
