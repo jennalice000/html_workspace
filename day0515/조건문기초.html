@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        function init(){
+            let n = parseInt(prompt("color\n1. red 2. orange 3. green 4. yellow 5. blue 6. navy 7. purple"))
+            let box = document.getElementById("box");
+            let bg="";
+
+            switch(n){
+                case 1:bg='red'
+                    break;
+                case 2:bg='orange'
+                    break; 
+                case 3:bg='yellow'
+                    break;
+                case 4:bg='green'
+                    break;
+                case 5:bg='blue'
+                    break;
+                case 6:bg='navy'
+                    break;
+                case 7:bg='purple'
+                    break;
+
+                default:bg="black"
+                    alert('again')
+            }
+
+            // if(n==1){
+            //     bg="red"
+            // }else if(n==2){
+            //     bg="orange"
+            // }else if(n==3){
+            //     bg="green";
+            // }else if(n==4){
+            //     bg="yellow"; 
+            // }else if(n==5){
+            //     bg="blue";
+            // }else if(n==6){
+            //     bg="navy";
+            // }else if(n==7){
+            //     bg="purple"
+            // }else{
+            //     bg="black";
+            //     alert('again8')
+            // }
+            
+            box.style.background=bg;
+        }
+    </script>
+    <style>
+        div{
+            width: 100%;
+            height: 600px;
+            background: black;
+        }
+    </style>
+</head>
+<body onLoad="init()">
+    <div id="box"></div>
+</body>
+</html>
+

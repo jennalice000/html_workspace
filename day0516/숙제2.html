@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            margin: auto;
+            border: 1px solid black;
+            width: 500px;
+            height: 550px;
+            display: flex;
+        }
+        #btns{
+            border: 1px solid red;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+        button{
+            text-align: center;
+            border-radius: 15px;
+            border: 0px;
+            width: 60px;
+            height: 45px;
+            align-items: center;
+        }
+    </style>
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            let canvas = document.getElementById("canvas");
+
+            function changeColor(color) {
+                canvas.style.background = color;
+            }
+
+            let red = document.getElementById("red");
+            let orange = document.getElementById("orange");
+            let yellow = document.getElementById("yellow");
+            let green = document.getElementById("green");
+            let blue = document.getElementById("blue");
+            let navy = document.getElementById("navy");
+            let purple = document.getElementById("purple");
+
+            red.addEventListener("click", function() {
+                changeColor('red');
+            });
+
+            orange.addEventListener("click", function() {
+                changeColor('orange');
+            });
+
+            yellow.addEventListener("click", function() {
+                changeColor('yellow');
+            });
+
+            green.addEventListener("click", function() {
+                changeColor('green');
+            });
+
+            blue.addEventListener("click", function() {
+                changeColor('blue');
+            });
+
+            navy.addEventListener("click", function() {
+                changeColor('navy');
+            });
+
+            purple.addEventListener("click", function() {
+                changeColor('purple');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="btns">
+            <button id="red" style="background-color: red;"></button>
+            <button id="orange" style="background-color: orange;"></button>
+            <button id="yellow" style="background-color: yellow;"></button>
+            <button id="green" style="background-color: green;"></button>
+            <button id="blue" style="background-color: blue;"></button>
+            <button id="navy" style="background-color: navy;"></button>
+            <button id="purple" style="background-color: purple;"></button>
+        </div>
+        <div id="canvas"></div>
+    </div>
+</body>
+</html>

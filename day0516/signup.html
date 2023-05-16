@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 400px;
+            margin: auto;
+            border: 1px solid salmon;
+        }
+        input, button{
+            width: 95%;
+            font-size: 20px;
+        }
+        div{
+            text-align: center;
+        }
+    </style>
+    <script>
+        function checkValue(){
+        window.addEventListener("load", function(){
+            // alert('문서로드완료')
+            let bt=document.querySelector("button").addEventListener("click", checkValue())
+        })
+        if(window.document.form1.id.value==""){
+            alert("????????");
+            window.document.form1.id.value();
+        }if(form1.id.value==""){
+            alert('id');
+            form1.pwd.focus();
+        }else if(){
+            form1.id.value=="";
+            form1.pwd2.focus();
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+
+        <form>
+            <div>
+                <input type="text" placeholder="Input your Id" name="id">
+            </div>
+            <div>
+                <input type="password" placeholder="Input your Password" maxlength="12" name="pwd"> 
+            </div>
+            <div>
+                <input type="text" placeholder="Input your Password" maxlength="12" name="pwd2">
+            </div>
+            <div>
+                <input type="text" placeholder="Input your name" maxlength="12" name="name">
+            </div>
+            <div>
+                <!-- html5버튼을 form태그에 넣으면 자동 전송 기능이 ㅅ무어있어서 페이지가 새로고침 됨. -->
+                <button type="button">signUp</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

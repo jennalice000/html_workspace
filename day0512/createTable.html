@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>createTable</title>
+    <script>
+        let thick = parseInt(prompt('write concreate'))
+        document.write("<table border='"+thick+"px' width='700px'>" )
+        
+        let height = parseInt(prompt('write stairs'))
+        let row = parseInt(prompt('write row'))
+            for(let i = height; i>=1; i--){
+                    document.write("<tr>")
+                        for(let j= 1; j<=row; j++){
+                            document.write("<td>"+i+"0"+j+"호</td>")
+                        }
+                    document.write("</tr>")
+            
+        }
+        document.write("<table>")
+
+    </script>
+
+</head>
+
+<body>
+    <!-- <table border="1px">
+        <tr>
+            <td>301</td>
+            <td>302</td>
+            <td>303</td>
+            <td>304</td>
+        </tr>
+        <tr>
+            <td>201</td>
+            <td>202</td>
+            <td>203</td>
+            <td>204</td>
+        </tr>
+        <tr>
+            <td>101</td>
+            <td>102</td>
+            <td>103</td>
+            <td>104</td>
+        </tr>
+    </table> -->
+
+    
+</body>
+
+</html>
