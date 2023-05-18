@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판 탭 메뉴</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            margin: auto;
+            background-color: yellow;
+        }
+
+        a{
+            display: flex;
+            flex-direction: row;
+            width: 200px;
+            padding: 20px;
+            margin: 5px;
+            background: blue;
+            color: yellow;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #header{
+            width: 100%;
+            height: 50px;
+            background-color: aqua;
+            display: flex;
+            border-radius: 15px;
+            justify-content: center;        }
+
+        table{
+            margin: auto;
+        }
+
+    </style>
+    <script>
+        function showHide(){
+            let notice = document.getElementById("notice");
+            let qna = document.getElementById("qna");
+            let faq = document.getElementById("faq");
+
+            notice.style.display = a;
+            qna.style.display = b;
+            faq.style.display = c;
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <a href="javascript:showHide('block', 'none', 'none')>notice</a>
+            <a href="javascript:showHide('none', 'block', 'none')">Q&A</a>
+            <a href="javascript:showHide('none', 'none', 'block')">FAQ</a>
+        </div>
+        <div id="content">
+            <table border="1px" width="100%" id="notice">
+                <tr colspan="4"  align="center">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="qna">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="faq">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+
+            </table>
+            <table border="1px" width="100%" id="qna">
+                <tr colspan="4"  align="center">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="qna">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="faq">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+
+            </table>
+            <table border="1px" width="100%" id="faq">
+                <tr colspan="4"  align="center">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="qna">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+                <tr colspan="4"  align="center" id="faq">
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                        <td>dfdf</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</body>
+</html>

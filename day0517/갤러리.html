@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>갤러리</title>
+    <style>
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            border: 1px solid black;
+        }
+
+        #pics{
+            border: 1px solid red;
+            height: 50px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        img{
+            border-radius: 15px;
+            border: 0px;
+            width: 60px;
+            height: 45px;
+            align-items: center;
+        }
+
+        #pic {
+            width: 600px;
+            height: 450px;
+        }
+    </style>
+    <script>
+        let content = document.getElementById("content");
+        
+            function rollOver(i){
+            let img = document.getElementById("pic").src="../images/cat/m"+i+".jpg";
+        };
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="pics">
+            <img src="../images/cat/m1.jpg" onmouseover="rollOver(1)" alt="">
+            <img src="../images/cat/m2.jpg" onmouseover="rollOver(2)" alt="">
+            <img src="../images/cat/m3.jpg" onmouseover="rollOver(3)"alt="">
+            <img src="../images/cat/m4.jpg" onmouseover="rollOver(4)"alt="">
+            <img src="../images/cat/m5.jpg" onmouseover="rollOver(5)"alt="">
+            <img src="../images/cat/m6.jpg" onmouseover="rollOver(6)"alt="">
+            <img src="../images/cat/m7.jpg" onmouseover="rollOver(7)"alt="">
+            <img src="../images/cat/m8.jpg" onmouseover="rollOver(8)"alt="">
+            <img src="../images/cat/m9.jpg" onmouseover="rollOver(9)"alt="">
+            <img src="../images/cat/m10.jpg" onmouseover="rollOver(10)"alt="">
+        </div>
+        <div id="content">
+            <img src="../images/cat/m1.jpg" id="pic" alt="">
+        </div>
+    </div>
+</body>
+</html>

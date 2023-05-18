@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코드의 재사용</title>
+    <script>
+
+
+        // return은 실행부가 이 함수를 호출한 곳으로 되돌아 가게 만든다
+        // 특히 return 데이터를 명시할 수 있는데, 이때는 실행부가 return 뒤에 명시된 데이터 값을 가지고 돌아가게 됨
+        // return에 값을 명시한 함수를 가리켜 '리턴값이 있는 함수'라 말함
+    
+        // function test(){
+        //     return 4;
+        // }
+        // alert(test());
+
+        function test (n){
+            return n*2
+        }
+        alert(test(8))
+    </script>
+</head>
+<body>
+    <!-- 3단 출력하기 -->
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>카운트세기</title>
+<script>
+var count=0;
+
+//아래의 영역은 무조건 수행되지 않고, 개발자가 원할때 즉 호출할때만 실행되는 
+//개발자 정의 함수 영역이다...또한 개발자가 정의한 함수는 반드시 function 키워드
+//가 앞에 명시되어 있어야 한다..
+function setCount(){
+	count= count+1;
+	console.log("image"+count+".png");
+}
+</script>
+</head>
+<body>
+	<!--
+	이벤트 - 프로그램 언어에서 발생되는 사건을 의미	
+	click이벤트 - 웹브라우저에서 발생되는 클릭이라는 사건 
+	기존 이벤트에 on이라는 단어를 붙이면 이벤트 핸들러가 된다.. 
+	onClick이란? click 이벤트를 감지했을때를 어떤 자바스크립트 코드가
+	                  동작할지를 결정하는 이벤트 핸들러이다
+	-->
+	<button onClick="setCount()">카운트증가</button>
+
+</body>
+</html>

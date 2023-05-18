@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적으로 월채우기</title>
+    <script>
+        //이미 문서내에 존재하는 select 요소를 접근하여, 동적으로 option
+        //요소를 자식으로 추가하기
+        function createMonth() {
+            //이미 존재하는 요소를가져올때는 getElement~~
+            let sel = document.getElementById("sel");
+
+            //기존 문서에 존재하지 않는 요소를 새로 생성할때는 createElement~
+            let op=document.createElement("option"); // <option></option> 동일
+            op.text=12+"월";//<option>12월</option> 동일
+
+            sel.add(op);// 자식  option요소를 추가~~
+        }
+    </script>
+</head>
+
+<body>
+    <button onClick="createMonth()">월 채우기</button>
+    <select id="sel">
+        <option value="">월 선택</option>
+    </select>
+
+</body>
+
+</html>

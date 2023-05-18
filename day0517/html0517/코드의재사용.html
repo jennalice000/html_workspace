@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        ■ 함수란?  
+            - 특정 코드영역에 이름을 붙여놓은 단위
+        ■ 왜 사용? 
+            - 한번 작성된 코드를 또 써먹기 위해 
+               즉 코드의 재사용을 위해            
+            - 관련성 있는 코드끼리 분리할때 
+
+        ■ 정의방법 (syntex)
+            function 키워드  이름(){
+                또 써먹을 로직작성
+            }
+
+        */
+        //사용자(=개발자)정의 함수
+
+        //매개변수 : 함수호출시 전달되는 데이터를 함수내부에서
+        //사용될 수 있도록 그값을 담아놓는 지역변수
+        /*
+        function dan(n){    
+            for(let i=1;i<=9;i++){
+                document.write(n+"*"+i+"="+n*i+" <br>");
+            }
+        }
+        */
+
+       //1) return의  의미: 실행부가 이 함수를 호출한 곳으로 
+       //되돌아 가게 만든다 
+       //2) 특히  return 데이터 를 명시할 수 있는데, 이때는 
+       //    실행부가 이 함수를 호출한 곳으로 되돌아가되 그냥
+       //    되돌아가는것이 아니라,  return 뒤에 명시된 데이터
+       //    를 가지고 되돌아가게 됨
+       //    return에 값을 명시한 함수를 가리켜 '리턴값이 있는
+       //    함수'라 얘기한다
+       /*
+       function test(){
+            return 3;
+       }
+       alert(test());
+       */
+
+      function test(n){
+         return n*2;
+      }
+      alert(test(3));
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+
+

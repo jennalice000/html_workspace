@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>나눈나머지구하기 연산자</title>
+<script>
+/*산술 연산자 중 %연산자 학습
+	x % y   :   x를 y로 나눈 나머지를 구한다
+
+	var  vs   let  중 어느것을 써야할까? let 추천  
+
+	var 단점: 변수의 중복 선언을 허용함(다른 프로그래밍 언어에서는 금지사항)
+	let 은 이러한 단점을 보완하기 위해 새롭게 추가된 변수 선언 기법
+*/
+let x=5;
+let y=3;
+let z = x%y;
+
+console.log("x를 y로 나눈 나머지는 " , z);
+
+//자기자신 보다 큰수로는 나눌수 없으므로, 자기 자신이 곧 나머지다
+console.log("y를 x로 나눈 나머지는 " ,  y%x);
+</script>
+</head>
+<body>
+
+</body>
+</html>

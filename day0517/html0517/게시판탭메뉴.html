@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:600px;
+            height: 500px;
+            background: yellow;
+            margin: auto;
+        }
+        #header{
+            width:100%;
+             height: 50px;
+             background: skyblue;
+             overflow: hidden;
+             padding: 0px;
+             margin: 0px;
+        }
+        a{
+            width:195px;
+            text-decoration: none;
+            padding: 20px 5px;
+            margin: 0px;
+            background: blue;
+            color: yellow;
+            font-weight: bold;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+    </style>
+    <script>
+
+        //사용자가 QnA를 선택하면, 문서내의 공지사항과 문서내의 faq는 가려짐
+        function showHide(a, b, c){
+            let notice=document.getElementById("notice");
+            let qna=document.getElementById("qna");
+            let faq=document.getElementById("faq");
+
+            notice.style.display=a;//공지사항 테이블 않 보이게
+            qna.style.display=b; //QnA 는 보이게 
+            faq.style.display=c; // faq 않보이게 
+        }
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="header">
+            <!-- 자바스크립트를 작성할 수 있는 영역 
+                1) script 태그 내 작성 
+                2) onClick과 같은 이벤트핸들러 내 작성 
+                3) a href="javascript:" 내에 작성
+            -->
+            <a href="javascript:showHide('block', 'none', 'none')">공지사항</a>
+            <a href="javascript:showHide('none', 'block', 'none')">QnA</a>
+            <a href="javascript:showHide('none', 'none', 'block')">FAQ</a>
+        </div>
+        <div id="content">
+            <!-- 공지사항 테이블 -->
+            <table width="100%" border="1px" id="notice">
+                <tr>
+                    <td colspan="4" align="center">공지사항</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+            </table>
+
+            <!-- QnA 테이블 -->
+            <table width="100%" border="1px" id="qna" style="display: none">
+                <tr>
+                    <td colspan="4" align="center">QnA</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+            </table>
+            
+            <!-- FAQ 테이블 -->
+            <table width="100%" border="1px" id="faq" style="display: none">
+                <tr>
+                    <td colspan="4" align="center">FAQ</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+                <tr>
+                    <td>No</td>
+                    <td>제목</td>
+                    <td>작성자</td>
+                    <td>작성일</td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>    
+
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:100px;
+            height:100px;            
+        }
+        img{
+            width:100px;
+            height:70px;
+        }
+    </style>
+    <script>
+        let x=0;//wrapper의 x 좌표를 누적시킬 전역변수 
+        let wrapper;
+        let h3;
+        let flag=true;
+
+        //게임을 진행할 루프 
+        function loop(){
+            if(flag){
+                x++;
+            }else{
+                x--;
+            }
+            wrapper.style.left=x+"px";   
+            h3.innerText=x+"px";//텍스트 출력 
+
+            if(x>=500 || x<=0){
+                flag=!flag;
+            }
+        }
+
+        //프로그램이 가동되면, 우주선을 포함한 div를 원하는 위치에
+        //두자
+        function init(){
+            wrapper=document.getElementById("wrapper");
+            wrapper.style.position="absolute";
+            wrapper.style.left=x+"px";
+            wrapper.style.top=100+"px";
+
+            //현재 x위치를 h3태그에 대입 
+            h3=document.querySelector("h3");
+            h3.innerText=x+"px";
+        }
+        addEventListener("load", function(){
+            init();
+
+            //무언가 움직이는 프로그램, 즉 자동이 구현된다면 
+            //무조건 루프가 필요.. 
+            setInterval("loop()", 1);
+        });
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <h3></h3>            
+        <img src="../images/plane.png">
+    </div>
+
+</body>
+</html>
+
+
+
+
+

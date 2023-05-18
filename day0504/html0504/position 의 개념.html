@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>position 의 개념</title>
+<style>
+#box1{
+	width:100px;
+	height:100px;
+	background:red;
+}
+
+/*absolute의 특징 
+부모를 기준으로 위치하므로, 기존에 존재하는 다른 요소들이
+있더라도 중첩이 허용된다..
+*/
+#box2{
+	width:100px;
+	height:100px;
+	background:blue;
+	position:absolute; /*절대위치 속성을 지정*/
+	left:-50px;
+	top:50px;
+}
+</style>
+</head>
+<body>
+	<!--
+	모든 태그의 특징 
+	1) box로 취급 (box모델-padding,margin,border)
+	2) display(inline, block)
+	3) position(relative, absolute 등등...)
+	위의 3가지 특징은 개발자가 지정하지 않아도 디폴트로
+	속성이 지정되어 있다..
+	position은 개발자가 지정하지 않으면 디폴트로 relative
+	가 적용된다..
+	relative  : 상대위치 
+	absolute : 절대위치 
+	  (x축, y축의 좌표를 갖는 위치속성, 단 부모태그를
+	  기준으로 한다..)
+	-->
+	<div id="box1">난box1</div>
+	
+	<div id="box2">난box2</div>
+
+</body>
+</html>

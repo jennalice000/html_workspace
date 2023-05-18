@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let img;
+        let x = 0; // 우주선의 x값 결정
+        let y = 0; // 우주선의 y값 결정
+
+        function move(event) {
+            // 클릭한 위치로 우주선을 이동하는 함수
+            x = event.clientX;
+            y = event.clientY;
+            img.style.left = x + "px";
+            img.style.top = y + "px";
+        }
+
+        function init() {
+            img = document.createElement('img');
+            // 우주선의 위치 및 크기 등의 초기화 작업
+            img.src = "../images/spaceship.png";
+            img.style.width = '70px';
+            img.style.position = 'absolute';
+            img.style.left = '100px';
+            img.style.top = '150px';
+            img.style.transition = 'left 0.5s ease, top 0.5s ease';
+
+            let wrapper = document.getElementById('wrapper');
+            wrapper.appendChild(img);
+        }
+
+        addEventListener("load", function() {
+            init();
+            document.body.addEventListener("click", move);
+        });
+    </script>
+    <style>
+        #wrapper {
+            width: 100%;
+            height: 100vh;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+;<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <title>Document</title>
+    <script>
+        /*
+        for(입력값보다 1작은수; 입력값보다1큰수 ;i++){
+        }
+        */
+
+        //프롬프트 함수는 사용자가 데이터를 입력하면 모두 문자열로 취급한다
+        //따라서 숫자 5를 입력해도 내부적으로 "5"로 취급한다..
+        //해결책? 즉 숫자로 처리하기를 원할 경우 개발자가 프로그래밍 언어로
+        //강제 정수화  parseInt(대상문자열) 내장 함수를 사용하면 된다
+       let n=prompt("원하시는 수를 입력하세요");
+       n = parseInt(n); //정수로 변환
+       let startNum=n-1; //시작값
+       let endNum=n+1; //끝값
+
+       for(let i=startNum;i<=endNum;i++){
+            document.write(i); 
+       }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

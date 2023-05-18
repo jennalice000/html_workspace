@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:700px;
+            height:500px;
+            margin: auto;
+            border:2px solid #ccc;
+        }
+        #header{
+            width:100%;
+            height:100px;
+            background-color: aqua;
+            text-align: center;
+        }
+        #header button{
+            width:96px;
+            height:96px;
+            border:2px solid blue;
+        }
+        #content{
+            width:100%;
+            height:400px;
+            background-color: aquamarine;
+        }
+    </style>
+    <script>
+        //버튼 7개를 화면에 등장...
+        function createButton(){
+            //버튼 7개를 동적으로 생성하여 문서내의 header div에 자식으로 
+            //추가하자 
+            for(let i=1;i<=7;i++){
+                let bt=document.createElement("button"); // <button></button>
+
+                if(i==1){
+                    bt.innerText="빨간"; //<button>빨간</button>
+                    bt.style.background="red";
+                }else if(i==2){
+                    bt.innerText="주황색"; 
+                    bt.style.background="orange";
+                }else if(i==3){
+                    bt.innerText="노란색"; 
+                    bt.style.background="yellow";
+                }else if(i==4){
+                    bt.innerText="초록색"; 
+                    bt.style.background="green";
+                }else if(i==5){
+                    bt.innerText="파란색"; 
+                    bt.style.background="blue";
+                }else if(i==6){
+                    bt.innerText="남색"; 
+                    bt.style.background="navy";
+                }else if(i==7){
+                    bt.innerText="보라색"; 
+                    bt.style.background="purple";
+                }
+
+                //반복문내의 각 버튼들에 대해 이벤트 연결 
+                bt.addEventListener("click", function(){
+                    //alert(i);
+                    //문서내의 content 의 배경색을 방금 선택한 버튼의 배경색과
+                    //일치시킨다 
+                    let content=document.getElementById("content");
+                    console.log(bt.style.background);
+                    content.style.background=bt.style.background;
+
+                });
+
+                let header=document.getElementById("header");//header얻기
+                header.appendChild(bt);
+            } //for문의 종료
+        }
+
+        //문서가 로드되면...익명함수가 동작한다
+        addEventListener("load", function(){
+            createButton();
+        });        
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="content"></div>
+    </div>
+
+</body>
+</html>

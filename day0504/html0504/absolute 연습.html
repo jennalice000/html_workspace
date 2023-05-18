@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>absolute 연습</title>
+<style>
+	#wrapper{
+		background:pink; 
+		width:300px;
+		height:300px;
+		/*position을 absolute로 변경하자*/
+		position:absolute; /*부모요소를 기준으로 한 위치*/
+		left:200px; /*x축으로부터 200 떨어지게*/
+		top:100px; /* y축으로부터 100 떨어지게*/
+	}
+
+	#box1, #box2{
+		width:100px;
+		height:100px;
+		position:absolute; /*부모를 기준으로 한 위치이므로,
+		현재 이 두 박스의 부모는 분홍색 div이다*/
+	}
+	#box1{
+		background:red;
+		left:-50px;
+		top:100px;
+	}
+	#box2{
+		background:green;
+		left:100px;
+		top:100px;
+	}
+</style>
+</head>
+<body>
+	<!--다른 div들을 포함할 부모 div -->
+	<div id="wrapper">
+		 <div id="box1">box1</div>
+		 <div id="box2">box2</div>
+	</div>
+
+</body>
+</html>

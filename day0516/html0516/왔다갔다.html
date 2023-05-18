@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px; /*body에 적용된 기본 마진을 없애버리자 */
+        }
+        #stage{
+            width:900px;
+            height:600px;
+            background:url(../images/bg2.png);
+            margin: auto;
+            /*자식요소가 position을 명시하면 반드시 부모 요소에도  position
+             이 명시되어 있어야 한다 ★*/
+            position: relative;
+        }
+    </style>
+    <script>
+        let x=0;  //stage의 배경의 x축값을 누적시킬 변수
+                    //누적되어야 하므로 전역변수로 선언했다!
+        let stage; //모든 함수들에서 접근할 수 있도록 전역변수로 선언
+        let img; //모든 함수들에서 이미지를 접근할 수 있도록 전역변수로 선언...
+        let n=100;// 0이 아닌 100으로 초기값을 결정한 이유?
+                        // img가 탄생할때 즉 우주선이 탄생할때 left 값을 100부터
+                        //시작하는 style 을 적용했으므로, 어색하지 않기 위해..
+        let s=100; //  위, 아래 방향인 y축 위치에 사용될 전역변수
+
+        //배경을 js에서 제어해보자(우측 좌측 방향으로 x축값을 감소)
+        function bgEffect(){
+            //문서내의 stage  div에 적용된 배경 css의 left 값을 감소 
+            
+            
+            x = x-1; // x-=5 와 동일 표현식
+            stage.style.backgroundPosition=x+"px  0px";
+        }
+
+        //우주선 등장시키기 
+        function createPlane(){
+            img=document.createElement("img"); // <img>
+            img.src="../images/plane.png"; // <img src="">
+            img.style.width=70+"px";
+            //우주선을 stage내에서 즉 부모를 기준으로해서 x, y좌표를 개발자
+            //가 결정해야 하므로, 절대위치 속성으로 변경하자 
+            img.style.position="absolute";
+            img.style.left=100+"px"; //x축의 값 
+            img.style.top=100+"px"; //y축의 값
+
+            //stage에 자식요소로 부착 
+            stage.appendChild(img);
+        }
+        let flag=true;
+        let step=5;
+
+        //우주선 x축 위치 변경하기 
+        function moveRight(){
+            //문서내의  우주선  img요소의 style 중 left값 증가 
+            img.style.left=n+"px";
+        }
+
+        window.addEventListener("load", function(){
+            stage=document.getElementById("stage");
+
+            //컴퓨터가 알아서 원하는 시간 간격으로 개발자가 지정한 함수를
+            //호출해주는 루프함수를 해보자 
+            setInterval("bgEffect()", 10);  // 1/1000 초까지 표현가능
+
+            createPlane();//우주선 등장 함수 호출 
+
+            //버튼 4개 각각에 대해 이벤트 연결 
+            let bt=document.querySelector("button");
+
+            bt.addEventListener("click", function(){
+                moveRight();
+            });
+            
+        });        
+    </script>
+</head>
+<body>
+    <div id="stage">
+        <button>이동</button>                    
+    </div>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--
+    <select>
+        <option value="">2002</option>
+        <option value="">2002</option>
+    </select>
+    -->
+</body>
+</html>
+
+<script>
+    /* 순수  js에서 버튼을 생성하는 방법 
+    사실 dom 객체를 이용하는 방법(진도가 객체에 도달못해서 설명 생략..)
+    */
+    //document.getElementById(); 문서 이미 존재하는 요소를 접근
+    let sel=document.createElement("select");//문서에 없는 새로운 요소를 이 시점에 생성
+
+    for(let i=2002; i>=1989;i--){
+        //생성된  select박스에 넣을 자식 option 생성 
+        let op=document.createElement("option");//<option></option>와 동일 효과
+        op.text=i;//<option>2002</option> 와 동일 코드 효과
+
+        //생성된 option을 select 의 자식 요소로 넣어주자
+        sel.add(op); //자식요소 추가하기   <select><option>2002</option></select>
+    }
+    //생성된 select 박스를 body 에 부착 
+    document.body.appendChild(sel);
+</script>

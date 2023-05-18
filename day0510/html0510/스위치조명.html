@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>스위치조명</title>
+<style>
+#wrapper{
+	width:600px;
+	height:500px;
+	background:yellow;
+	margin:auto;
+	display:hidden; /*자식요소들이 float으로 떠있을 경우, 바깥쪽 부모요소는
+	자식에 대한 display속성을 hidden 으로 주어야 한다 (퍼블리싱 원칙)*/
+}
+#sw{
+	width:50px;
+	height:100%;
+	background:skyblue;
+	float:left;
+}
+#room{
+	width:550px;
+	height:100%;
+	background:red;
+	float:left;
+	/*이미 relative 임에도 불구하고, 자식이 position을 명시했기 때문에 
+	다시한번 부모에서도 명시한 것임*/
+	position:relative;
+}
+
+#sw img{
+	width:40px;
+}
+#room img{
+	width:550px;
+	height:500px
+}
+
+/*room안에 갇혀 있으므로, 너비,높이를 100%로 설정해도 됨*/
+#mask{
+	width:100%;
+	height:100%;
+
+	/*16진수로 표현한 빛의 3원색 (Red Green Blue)
+		즉 모든 색상은 3자리로 표현됨 
+		Red Green  Blue
+	#  00      00     00 
+	*/
+	background:#000000;   
+	/*자식 요소에 position 속성을 지정하면 반드시 부모 요소에도 position을
+	명시해야 문제가 발생하지 않음*/
+	position:absolute; /*부모요소를 기준으로 한 절대위치*/
+	left:0px;
+	top:0px;
+	opacity:0.3;
+}
+
+</style>
+<script>
+
+//스위치 버튼을 누르면, 반대 이미지로 변환하기
+//문서내의 pic 이라는 요소의 src속성을 반대 이미지로 교체
+let x="off";
+let flag=false;
+
+function turn(){
+	//x=삼항연산자로  on, off올지를 결정;
+	x = (flag)? "on":"off"; 
+	document.getElementById("pic").src="../images/"+x+".png";
+	flag=!flag; //써먹었떤 변수를 뒤집기
+}
+</script>
+</head>
+<body>
+	
+	<div id="wrapper">
+		<div id="sw">
+			<img src="../images/on.png" onClick="turn()" id="pic">
+		</div>
+		<div id="room">
+			<img src="../images/room.webp">
+			<div id="mask"></div>
+		</div>
+	</div>
+
+</body>
+</html>

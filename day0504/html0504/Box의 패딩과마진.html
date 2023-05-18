@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Box의 패딩과마진</title>
+<style>
+	/*아이디를 선택자로 사용시엔 # 을 붙인다 */
+	#box1{
+		width:200px; /*너비*/
+		height:200px; /*높이*/
+		background:green; /*배경색*/
+		padding-top:30px; /*위쪽 벽으로부터의 여백*/
+		padding-right:50px;/*우측 벽으로부터의 여백*/
+		padding-bottom:30px;/*하단 벽으로부터의 여백*/
+		padding-left:50px;		/*좌측 벽으로부터의 여백*/
+		box-sizing:border-box;
+	}
+	#box2{
+		width:200px; /*너비*/
+		height:200px; /*높이*/
+		background:pink; /*배경색*/
+		/*
+		한줄로 표현시 수치값 작성 순서
+		형식) padding: top  right bottom left
+
+		       암기법) 12시를 기준으로 시계방향으로 순서를 가짐
+		       padding:30px  50px  30px  50px
+		*/
+		padding:30px 50px 30px 50px;
+	}
+</style>
+</head>
+<body>
+	<div id="box1">자바기반 풀스택 개발자 과정</div>
+
+	<div id="box2">난 박스</div>
+
+</body>
+</html>

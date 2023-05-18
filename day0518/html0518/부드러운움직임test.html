@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let pic;
+        let x=100;
+        let y=100;
+        let a=0.1;
+        let flag=true;
+
+        function init(){
+            pic=document.getElementById("pic");
+            pic.style.position="absolute";
+            pic.style.left=x+"px";
+            pic.style.top=y+"px";
+        }
+
+        function move(){
+            pic.style.left=parseFloat(pic.style.left)+a*(700 - parseFloat(pic.style.left))+"px";
+            pic.style.top=parseFloat(pic.style.top)+a*(300 - parseFloat(pic.style.top))+"px";
+        }
+
+        function loop(){
+            if(flag){
+                move();
+            }
+        }
+
+        addEventListener("load", function(){
+            document.body.addEventListener("click", function(){
+                alert();
+            });
+            init();
+            setInterval("loop()", 100);
+        });
+    </script>
+
+</head>
+<body>
+    <img id="pic" src="../images/plane.png" width="50px">        
+</body>
+</html>

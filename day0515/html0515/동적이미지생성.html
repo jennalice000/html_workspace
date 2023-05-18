@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function createImage(){
+            for(let i=1;i<=10;i++){
+                let img=document.createElement("img"); // <img> 동일
+                img.src="../images/plane.png"; // <img src="파일명">동일
+                
+                //생성된 이미지를 body 요소의 자식으로 추가하기 
+                //body 태그도 document.getElementById() 로 접근해도 되지만
+                //어차피 body는 문서에 유일한 존재이기에 굳이 id까지 부여해가며
+                //접근할 필요가 없기 때문에  document.body 가 지원된다.. 
+                document.body.appendChild(img);// <body><img></body> 동일
+            }        
+        }
+    </script>
+</head>
+<body>
+    <button onClick="createImage()">이미지생성</button>
+    
+</body>
+</html>
+
+
+
+
+

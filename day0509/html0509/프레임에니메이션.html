@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>프레임에니메이션</title>
+<script>
+//다음 사진을 나오게...
+//문서내의 hero 라는 아이디를 갖는 요소의 src를 다음 사진으로 변경한다
+var count=0; //카운터값을 누적할 변수 선언, 초기값은 0으로 한다
+
+function next(){
+	count = count+1; //연산자 중 더하기 연산자 적용
+
+	//+ 연산자는 원칙상 숫자만을 대상으로 연산을 수행한다. 하지만
+	//문자열과 숫자간에는 연산 수행시 원래는 연산이 불가능해야 하지만
+	//전체를 문자열로 취급하므로, 이때의 +연산자는 특히 '연결자'라 부른다
+	document.getElementById("hero").src="../images/hero/image"+count+".png";
+}
+
+function auto(){
+	//setInterval("호출을원하는함수", 몇초간격으로..);  1/1000초까지 표현
+	setInterval("next()", 50);
+}
+</script>
+</head>
+<body>
+	<button onClick="auto()">다음이미지</button>
+	<img src="../images/hero/image1.png" id="hero">
+</body>
+</html>

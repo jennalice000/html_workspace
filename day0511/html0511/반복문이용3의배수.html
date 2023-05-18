@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>반복문이용 3의배수</title>
+<style>
+div{
+	background:yellow;
+	height:300px;
+	width:100%;
+	display:scroll;
+}
+</style>
+<script>
+/*
+let x=1;
+x = x+2;
+
+let s="apple";
+s = s +"korea";
+console.log(s);
+*/
+
+//문서내의 div요소안에 1~100사이 문자열을 동적으로 출력...
+
+let k=1; //어떠한 브레이스 즉 영역이 지정되지 않은 변수를 전역변수라 한다
+			//전역변수는 프로그램이 종료될때까지 생명이 유지된다. 즉 프로그램
+			//이 끝나지 않으면 죽지도 않음(메모리에서 사라지지 않음)
+
+let str="";//100번을 반복하여 문자열을 누적시킬 전역변수 
+
+function printNum(){
+	for(let i=1; i<=100; i++){
+		//삼항연산자에게 i가 3의 배수인지 물어봐서 맞다면 별, 아니라면 str + i
+		let n=(i%3==0)? "★": str + i;
+		
+		str =n+", \n"; //div 내에서의 줄바꿈(일반적인 프로그래밍 언어에서도 마찬가지)
+
+		console.log(str);
+
+		document.querySelector("div").innerText=str;
+	}
+}
+</script>
+</head>
+<body>
+	<button onClick="printNum()">수출력</button>
+	<div>숫자가 출력될 예정...</div>
+
+</body>
+</html>

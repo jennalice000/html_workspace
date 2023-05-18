@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블생성</title>
+    <script>
+        //사용자로부터 건물의 두께를 입력받기 
+        let b=prompt("원하시는 두께를 입력하세요");
+        let f=parseInt(prompt("원하시는 층수를 입력하세요"));
+        let h=parseInt(prompt("원하시는 호수를 입력하세요"));
+        
+        document.write("<table border='"+b+ "px' width='700px'>");
+            
+        for(let i=f;i>=1;i--){
+            document.write("<tr>");   
+
+            for(let a=1; a<=h;a++){    
+                document.write("<td>"+i+"층"+a+"호</td>"); 
+            }        
+            document.write("</tr>");
+            
+        }    
+
+        document.write("</table>");
+    </script>
+</head>
+<body>
+    <!--
+    <table border="1px">
+        <tr>
+            <td>301호</td>
+            <td>302호</td>
+            <td>303호</td>
+            <td>304호</td>
+        </tr>        
+        <tr>
+            <td>201호</td>
+            <td>202호</td>
+            <td>203호</td>
+            <td>204호</td>
+        </tr>        
+        <tr>
+            <td>101호</td>
+            <td>102호</td>
+            <td>103호</td>
+            <td>104호</td>
+        </tr>        
+    </table>
+    -->
+</body>
+</html>
+
+
+
+
+
+
+
+

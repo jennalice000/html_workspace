@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>document.write 학습</title>
+
+<script>
+document.write("원하는 문자열");
+</script>
+
+</head>
+<body>
+	<bu>
+</body>
+</html>

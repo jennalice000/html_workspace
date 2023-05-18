@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #topMenu{
+            border: 3px solid black;
+            height: 300px;
+            width: 250px;
+        }
+
+nav#topMenu {}
+        ul{
+            list-style: none;
+        }
+
+        .topMenuLi{
+            border: 1px solid black;
+            margin-left: 20px;
+            font-size: 20px;
+            background-color: pink;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+        let topMenu;
+        let flag = true;
+        let loop;
+
+        function dropDown(){
+           //flag = true일 때 -> 드롭다운 닫혀있는 상태
+           //flag = false일 때 -> 드롭다운 열려있는 상태
+                if(flag){
+                    topMenu.style.left = '0px';
+                    loop = setInterval(function(){
+                        dropDown();
+                    }, 1000);
+
+                }else{
+                    topMenu.style.left = "-240px";
+                    clearInterval(loop);
+                }
+                flag = !flag;
+            }
+         
+
+        function init(){
+            topMenu = document.getElementById('topMenu');
+            topMenu.style.position= 'absolute';
+            topMenu.style.left = -240+"px";
+            topMenu.style.top = "50px";
+            topMenu.style.transition = '0.5s ease';
+        }
+
+         addEventListener("load", function() {
+            init();
+            document.body.addEventListener("click", dropDown);
+        });
+    </script>
+</head>
+<body>
+    <nav id="topMenu" >
+		<ul>
+			<li class="topMenuLi">가</li>
+                <ul class="subMenu">
+                    <li>a</li>
+                    <li>b</li>
+                    <li>c</li>
+                </ul>
+			<li class="topMenuLi">나</li>
+                <ul class="subMenu">
+                    <li>a</li>
+                    <li>b</li>
+                    <li>c</li>
+                </ul>
+			<li class="topMenuLi">다</li>
+                <ul class="subMenu">
+                    <li>a</li>
+                    <li>b</li>
+                    <li>c</li>
+                </ul>
+		</ul>
+	</nav>
+</body>
+</html>

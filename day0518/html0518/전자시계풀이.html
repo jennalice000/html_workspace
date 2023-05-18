@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:500px;
+            height:150px;
+            background: yellow;
+            margin: auto;
+            border: 4px solid #CCC;
+            border-radius: 15px;
+        }
+        #content{
+            width:400px;
+            height:100%;
+            background: pink;
+            float:left;
+            padding:15px;
+            box-sizing: border-box;
+        }
+        #side{
+            width:100px;
+            height: 100%;
+            background: aqua;
+            float:left;
+            text-align: center;
+        }
+        #content input{
+            width:100px;
+            height:100px;
+            border:3px solid red;
+            border-radius: 10px;
+            font-size:70px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #side button{
+            width:80%;
+            height:45px;
+            background: beige;
+        }
+    </style>
+    <script>
+        /*모든 프로그래밍 언어에서 자동으로 구현될 일이
+        있다면 무조건 무한루프로 실행될 수 있는 기능이 필요*/
+        let x=0;
+        
+        //그냥 루프문은 너무 빠르다....
+        /*
+        while(true){
+            x++;
+            console.log("x=", x);
+        }
+        */
+        //프로그램이 끝날때까지 즉 프로그램이 운영되는 동안
+        //그값이 계속 유지되면서 누적되어야 하므로...전역으로선언        
+        let sec=0; //초를 증가할 전역변수
+        let min=0; //분을 증가할 전역변수
+        let hour=0;//시간을 증가할 전역변수 
+        let flag=false; //시계를 동작시킬지 여부를 결정짓는 논리값
+
+        //초를 증가시키는 함수
+        function setSecond(){
+            sec++; //59
+            //증가된 변수를 시각화시켜주자 즉 UI 처리... 
+            let t_ss=document.getElementById("t_ss");
+
+            //60을 넘어서면, 분을 처리하는 함수를 호출해주자 
+            if(sec >=60){//조건문에 60을 써먹고 화면에 뿌리는것은
+                                //0이 출력되게 한다..
+                setMinute();
+                sec=0;//초를 다시 0으로 돌려 놓아야  if문이 계속
+                        //실행되지 않는다
+            }
+            t_ss.value=sec;
+        }
+
+        //분을 증가시키는 함수
+        function setMinute(){
+            min++;
+            
+            //시각화 
+            let t_mm=document.getElementById("t_mm");
+
+            if(min>=60){//분이 60이상이면 시간함수 호출
+                setHour();
+                min=0;                    
+            }
+            t_mm.value=min;
+        }
+
+        //시간을 증가시키는 함수
+        function setHour(){
+            hour++;
+
+            //시각화 
+            let t_hh=document.getElementById("t_hh");
+            t_hh.value=hour;
+        }
+
+        //시계에 사용될 초, 분, 시 변수를 끝없이 증가시켜줄 루프        
+        function loop(){
+            
+            if(flag){
+                setSecond();
+            }    
+        }    
+
+        //프로그램이 가동되자 마자, 게임이나 자동기능의 루프
+        //역할을 수행할 interval 함수를 동작시켜야 한다..
+        window.addEventListener("load", function(){
+            //버튼에 이벤트 연결해놓기 
+            //일반사용자들은 flag 변수를 제어할수 없기 때문에
+            //개발자인 우리가 일반인들이 쉽게 변수를 제어할수 있
+            //도록 UI를 통해 flag제어하도록 해준다.. 
+            document.querySelector("button").addEventListener("click", function(){
+                flag=!flag; //기존 논리값 뒤집기                
+            });
+
+            setInterval("loop()", 1);
+
+            /*너무 빨라서 반복문은 사용되지 않음
+            while(true){
+                loop();
+            }
+            */
+        });                    
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="content">
+            <input type="text" value="00" id="t_hh">
+            <input type="text" value="00" id="t_mm">
+            <input type="text" value="00" id="t_ss">
+        </div>            
+        <div id="side">
+            <button>Start</button>
+        </div>            
+    </div>
+
+</body>
+</html>
+
+
+
+

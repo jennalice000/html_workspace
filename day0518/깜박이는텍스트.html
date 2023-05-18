@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let flag = false;
+
+        function blink(){
+            let h1 = document.querySelector('h1');
+            if(!flag){
+                h1.style.display = 'none';
+                flag = true;
+            } else {
+                h1.style.display = 'block';
+                flag = false;
+            }
+        }
+
+        addEventListener("load", function(){
+            setInterval(blink, 500);
+        })
+    </script>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 100px;">INSERT COIN</h1>
+</body>
+</html>
+

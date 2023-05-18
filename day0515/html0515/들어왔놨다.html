@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px;
+        }
+        
+        
+        #wrapper{
+            width:100%;
+            height:700px;
+            background-color: yellow;
+            /* 자식요소에  position이 선언되면, 반드시 부모 요소에도
+            포지션을 명시해야 한다.. */
+            position:relative; /*비록 디폴트가 relative이지만 자식때문에
+            명시해야 한다..*/
+        }
+
+        #food{
+            position: absolute; /*부모를 기준으로 한 절대위치 left, top*/
+            left:150px;
+            top:100px;
+        }
+        #dish{
+            position: absolute;
+            left:830px;
+            top:100px;
+        }
+    </style>
+    <script>
+        let flag=true;
+        let food;//전역변수로 선언한 이유? 다른 함수 영역에서도 이 변수를
+        //접근할 수 있도록, 변수의 생명령을 전역변수로 끌어올림
+
+        //마우스를 div 위에서 움직이는 동안~ 마우스의 x,y 좌표 얻어내기
+        function getPos(){
+            
+            if(flag){
+                //console.log("마우스 움직이고 있슴");
+                //js에서는 모든 이벤트에 대한 정보를 담고 있는 객체인 event 객체
+                //를 지원해준다...객체는 추후 배울 예정
+                //console.log("x좌표:" , event.clientX, "y좌표:", event.clientY);
+                
+                //마우스의 좌표와 음식이미지의 좌표를 일치시킬 경우, 음식이 
+                //마우스를 따라다니는 효과가 날 수 있다.. 
+                //문서내의 food라는 요소의 스타일 중 left, top을 제어할 예정 
+                food=document.getElementById("food");
+                food.style.left=event.clientX-50+"px";//음식의 x좌표 설정 
+                food.style.top=event.clientY-40+"px";//음식의 y좌표 설정
+            }
+        }
+
+        //음식을 한번 클릭하면 내려놓고, 또한번 클릭하면 다시 집기
+        function take(){
+            //alert("눌럿어?");
+            flag = !flag;
+
+            //푸드가 움질일수 있을때는 즉 드래그 가능할때는 유저들에게
+            //시각적인 정보를 보여주면 이용에 도움이 될 것같다 
+            if(flag==true){
+                food.style.border="5px solid red";
+            }else{    
+                food.style.border="0px";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="wrapper" onMouseMove="getPos()">
+        <img src="../images/dish.jfif" width="300px" id="dish">    
+        
+        <img src="../images/food.jfif" onClick="take()" width="100px" height="80" id="food">    
+
+
+    </div>        
+</body>
+</html>

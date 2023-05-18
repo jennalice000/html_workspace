@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>display개념</title>
+<style>
+/*스팬에 대해 배경색과 너비,높이를 지정해보자*/
+#s1, #s2{
+	background:blue;
+	width:100px; /*inline의 경우는 너비 부여불가*/
+	height:100px;/*inline의 경우는 높이 부여불가*/
+}
+
+/*
+	이미지는 공존 가능하며, 너비와 높이도 부여가능 
+	display:inline-block (두개의 특징 모두 갖음)
+*/
+img{
+	width:50px;
+	height:50px;
+}
+</style>
+</head>
+<body>
+<!--
+	모든 태그는 Box이자, display 속성을 가진다 
+	block형: 다른 태그 요소를 옆에 허용하지 않는 속성
+	             너비가 화면 끝까지 도달하므로..
+				 주의) width 를 줄여도, 시각적으로만
+				 줄어들뿐 여전히 같은 수평선상에 그 어떤
+				 태그로 허용하지 않는다..
+    중요한 특징: block형이어야  width, height 적용됨	
+
+	inline 형: 옆에 다른 태그 요소를 허용한다.
+	              너비가 화면끝까지 도달하는 것이 아니라, 
+				  자신이 보유한 컨텐츠만큼만 확보되므로
+				  예) 주방의  wrap
+                  width, height 적용되지 않는다..	
+
+  어떤 태그가 어떤display 속성을 갖는지는 굳이, 암기하지
+  않아도 된다...작성해보면 알기때문..
+  img block or inline ??? 직접 시도해보자
+-->
+	<img src="../images/bg.jpg">
+	<img src="../images/bg.jpg">
+
+	<span id="s1">난스팬1</span>
+	<span id="s2">난스팬2</span>
+	
+	<p>난 첫번째 문단</p>
+	<p>난 두번째 문단</p>
+	
+	<!-- ul(unordered list)은 순서없는 목록에 사용되는 태그-->
+	<ul>
+		<li>멜론</li>
+		<li>딸기</li>
+	</ul>
+
+	<ul>
+		<li>멜론</li>
+		<li>딸기</li>
+	</ul>
+	
+	<a href="#">네이버</a>
+	<a href="#">구글</a>
+	
+	<h1>제목1</h1>
+	<h1>제목2</h1>
+
+</body>
+</html>

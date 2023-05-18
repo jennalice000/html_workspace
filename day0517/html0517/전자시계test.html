@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:500px;
+            height:150px;
+            background: yellow;
+            margin: auto;
+            border: 4px solid #CCC;
+            border-radius: 15px;
+        }
+        #content{
+            width:400px;
+            height:100%;
+            background: pink;
+            float:left;
+            padding:15px;
+            box-sizing: border-box;
+        }
+        #side{
+            width:100px;
+            height: 100%;
+            background: aqua;
+            float:left;
+            text-align: center;
+        }
+        #content input{
+            width:100px;
+            height:100px;
+            border:3px solid red;
+            border-radius: 10px;
+            font-size:70px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #side button{
+            width:80%;
+            height:45px;
+            background: beige;
+        }
+    </style>
+    <script>
+        let sec=0; //시계의 초를 누적시킬 전역변수 
+        let min=0; //시계의 분을 누적시킬 전역변수 
+        let hour=0;
+        let flag=false; //프로그램이 가동되는 동안 개발자가 제어할 수 있도록
+
+        function getNumString(n){
+            let str=n;
+            if(n<10){
+                str = "0"+n;
+            }
+            return str;
+        }
+
+        //초를 올리자
+        function setSec(){
+            if(flag){
+                sec++;
+                let ss=document.getElementById("ss");
+
+                if(sec>=60){
+                    sec=0;
+                    setMin();
+                }
+                ss.value=getNumString(sec);
+            }    
+        }
+
+        //분을 증가시키는 함수 
+        function setMin(){
+            //문서내의  mm에 value값에 min 변수대입            
+            let mm=document.getElementById("mm");
+            min++;
+
+            if(min>=60){
+                setHour();
+                min=0;
+            }
+            mm.value=getNumString(min);
+        }
+        function setHour(){
+            let hh=document.getElementById("hh");
+            hour++;            
+            hh.value=getNumString(hour);
+        }
+
+        //문서가 로드되면..    
+        addEventListener("load", function(){
+            let bt=document.querySelector("button");
+
+            bt.addEventListener("click", function(){ 
+                //flag의 값을 뒤집자 
+                flag = !flag;
+            });
+
+            //시계의 자동동작 기능을 구현하기 위해, 자동호출 함수를 사용하자
+            //setTimeout(), setInterval()
+            setInterval("setSec()", 10);
+
+        });
+    </script>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="content">
+            <input type="text" value="00" id="hh">
+            <input type="text" value="00" id="mm">
+            <input type="text" value="00" id="ss">
+        </div>            
+        <div id="side">
+            <button>Start</button>
+        </div>            
+    </div>
+
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            margin: auto;
+            width: 400px;
+            height: 400px;
+        }
+        .wrapper select{
+            width: 180px;
+        }
+
+    </style>
+    <script>
+        function choose(){
+            let cell1 = document.getElementById('cell1');
+            let cell2 = document.getElementById('cell2');
+            let op = document.createElement('option');
+            op.text=cell1.value
+            op.value = cell1.value
+
+            cell2.add(op);
+        }
+    </script>
+</head>
+<body>
+   <div class="wrapper" onclick="choose()">
+        <select size="14" id="cell1" style="float: left;">
+            <option value="js">js</option>
+            <option value="java">java</option>
+            <option value="oracle">oracle</option>
+            <option value="mysql">mysql</option>
+            <option value="jquery">jquery</option>
+            <option value="bootstrap">bootstrap</option>
+            <option value="vue.js">vue.js</option>
+            <option value="react.js">react.js</option>
+            <option value="spring legacy">spring legacy</option>
+            <option value="spring boot">spring boot</option>
+            <option value="ajax">ajax</option>
+            <option value="rest api">rest api</option>
+            <option value="공공데이터포탈">공공데이터포탈</option>
+            <option value="linux">linux</option>
+            <option value="aws">aws</option>
+        </select>
+        <select style="float: right;" size="14">
+            <option id="cell">추가된 과목</option>
+        </select>
+   </div>
+   
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>변수의 scope(유지범위)</title>
+<script>
+let n=0; //전역변수 : 프로그램이 끝날때까지 죽지않음
+
+function setCount(){
+	//변수 //지역변수: 딱 이 브레이스 범위내에서만 생명이 유지
+	let n=0;
+	n++;
+	document.querySelector("h1").innerText=n;
+}
+</script>
+</head>
+<body>	
+	<button onClick="setCount()">카운트세기</button>
+	<h1>텍스트올예정</h1>
+
+</body>
+</html>

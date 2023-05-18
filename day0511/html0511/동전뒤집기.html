@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>동전뒤집기</title>
+<script>
+//이미지를 다른 이미지로 전환하되, 버튼을 누를때마다 뒤집는 효과를 내기 
+let flag=true;
+
+function flip(){
+	//let filename=삼항연산자;
+	//뒤집을수 있는 용도의 데이터가 필요..(컴퓨터가 이해하는 데이터는 3가지
+	//문자,숫자,논리값) 논리값만이 뒤집는 개념이 존재함
+	let filename=(flag)? "joker.png": "h1.png";
+
+	document.querySelector("img").src="../images/card/"+filename;
+	flag=!flag; //논리값 뒤집기
+}
+</script>
+</head>
+<body>
+	<button onclick="flip()">뒤집기</button>
+	<img src="../images/card/h1.png" width="200px" height="230px">
+
+</body>
+</html>

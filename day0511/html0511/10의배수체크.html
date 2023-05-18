@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>10의배수체크</title>
+<style>
+/*
+누구를(선택자==selector){
+	어떻게할지
+}
+*/
+div{
+	border:1px solid red;
+	font-size:50px;
+	font-weight:bold;
+	color:blue;
+}
+</style>
+<script>
+//버튼을 누를때마다,  div 에 알맞는 메시지 출력
+//문서내의 div 라는 요소의 텍스트에 카운터 메시지 처리하기 
+let count=0;//정수를 1씩 누적시킬 변수 선언
+
+function setCount(){
+	count++;// count=count+1
+	//let 변수=삼항연산자에게 십의 배수이냐 아니냐를 물어볼거임;
+	let n=(count % 10 ==0)?  "10의배수":count;
+	document.querySelector("div").innerText=n;
+}
+</script>
+</head>
+<body>
+	<button onClick="setCount()">카운터</button>
+	<div>카운터 메세지 올 예정</div>
+</body>
+</html>
+
+
+
+
+
+

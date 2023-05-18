@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 100px;
+            height: 100px;
+        }
+        img{
+            width: 100px;
+            height: 70px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <h3></h3>
+        <img src="../images/spaceship.png" alt="spaceship">
+    </div>
+</body>
+<script>
+
+    let x=0;
+    let wrapper = document.getElementById('wrapper');
+    let h3 = document.getElementById('h3')
+
+    function loop(){
+        x++;
+        wrapper.style.left = x+'px';
+        h3.innerText=x+'px'
+    }
+
+function init(){
+    wrapper.style.position = 'absolute';
+    wrapper.style.left = x+'px';
+    wrapper.style.right=200+'px';
+}
+
+addEventListener('load', function(){
+    init();
+    setInterval('loop()', 100)
+})
+
+</script>
+</html>

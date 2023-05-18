@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper{
+            width:400px;
+            height:400px;
+            background-color: yellow;            
+            margin: auto;
+        }
+        .wrapper select{
+            width:180px;
+        }
+        #sel1{
+            float:left;
+        }
+        #sel2{
+            float:right;
+        }
+    </style>
+    <script>
+        //문서내의 sel1의 아이템중 하나를 선택하면, 우측 sel2라는 요소에
+        //자식요소로 추가해보자
+        function choose(){
+            let sel1=document.getElementById("sel1");
+            console.log("당신이 지금 선택한 옵션은 ", sel1.value);
+
+            let sel2=document.getElementById("sel2");
+            let op=document.createElement("option"); // <option></option>동일
+            op.text=sel1.value;//<option>텍스트</option>
+            op.value=sel1.value;//<option value="">텍스트</option>
+
+            sel2.add(op);
+        }        
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <select size="15" id="sel1" onClick="choose()">
+            <option value="Javascript">Javascript</option>
+            <option value="Java">Java</option>
+            <option value="Oracle">Oracle</option>
+            <option value="MySQL">MySQL</option>
+            <option value="Jquery">Jquery</option>
+            <option value="BootStrap">BootStrap</option>
+            <option value="Vue.js">Vue.js</option>
+            <option value="React.js">React.js</option>
+            <option value="Spring legacy">Spring legacy</option>
+            <option value="Spring boot">Spring boot</option>
+            <option value="Ajax">Ajax</option>
+            <option value="REST API">REST API</option>
+            <option value="공공데이터 포털">공공데이터 포털</option>
+            <option value="Linux">Linux</option>
+            <option value="AWS">AWS</option>
+        </select>
+
+        <select  id="sel2" size="20">
+            <option value="">선택된 과목</option>
+        </select>
+    </div>
+</body>
+</html>
+
+
+
+
+
+

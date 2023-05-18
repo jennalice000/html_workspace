@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>논리값뒤집기</title>
+<script>
+// h1 태그안의 논리값을 뒤집어서 출력
+// 문서내의 h1이라는 요소의 텍스트에 논리값을 출력하자
+let flag=true;
+
+function getResult(){
+	//출력전에 논리값을 뒤집자 
+	flag=!flag;+
+	document.getElementById("msg").innerText=flag;
+}
+</script>
+</head>
+<body>
+	<button onClick="getResult()">뒤집어출력</button>
+	<h1 id="msg">출력결과</h1>
+</body>
+</html>
+
+
+
+

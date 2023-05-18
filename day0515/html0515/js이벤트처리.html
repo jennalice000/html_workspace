@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width:500px;
+            height:400px;
+            background:yellow;
+            overflow:scroll;
+            /* 
+            scroll 스크롤처리
+            hidden 넘치는 컨텐츠에 대한 처리 
+            */
+        }        
+    </style>
+    <script>
+        //함수로 정의된 영역은 개발자가 호출해야 동작한다.따라서 아래의 
+        //블럭은 무조건 수행되지 않는다..
+        function addEvent(){
+            //문서내의 button에 click이벤트를 연결해보자 
+            let bt=document.querySelector("button");
+            bt.innerText="나버튼";
+
+            //js에서 버튼에 onclick이벤트 연결하기 
+            bt.addEventListener("click", function(){
+                //alert("버튼 눌렀어?");
+                createImage();
+            }); //버튼에 리스너 연결 onClick과 동일
+        }
+
+        //div에 이미지 동적으로 생성하여 넣기 
+        function createImage(){
+            let box=document.getElementById("box");
+
+            //이미지 동적으로 생성하기 
+            let img=document.createElement("img"); // <img> 동일
+            img.src="../images/plane.png"; // <img src=""> 동일
+            //생성된 이미지에 대해 js 에서 스타일을 적용해본다 
+            img.style.width=45+"px";           
+            box.appendChild(img);
+        }
+    </script>
+</head>
+<body onLoad="addEvent()">        
+    <button>동적생성</button>
+    <div id="box">
+        이미지가 동적으로 올곳        
+    </div>
+</body>
+</html>

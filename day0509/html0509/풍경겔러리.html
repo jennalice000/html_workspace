@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>풍경겔러리</title>
+<style>
+#wrapper{
+	background:yellow;
+	width:600px;
+	height:550px;
+	margin:auto; /*남는 양쪽 여백을 알아서 계산*/
+}
+#header{
+	width:100%;
+	height:50px;
+	background:skyblue;
+	text-align:center; /*div내의 컨텐츠를 가운데 정렬*/
+	color:blue;
+}
+#content{
+	width:100%;
+	height:400px;
+	background:#cccccc;
+}
+#footer{
+	width:100%;
+	height:100px;
+	background:pink;
+	text-align:center;
+	padding-top:35px;
+	box-sizing:border-box; /* box 모델의 크기 변경 방지*/
+}
+a{
+	text-decoration:none; /*밑줄 없애기*/
+	font-size:30px;
+}
+
+/* content 라는 id 를 갖는 요소의 자식 중 img 자식에 대해...*/
+#content img{
+	width:100%;
+	height:100%;
+	border:5px solid blue;
+	box-sizing:border-box;
+	border-radius:10px; /*박스모델의 사각형의 모서리의 둥근정도*/
+}
+</style>
+</head>
+<body>
+	
+	<div id="wrapper">
+		<div id="header">
+			<h1>famous montain</h1>
+		</div>
+		<div id="content">
+			<img src="../images/m1.jpg">
+		</div>
+		<div id="footer">
+			<a href="#" onClick="">◀</a>
+			<a href="#" onClick="">▶</a>
+		</div>
+	</div>
+
+</body>
+</html>

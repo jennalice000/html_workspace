@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        //실행부가 아래의 함수블럭을 만나면, 실행하는 것이 아니라, 함수블럭
+        //을 메모리에 로드만 해놓고, 개발자가 호출할때 실행된다..
+        //따라서 함수안에 잇는 코드인 document.getElementById("pic");
+        //코드는 프로그램 가동과 동시에 실행되지 않기 때문에 에러가 발생
+        //하지 않는다..한마디로 실행을 보류한 것임..(막은거임)
+        function addEvent() {
+            //문서내의 pic이라 불리는 요소에 클릭이벤트 연결 
+            let pic = document.getElementById("pic");
+            pic.addEventListener("click", function () {
+                alert("클릭했어?");
+            });// pic에 이벤트 연결
+
+            //이미지에 마우스를 올려놓앗을때 메시지 출력 
+            pic.addEventListener("mouseover", function () {
+                alert("마우스 올려놓았어?");
+            });
+
+            //이미지에 마우스를 내려놓으면 메시지 출력 
+            pic.addEventListener("mouseout", function () {
+                alert("마우스내려놓았어?");
+            });
+
+            //문서내의 sel이라는 선택상자에 대한 이벤트 연결 
+            let sel=document.getElementById("sel");
+            sel.addEventListener("change", function(){
+                alert("값 바꿨어?");
+            });
+            
+        }
+    </script>
+</head>
+<!--문서가 로드되었을때 이벤트 처리가 이루어짐 -->
+
+<body onLoad="addEvent()">
+    <img src="../images/plane.png" id="pic">
+
+    <select id="sel">
+        <option value="사과">사과</option>
+        <option value="딸기">딸기</option>
+        <option value="오렌지">오렌지</option>
+    </select>
+
+</body>
+
+</html>

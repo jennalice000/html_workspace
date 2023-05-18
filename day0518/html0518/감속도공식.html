@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img{
+            width:100px;
+            height:60px;
+        }
+    </style>
+    <script>
+        let x=0; //우주선의 x 좌표값을 누적시킬 전역변수
+        let y=0; //우주선의 y 좌표값을 누적시킬 전역변수
+        let pic; //모든 함수에서 접근할려고...
+        let a=0.1; /* 0 ~ 1 사이의 소수점으로 임의로 정하면됨
+        0에 가까울수록 부드러움..*/
+        let targetX=700; //x축의 목표지점 
+        let targetY=400; //y축의 목표지점 
+        let info; //모든 함수에서 접근할 수 있도록 하기 위해 전역으로 선언
+
+        //프로그램이 가동되자마자, 우주선의 위치 및 크기를 동적할당
+        function init(){
+            pic=document.getElementById("pic");
+            info=document.getElementById("info");
+
+            pic.style.width=100+"px";
+            pic.style.position="absolute";
+            pic.style.left=200+"px";
+            pic.style.top=100+"px";
+        }
+
+        function move(){
+            //console.log(parseInt(pic.style.left));
+
+            //pic.style.left = 나의위치 + 비율계수*(목표-나의위치)
+            pic.style.left=parseFloat(pic.style.left) + a*(targetX - parseFloat(pic.style.left))+"px";
+            pic.style.top=parseFloat(pic.style.top)+ a*(targetY - parseFloat(pic.style.top))+"px";
+            
+            //info div에 좌표를 출력하자 
+            info.innerText=pic.style.left+","+pic.style.top;
+        }
+
+        function loop(){
+            //console.log("loop() 호출..");
+            move();
+        }
+
+        addEventListener("load", function(){
+            init();
+            
+            setInterval("loop()", 50);//루프호출 
+        });
+    </script>
+</head>
+<body>
+
+    <div id="pic">    
+        <div id="info"></div>    
+        <img src="../images/plane.png">
+    </div>
+
+</body>
+</html>
+
+
+
+
+

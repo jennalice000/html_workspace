@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:700px;
+            height:500px;
+            margin: auto;
+            border:2px solid #ccc;
+        }
+        #header{
+            width:100%;
+            height:100px;
+            background-color: aqua;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #header img{
+            width:48px;
+            height:48px;
+            border:1px solid blue;
+            box-sizing: border-box;
+        }
+        #content{
+            width:100%;
+            height:400px;
+            background-color: aquamarine;
+        }
+        #content img{
+            width:100%;
+            height:100%;
+        }
+    </style>
+    <script>
+        function rollOver(n){
+            //문서내의  pic이라는 이미지요소의 src를 변경하자
+            document.getElementById("pic").src="../images/m"+n+".jpg";            
+        }
+    </script>             
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <img src="../images/m1.jpg" onMouseOver="rollOver(1)">
+            <img src="../images/m2.jpg" onMouseOver="rollOver(2)">
+            <img src="../images/m3.jpg" onMouseOver="rollOver(3)">
+            <img src="../images/m4.jpg" onMouseOver="rollOver(4)">
+            <img src="../images/m5.jpg" onMouseOver="rollOver(5)">
+            <img src="../images/m6.jpg" onMouseOver="rollOver(6)">
+            <img src="../images/m7.jpg" onMouseOver="rollOver(7)">
+            <img src="../images/m8.jpg" onMouseOver="rollOver(8)">
+            <img src="../images/m9.jpg" onMouseOver="rollOver(9)">
+            <img src="../images/m10.jpg" onMouseOver="rollOver(10)">
+        </div>
+        <div id="content">
+            <img src="../images/m1.jpg" id="pic">   
+        </div>
+    </div>
+    
+</body>
+</html>
