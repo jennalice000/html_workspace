@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <script>
+        let count = 0;
+        let st;
+        let flag = false;
+
+        //전역변수 증가시켜 h1태그에 출력시키기
+        function setCount(){
+            count++;
+            let info = document.getElementById('info');
+            info.innerText=count;
+        }
+
+        function auto(){
+            st= setInterval("setCount()", 1000)
+        }
+
+        function stop(){
+            clearInterval(st);
+        }
+
+    </script>
+</head>
+<body>
+        <button onClick="auto()">카운터세기</button>
+        <button onClick="stop()">카운터그만세기</button>
+        <h1 id="info">0</h1>
+</body>
+</html>

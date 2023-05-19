@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #box{
+            background-color: blue;
+            width: 100px;
+            height: 100px;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            display: flex;
+            align-items: center;
+        }
+        ul{
+            color: white;
+            margin-left: 20px;
+            list-style: none;
+        }
+
+        li:hover{
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+    <script>
+        let box;
+        let a = 0.1;
+        let targetX=0;
+        let flag = false;
+
+        //박스 부드러운 움직임 위한 함수
+        //박스위치 = 박스위치 + a*(목표위치-현재박스위치)
+        function move(){
+            targetX=(flag)?0:-50;
+            box.style.left=parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+'px';
+        }
+
+        function init(){
+            box=document.getElementById('box');
+            box.style.position='relative';
+            box.style.left = '-50px'
+        }
+
+        window.addEventListener('load', function(){
+            init();
+            // 사각형 박스에 대한 마우스 이벤트 연결
+            box.addEventListener('mouseover', function(){
+                // 열기
+                flag=true;
+            })
+            box.addEventListener('mouseout', function(){
+                // 닫기
+                flag=false;
+            })
+            setInterval("move()", 10)
+        })
+    </script>
+</head>
+<body>
+    <!-- 상대위치 -> 다른 태그와의 관계에서 지정된 현재 자기 위치 -->
+    <div id="box">
+        <ul>
+            <li>dk</li>
+            <li>dk</li>
+            <li>dk</li>
+            <li>dk</li>
+        </ul>
+    </div>
+</body>
+</html>

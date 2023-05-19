@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #wrapper{
+            width: 300px;
+            height: 300px;
+            background-color: aqua;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #mask{
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+            position: relative;
+            /* overflow: hidden; */
+        }
+    </style>
+    <script>
+        let box;
+        let colorBox = ["blue", 'brown', 'gray', 'green', 'orange', 'pink', 'purple', 'red', 'yellow']
+        let targetX = 0;
+        let targetY = 0;
+
+        function init(){
+            box = document.createElement('div');
+            box.style.width = 100 * 3 + 'px';
+            box.style.height = 100 * 3 + 'px';
+            box.style.position = 'absolute';
+            box.style.left = -100 + 'px';
+            box.style.top = -100 + 'px';
+
+            for(let i = 0; i < 9; i++){
+                let img = document.createElement('img');
+                img.src = "../images/color/" + colorBox[i] + '.png';
+                img.id = colorBox[i];
+                img.style.margin = 0;
+
+                box.appendChild(img);
+            }
+
+            let mask = document.getElementById('mask');
+            mask.appendChild(box);
+
+            window.addEventListener('keydown', function(e){
+                if(e.keyCode === 37){ // Left arrow key
+                    targetX = -100;
+                }else if(e.keyCode === 38){ // Up arrow key
+                    targetY = -100;
+                }else if(e.keyCode === 39){ // Right arrow key
+                    targetX = 100;
+                }else if(e.keyCode === 40){ // Down arrow key
+                    targetY = 100;
+                }
+
+                moveBox();
+            });
+        }
+
+        function moveBox(){
+            let currentLeft = parseInt(box.style.left);
+            let currentTop = parseInt(box.style.top);
+
+            let newLeft = currentLeft + targetX;
+            let newTop = currentTop + targetY;
+
+            if(newLeft >= -200 && newLeft <= 100 && newTop >= -200 && newTop <= 100){
+                box.style.left = newLeft + 'px';
+                box.style.top = newTop + 'px';
+            }
+
+            targetX = 0;
+            targetY = 0;
+        }
+
+        window.addEventListener('load', function(){
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="mask"></div>
+    </div>
+</body>
+</html>

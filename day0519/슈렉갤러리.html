@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #wrapper{
+        width: 500px;
+        height: 400px;
+        background-color: aqua;
+        margin: auto;
+    }
+    #mask{
+        width: 100%;
+        height: 340px;
+        background-color: aquamarine;
+        position: relative;
+    }
+    #footer{
+        width: 100%;
+        height: 60px;
+        background-color: bisque;
+        text-align: center;
+    }
+    #footer span{
+        font-size: 22px;
+        margin: 10px;
+    }
+    #footer span:hover{
+        color: yellow;
+        cursor: pointer;
+    }
+</style>
+<script>
+    let box;
+    let a = 0.1;
+    let targetX=0;
+
+    function move(){
+        box.style.left = parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+'px';
+    }
+
+    function init(){
+
+        box = document.createElement('div')
+        box.style.width = 500*7+"px";
+        box.style.height = 340+'px';
+        box.style.position = 'absolute';
+        box.style.left = 0+'px';
+
+        for(let i = 0; i<7; i++){
+            let img = document.createElement('img')
+            img.src="../images/shurek/img"+i+".jpg";
+            img.id="img"+i
+            img.style.position='absolute';
+            img.style.left = i*500+'px';
+    
+            box.appendChild(img)
+
+            let footer = document.getElementById('footer')
+            let dot = document.createElement('span');
+            dot.innerText="★";
+            footer.appendChild(dot);
+
+            dot.addEventListener('click', function(){
+                //박스의 위치 설정
+                targetX=-500*i;
+            })
+        }
+
+
+        let mask = document.getElementById('mask');
+        mask.appendChild(box);
+        mask.style.overflow='hidden'
+
+    }
+
+    addEventListener('load', function(){
+        init();
+        setInterval('move()', 10)
+
+    })
+
+</script>
+<body>
+    <div id="wrapper">
+        <div id="mask"></div>
+        <div id="footer"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spread the Menu</title>
+    <script>
+        // 사각형을 등장시키고 필요한 스타일도 동적으로 지정
+        let box;
+        let body;
+        let a = 0.1;
+        let targetH =40;
+        let ex;
+
+        function move(){
+
+            box.style.height=parseFloat(box.style.height)+a*(targetH-parseFloat(box.style.height))+'px';
+        }
+        
+        function init(){
+            box = document.createElement('div')
+            body = document.querySelector('body')
+            box.style.height="40px"
+            box.style.width='100px'
+            box.style.background='#ff0000';
+            box.style.margin='auto';
+            box.style.marginTop="40px"
+            body.style.margin='0';
+            body.style.boxSizing="border-box";
+            document.body.appendChild(box)
+        }
+
+        addEventListener('load', function(){
+            init()
+            setInterval('move()', 10)
+
+            // box에 이벤트 연결
+            box.addEventListener('mouseover', function(){
+                // 사각형의 높이 늘리기
+                targetH=500
+                
+            })
+            box.addEventListener('mouseout', function(){
+                // 사각형의 높이 줄이기
+                targetH=40
+            })
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

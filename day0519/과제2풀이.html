@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 200px;
+            height: 200px;
+            background: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let box; 
+        let h1;
+        let targetX=0;
+        let targetY=0;
+        let a = 0.1;
+        let change;
+
+        function move(){
+            //키보드 누를 때마다 박스 움직이는 함수
+            // 아래 코드 수행 전 바르지 않은 타겟값은 거르기
+            if(targetX<-400){
+                targetX=-400
+            }else if(targetX>0){
+                targetX=0
+            }else if(targetY<-400){
+                targetY=-400
+            }else if(targetY>0){
+                targetY=0
+            }
+
+
+            box.style.left=parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+'px';
+            box.style.top=parseFloat(box.style.top)+a*(targetY-parseFloat(box.style.top))+'px';
+
+            //정보 출력
+            h1.innerText="targetX : "+ box.style.left + "\n targetY : "+ box.style.top;
+        }
+
+        function init(){
+            box = document.createElement('div')
+            box.style.width = 200*3+'px';
+            box.style.height=200*3+'px';
+            box.style.background = 'blue';
+            box.style.position = 'absolute'; 
+            box.style.left = 0+'px';
+            box.style.top = 0 + 'px';
+
+            let colorBox = ['blue', 'brown', 'gray', 'green', 'orange', 'pink', 'purple', 'red', 'yellow']
+            let y=-1;
+
+            for(let k=0; k<3; k++){
+                for(let i=0; i<3; i++){
+                    y++;
+                    let img = document.createElement('img');
+                    img.src = "../images/color/"+colorBox[y]+".png";
+                    img.style.width=200+'px';
+                    img.style.height=200+'px';
+                    img.style.position='absolute';
+                    img.style.left=i*200+'px';
+                    img.style.top=k*200+'px';
+
+                    box.appendChild(img)
+                }
+            }
+
+
+            let wrapper = document.getElementById('wrapper');
+            wrapper.appendChild(box)
+
+            h1=document.querySelector('h1')
+        }
+
+        addEventListener('load', function(){
+            init();
+            change=setInterval('move()', 10);
+            document.body.addEventListener('keydown', (e)=>{
+                switch(e.keyCode){
+                    case 37:targetX=targetX-200;
+                    break;
+                    case 39:targetX=targetX+200;
+                    break;
+                    case 38:targetY=targetY-200;
+                    break;
+                    case 40:targetY=targetY+200;
+                    break;
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+    <h1></h1>
+    <div id="wrapper"></div>
+</body>
+</html>

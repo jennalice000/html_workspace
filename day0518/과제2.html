@@ -26,35 +26,37 @@ nav#topMenu {}
         }
     </style>
     <script>
-        let topMenu;
-        let flag = true;
-        let loop;
-        let x=-240;
+let topMenu;
+        let targetX=0;
+        let x=-150;
+        let a=0.1;
+        let flag=false;
 
-        function dropDown(){
-                if(x<=-240 && x>0){
-                    loop=setInterval(function(){
-                        x++;
-                        topMenu.style.left = x+'px';
-                    
-                    })
-                }else {
-                    clearInterval(loop);
-                }
-            }
-
-        function init(){
-            topMenu = document.getElementById('topMenu');
-            topMenu.style.position= 'absolute';
-            topMenu.style.left = x+"px";
-            topMenu.style.top = "50px";
-            topMenu.style.transition = '0.5s ease';
+        function move(){
+            targetX = (flag)? -10:-240;
+            topMenu.style.left=parseFloat(topMenu.style.left)+a*(targetX - parseFloat(topMenu.style.left))+"px"; 
         }
 
-         addEventListener("load", function() {
+        function init(){
+            topMenu= document.getElementById("topMenu");
+            topMenu.style.position="relative";
+            topMenu.style.left=-150+"px";            
+        }
+
+        addEventListener("load", function(){
             init();
-            document.body.addEventListener("click", dropDown);
+
+            topMenu.addEventListener("mouseover", function(){
+                flag=true;
+            });
+            topMenu.addEventListener("mouseout", function(){
+                flag=false;
+            });
+
+
+            setInterval("move()", 10);
         });
+
     </script>
 </head>
 <body>

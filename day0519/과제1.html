@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            border: 0px;
+        }
+    </style>
+    <script>
+        let box;
+        let a = 0.1;
+        let targetX=0;
+        let flag = false;
+
+        //박스 부드러운 움직임 위한 함수
+        //박스위치 = 박스위치 + a*(목표위치-현재박스위치)
+        function move(){
+            targetX=(flag)?0:1000;
+            box.style.height=parseFloat(box.style.height)+a*(targetX-parseFloat(box.style.height))+'px';
+        }
+
+        function init(){
+            box=document.getElementById('box');
+        }
+
+        window.addEventListener('load', function(){
+            init();
+            // 사각형 박스에 대한 마우스 이벤트 연결
+            box.addEventListener('click', function(){
+                // 열기
+                flag=true;
+            })
+            box.addEventListener('dbClick', function(){
+                // 닫기
+                flag=false;
+            })
+            setInterval("move()", 10)
+        })
+    </script>
+</head>
+<body>
+        <div id="box"></div>
+</body>
+</html>
