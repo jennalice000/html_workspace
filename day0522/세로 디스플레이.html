@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+        font-family: 'omyu_pretty';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        body{
+            background-color: black;
+            font-family: 'omyu_pretty';
+        }
+        #wrapper{
+            width: 120px;
+            height: 420px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+            top: 200px;
+            transform: rotate(20deg);
+        }
+        div{
+            border: 1px solid ;
+            margin-left: 7.5px;
+            text-align: center;
+            font-size: 27px;
+            background-color: aqua;
+            border: 3px solid hotpink;
+        }
+    </style>
+    <script>
+    
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    let divArr = [];
+    let div;
+
+
+    function init(){
+        let wrapper = document.getElementById('wrapper')
+        for(let i = 0; i<arr.length; i++){
+            div = document.createElement('div')
+            div.style.position='absolute';
+            div.style.top=i*110+'px';
+            div.innerText="제"+parseInt(i+1)+"의 아해가 무섭다고그리오"
+            div.id = 'box'+i
+            div.style.width = 100+'px'
+            div.style.height = 100+'px'
+            div.style.position = 'absolute'
+            wrapper.appendChild(div)
+            divArr.push(div)
+        }
+    }
+
+    function move(){
+        for(let i = 0; i<divArr.length; i++){
+            div = divArr[i];
+            let top = parseInt(div.style.top);
+            top-=1;
+            if(top <=-110){
+                top = (arr.length -1)* 110
+            }
+            div.style.top = top + 'px'
+        }
+    }
+    
+
+    addEventListener('load', function(){
+        init()
+        setInterval('move()', 7)
+    })
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

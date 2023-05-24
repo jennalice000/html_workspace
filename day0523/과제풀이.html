@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width: 110px;
+            height: 340px;
+            background-color: yellow;
+            margin: auto;
+            margin-top: 150px;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let box;
+        let cell=new Array(5);
+        let flag = false;
+
+        //디스플레이에 사용될 사각형 셀드를 생성한다.
+        function createRect(){
+            for(let i =0; i<5; i++){
+                cell[i] = document.createElement('div');
+                cell[i].style.width = 100+'px'
+                cell[i].style.height = 100+'px'
+                cell[i].style.background = 'skyblue'
+                cell[i].style.position = 'absolute'
+                cell[i].style.top = 100+10+-110*i+'px';
+                cell[i].style.left=5+'px'
+                box.appendChild(cell[i])
+            }
+        }
+
+        function move(){
+            if(flag){
+                for(let i=0; i<cell.length; i++){
+                    cell[i].style.top=parseInt(cell[i].style.top)+1+'px';
+                cell[i].innerText=cell[i].style.top;
+
+                if (parseInt(cell[i].style.top)>425+'px'){
+                    cell[i].style.top=-110+'px';
+                }
+                }
+            }
+
+        }
+
+        function init(){
+            box=document.getElementById('box')
+            setInterval('move()', 10)
+        }
+
+        addEventListener('load', function(){
+            init()
+            createRect()
+        })
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="ch" onclick="flag=this.checked">
+    <div id="box"></div>
+</body>
+</html>

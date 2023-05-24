@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        #wrapper{
+            width: 600px;
+            height: 400px;
+            background-color: aliceblue;
+            margin: auto;
+            text-align: center;
+        }
+        ul{
+            width: 100%;
+            height: 50px;
+            background-color: antiquewhite;
+            display: flex;
+            justify-content: space-around;
+        }
+        ul li{
+            list-style: none;
+            background-color: gainsboro;
+            font-size: 15px;
+            width: 200px;
+        }
+        #content{
+            width: 100%;
+            height: 350px;
+            background-color: azure;
+        }
+        #content div[name='page']{
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+    </style>
+    <script>
+        let pages;
+
+        function showHide(n) {
+            for(let i = 0; i < pages.length; i++) {
+                if(i==n){
+                    pages[i].style.display = 'none';
+                }else{
+                    pages[i].style.display = 'block';
+                }
+            }
+        }
+                                
+        function init() {
+            pages = document.getElementsByName('page');
+            let colors = ['yellowgreen', 'lightblue', 'lightcoral'];
+            for(let i = 0; i < colors.length; i++) {
+                pages[i].style.background = colors[i];
+            }    
+        }
+
+        window.addEventListener('load', function() {
+            showHide(0);
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <ul>
+            <li style="background-color: yellowgreen;">menu1</li>
+            <li style="background-color: lightblue;  onClick='showHide('2')">menu2</li>
+            <li style="background-color: lightcoral;  onClick='showHide('')">menu3</li>
+        </ul>
+        <div id="content">
+            <div name="page">menu1</div>
+            <div name="page">menu2</div>
+            <div name="page">menu3</div>
+        </div>
+    </div>
+</body>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+</html>

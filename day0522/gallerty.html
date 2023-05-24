@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gallery</title>
+    <style>
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard-dynamic-subset.css");
+
+        #wrapper{
+            width: 600px;
+            height: 500px;
+            border: 1px solid;
+            margin: auto;
+        }
+        #header{
+            height: 50px;
+            background-color: aqua;
+            text-align: center;
+        }
+        #content{
+            height: 400px;
+        }
+        #footer{
+            height: 50px;
+            background-color: rgb(255, 0, 72);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        button {
+            margin: 5px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // 프로그램 가동과 동시에 해야할 작업
+        // 사진에 규칙주기 이름에 규칙이 없는 사진을, 메모리에 올리면서 규칙있게 만들기 즉 사진명 배열화 시키기
+        //배열화 시킨 사진 중 첫번째 사진을 content 영역에 출력
+        //해당 사진의 이름을 header 영역에 출력
+        let colorBox = ['blue.png', 'brown.png', 'gray.png', 'green.png', 'orange.png', 'pink.png', 'purple.png', 'red.png', 'yellow.png', 'red2.png']
+        let img; //여러 함수들에서 접근할 수 있도록
+        let index=0;
+        let st;
+        let flag = false;
+
+        //기존 사진 변경
+        function slide(flag){
+            if(flag){
+                index++;
+                if(index>=colorBox.length){
+                    alert('다음 사진이 없다');
+                    clearTimeout(st);
+                    index=colorBox.length-1;
+                }
+            }else{
+                index--;
+                if(index<0){
+                    alert('이전 사진이 없다');
+                    index=0;
+                }
+            }
+
+            // 아래의 코드를 무조건 수행하지 말고, 보유한 이미지의 한계에 도달하면 알맞는 메세지 처리를 하자 (자동도 멈추고)
+            img.src="../images/color/"+colorBox[index]
+            showTitle();
+
+        }
+
+        function showTitle(){
+            let header = document.getElementById('header');
+            header.innerText = colorBox[index];
+        }
+
+        function showDetail(){
+            img = document.createElement("img");
+            img.src="../images/color/"+colorBox[index]
+            img.style.width = 600+"px";
+            img.style.height = 400+"px";
+            let content = document.getElementById('content');
+            content.appendChild(img)
+        }
+
+        addEventListener('load', function(){
+            showDetail()
+            showTitle()
+            
+            //버튼에 이벤트 연결하기
+            document.getElementById('bt_prev').addEventListener('click', function(){
+                slide();
+            })
+            document.getElementById('bt_auto').addEventListener('click', function(){
+                st = setInterval("slide(true)", 50);
+                //버튼을 한 번만 누를 수 있도록 
+                //bt_auto라는 아이디를 가진 버튼을 비활성화
+                //여기서의this란 bt_auto를 말함
+                this.disabled=true;
+                document.getElementById('bt_stop').disabled = false;
+            })
+            document.getElementById('bt_stop').addEventListener('click', function(){
+                document.getElementById('bt_auto').disabled = false;
+                clearTimeout(st)
+                this.disabled=true;
+            })
+            document.getElementById('bt_next').addEventListener('click', function(){
+                slide(true);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="content"></div>
+        <div id="footer">
+            <button id="bt_prev">◀</button>
+            <button id="bt_auto">auto</button>
+            <button id="bt_stop">stop</button>
+            <button id="bt_next">▶</button>
+        </div>
+    </div>
+</body>
+</html>

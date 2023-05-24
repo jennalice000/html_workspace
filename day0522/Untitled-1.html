@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lunch</title>
+    <script>
+        let r = Math.random()
+        let food = ['밥', '쌀', '제육볶음', "치즈김밥", "돈까스", "백반", "짜장면", "김찌", "된찌", "순댓국", "파스타"];
+        //자바스크립트 내장객체 중 수학과 관련된 객체를 Math라 하며 Math.ramdom()은 랜덤수를 구할 수 있다.
+        //Math.random()은 0.0xxx ~~ 0.9xxx사이의 값을 반환해준다. 즉 언제나 1보다 작은 실수를 반환한다. 따라서 1보다 작은 랜덤값에 n을 곱하면 언제나 n보다는 작은 실수가 반환된다.
+        let n = r*food.length;
+        let result = parseInt(n)
+
+        // 랜덤한 정수 반환받기
+        // 호출자는 본인이 반환받기를 원하는 수에 +1을 더해서 호출해야함
+        //0~9를 반환받기 원할 경우 getRandom(10)
+
+        function getRandom(num){
+            let r = Math.random();
+            let n = r*num;
+            return parseInt(n);
+        }
+
+        document.write(food[getRandom(10)])
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회전 디스플레이</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        #wrapper{
+            width: 440px;
+            height: 120px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+    </style>
+   <script>
+    let shrek = ['img0.jpg', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg', 'img5.jpg', 'img6.jpg'];
+    let img;
+
+    function init() {
+        let wrapper = document.getElementById('wrapper');
+        wrapper.style.position = 'relative';
+
+        for (let i = 0; i < shrek.length; i++) {
+            img = document.createElement('img');
+            img.src = '../../images/shrek/' + shrek[i];
+            img.style.position = 'absolute';
+            img.style.left = i * 110 + 'px';
+            wrapper.appendChild(img);
+            imgArray.push(img);
+        }
+    }
+
+    let imgArray = [];
+
+    function move(){
+        // 이미지를 움직이는 로직을 구현해야 합니다.
+        for(let i=0; i<imgArray.length; i++){
+            let img = imgArray[i];
+                let left = parseInt(img.style.left);
+                left -= 1;
+                if (left <= -110) {
+                    left = (shrek.length - 1) * 110;
+                }
+                img.style.left = left + 'px';
+        }
+    }
+
+    addEventListener('load', function() {
+        init();
+       setInterval('move()', 10)
+    });
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        
+    </div>
+</body>
+</html>

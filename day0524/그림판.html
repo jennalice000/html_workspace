@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #wrapper{
+            margin: 100px;
+            width: 700px;
+            height: 550px;
+            border: 1px solid;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header{
+            width: 100%;
+            height: 50px;
+            border: 1px solid;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #content {
+            width: 100%;
+            height: 100%;
+            border: 1px solid;
+            position: relative;
+        }
+
+        #color {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #btn:active {
+            transform: scale(0.98);
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+        }
+
+    </style>
+
+    <script>
+       let sel; // select박스, 연필의 두께 선택
+        let red, green, blue; // 색상 선택
+        let btn; // 재생 버튼
+        let content; // 그림 그릴 영역
+        let flag = false;
+        let dotWidth;
+        let dotHeight; // 연필의 두께를 결정하는 전역 변수
+        let dotImg = ['black.png', 'red.png', 'blue.png', 'green.png'];
+        let dot;
+        let n=0;
+        let posList=[];
+        let isPlay = false; //초기엔 재생하지 않는다.
+        let index=0; //2차원 배열 중 몇 번째를 접근할 지 결정하는 index
+
+
+
+        
+        function createDot(x, y){
+            dot = document.createElement('img');
+            dot.src = '../images/' + dotImg[n];
+            dot.style.width = dotWidth + 'px';;
+            dot.style.height = dotHeight + 'px';
+            dot.style.position = 'absolute';
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+
+            content.appendChild(dot);
+
+            if(isPlay==false){
+                let pos = [x, y];
+                posList.push(pos);
+            }
+        }
+
+        function Play(){
+            if(isPlay){
+                createDot(posList[index][0], posList[index][1]);
+                index++;
+            }
+            //2차원 배열에 있는 1차원 배열을 하나씩 꺼내서 좌표를 추출한 후 이미 정의해놓은  createDot(x, y)에 대입
+        }
+        
+
+        function selSet(){
+            //sel선택할 때마다 이미지width, height가 바뀌도록
+            let selectedOption = sel.value;
+            switch(selectedOption) {
+                case '1':
+                    dotWidth = 10;
+                    dotHeight = 10;
+                    break;
+                case '4':
+                    dotWidth = 40;
+                    dotHeight = 40;
+                    break;
+                case '7':
+                    dotWidth = 70;
+                    dotHeight = 70;
+                    break;
+                case '10':
+                    dotWidth = 100;
+                    dotHeight = 100;
+                    break;
+                default:
+                    dotWidth = 10;
+                    dotHeight = 10;
+                    break;
+            }
+        }
+
+
+        function init(){
+            sel = document.getElementById('sel');
+            red = document.getElementById('red');
+            green = document.getElementById('green');
+            blue = document.getElementById('blue');
+            btn = document.getElementById('btn');
+            content = document.getElementById('content');
+        }
+
+        window.addEventListener('load', function(){
+            init();
+            setInterval('Play()', 10);
+
+            content.addEventListener('mousedown', function(){
+                flag = true;
+            });
+            content.addEventListener('mouseup', function(){
+                flag = false;
+            });
+            content.addEventListener('mousemove', function(event){
+                if(flag){
+                    console.log('>>>')
+                    selSet()
+                    createDot(event.offsetX, event.offsetY);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="select">
+                <select name="thick" id="sel" style="width: 200px; height: 30px">
+                    <option value="none" selected> 두께선택</option>
+                    <option value="1">10mm</option>
+                    <option value="4">40mm</option>
+                    <option value="7">70mm</option>
+                    <option value="10">100mm</option>
+                </select>
+            </div>
+            <div id="color">
+                <div id="red" style="background-color: red; width: 30px; height: 30px;" onclick="n=1"></div>
+                <div id="blue" style="background-color: blue; width: 30px; height: 30px; margin-left: 30px;" onclick="n=2"></div>
+                <div id="green" style="background-color: green; width: 30px; height: 30px; margin-left: 30px;" onclick="n=3"></div>
+            </div>
+            <div id="btn">
+                <button style="width: 200px; height: 30px; background-color: aliceblue;  color: blue; border: 0; border-radius: 15px;" onclick="content.innerText='';  isPlay=true;">▶</button>
+            </div>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper {
+            width: 200px;
+            height: 300px;
+            border: 5px solid red;
+            border-radius: 15px;
+            text-align: center;
+            padding: 20px;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button>결과보기</button>
+        <div id="wrapper"></div>
+    </div>
+
+    <script>
+        let play = ['가위.png', '바위.png', '보.png'];
+        let wrapper;
+        let button;
+        let img;
+
+        function getRandom() {
+            return Math.floor(Math.random() * play.length);
+        }
+
+        function next() {
+            let r = getRandom();
+            img.src = '../images/' + play[getRandom()];
+        }
+
+        function init() {
+            wrapper = document.getElementById('wrapper');
+            button = document.querySelector('button');
+            img = document.createElement('img');
+            wrapper.appendChild(img);
+        }
+
+        addEventListener('load', function () {
+            init();
+            button.addEventListener('click', function () {
+                next();
+            });
+        });
+    </script>
+</body>
+</html>

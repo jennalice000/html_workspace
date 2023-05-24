@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>종합예제</title>
+    <style>
+        #wrapper{
+            display: flex;
+            flex-direction: row;
+        }
+        #sel{
+            width: 150px;
+            height: 300px;
+        }
+    </style>
+    <script>
+        let words=[];
+        
+
+
+        addEventListener('load', function(){
+            init();
+        })
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div class="1st">
+            <input type="text">
+            <button id="input_btn">OK</button>
+        </div>
+        <div class="2nd">
+            <select id="sel"></select>
+            <button id="sel_btn">OK</button>
+        </div>
+        <div class="3rd">
+            <div id="undi"></div>
+            <input type="checkbox" id="check">
+        </div>
+    </div>
+</body>
+</html>

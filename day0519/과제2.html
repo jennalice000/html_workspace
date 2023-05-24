@@ -31,6 +31,8 @@
     <script>
         let box;
         let colorBox = ["blue", 'brown', 'gray', 'green', 'orange', 'pink', 'purple', 'red', 'yellow']
+        let targetX = 0;
+        let targetY = 0;
 
 
         function init(){
@@ -55,7 +57,19 @@
         }
 
         function go(){
+            box.addEventListener('keydown', (e)=>{
+                if(e === 37){
+                    targetX=-100;
+                }else if(e === 38){
+                    targetY = 100;
+                }else if(e === 39){
+                    targetX = 100;
+                }else if(e === 40){
+                    targetY = -100;
+                }
+            }
 
+            })
         }
 
         addEventListener('load', function(){

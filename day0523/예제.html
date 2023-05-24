@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 540px;
+            height: 600px;
+            background-color: aliceblue;
+            margin: auto;
+        }
+        #bg{
+            width: 540px;
+            height: 600px;
+            background-color: aqua;
+        }
+    </style>
+    <script>
+        let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+        let bg;
+        let check;
+        let curIndex=0
+        let loop;
+
+        function changeBG(){
+            loop = setInterval(function(){
+                bg.style.background = colors[curIndex];
+                curIndex = parseInt(Math.random()*colors.length) % colors.length;
+            }, 1000);
+        }
+
+        function stopBG(){
+            clearInterval(loop)
+        }
+        
+            //1.  버튼 누르면 배경 바뀜
+            //2.  배경이 setInterval 이용해서 1초마다 바뀜
+
+
+        addEventListener('load', function(){
+            bg=document.getElementById('bg')
+            check=document.getElementById('check')
+            btn = document.getElementById('btn')
+            
+            check.addEventListener('change', function(){
+                this.checked? changeBG() : stopBG()
+            })
+        })
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <button id="btn" onclick="changeBG()">change</button>
+        <button id="btn" onclick="stopBG()">stop</button>
+        <input id="check" type="checkbox">
+        <div id="bg"></div>
+    </div>
+</body>
+</html>
