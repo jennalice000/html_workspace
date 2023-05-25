@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 750px;
+            height: 500px;
+            border: 1px solid;
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+            margin-top: 100px;
+        }
+
+        #side {
+            width: 150px;
+            height: 100%;
+            background-color: yellowgreen;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #content {
+            width: 600px;
+            height: 100%;
+            background-color: yellow;
+        }
+
+        #score {
+            width: 140px;
+            height: 70px;
+            background-color: green;
+            margin: 5px;
+        }
+
+        button,
+        input {
+            width: 140px;
+            margin-left: 5px;
+            margin-top: 10px;
+            height: 30px;
+            font-size: 13px;
+            text-align: center;
+        }
+        #hps{
+            position: relative;
+            top: 10px;
+            left: 10px;
+            width: 130px;
+            height: 175px;
+            margin-bottom: 10px;
+            background-color: green;
+
+        }
+
+    </style>
+    <script>
+        let hpList = [];
+
+        function sideDivs() {
+            let hps = document.getElementById('hps');
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 4; j++) {
+                    let hp = document.createElement('div');
+                    hp.style.width = "43px";
+                    hp.style.height = "43px";
+                    hp.style.border = '1px solid';
+                    hp.style.position = 'absolute';
+                    hp.style.top = j*44 +'px';
+                    hp.style.left = `${i * 44}px`;
+                    hps.appendChild(hp);
+                    hpList.push(hp);
+                }
+            }
+        }
+
+        function init() {
+            sideDivs();
+        }
+
+        addEventListener('load', function() {
+            init();
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="side">
+            <div id="score"></div>
+            <div id="hps"></div>
+            <input type="text">
+            <button>GAME START</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

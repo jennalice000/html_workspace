@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'TheJamsil5Bold';
+        }
+
+        @font-face {
+            font-family: 'TheJamsil5Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body{
+            background-color: darkolivegreen;
+        }
+        #wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 760px;
+            height: 600px;
+            border: 1px solid;
+            margin: auto;
+            margin-top: 80px;
+        }
+        #header{
+            width: 100%;
+            height: 50px;
+            background: yellow;
+        }
+        #wrapper2{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 550px;
+        }
+        #side{
+            background: yellowgreen;
+            width: 150px;
+            height: 550px;
+        }
+        #content{
+            background-color: rgb(55, 91, 59);
+            width: 610px;
+            height: 100%;
+            color: white;
+        }
+        input, button{
+            width: 140px;
+            margin-left: 5px;
+            margin-top: 10px;
+            height: 30px;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        // 1. 한 사람의 정보를 1차원 배열에 넣기 (아이디, 패스워드, 이름)
+        // 2. 한 사람의 정보들을 2차원 배열에 쌓기 (아이디, 패스워드, 이름의 묶음)
+
+
+        //정보를 출력한 테이블을 생성하기
+        //1)createElement('table');
+        //2)innerText('<table>');
+        //document.write('<table>')과 혼동하지 말것
+        //문서에 <> 붙이고 출력하면 태그로 인정하나 문서가 아닌 div안에 <>넣으면 태그로 인정안함 따라서 innerText가 아닌 innerHTML로 해결함
+        let id;
+        let pwd;
+        let name;
+        let content;
+        let form;
+        let memberList=[];//배열이 존재는 하나 길이는 0, 지금은 1차원 배열이나 배열을 push하면 2차원 배열이 됨
+        let tableHTML;
+
+        function createTable() {
+            name = form.name;
+            content = document.getElementById('content');
+            
+            tableHTML = '<table border="1px" width="100%">';
+            tableHTML += '<tr>';
+            tableHTML += '<td>No</td>';
+            tableHTML += '<td>ID</td>';
+            tableHTML += '<td>Password</td>';
+            tableHTML += '<td>Name</td>';
+            tableHTML += '</tr>';
+            tableHTML += '</table>';
+
+            content.innerHTML = tableHTML;
+        }
+
+        function getList(){
+            // 2차원 배열에서 한 줄에 접근하여 한 사람의 정보가 담겨진 일차원 배열에 접근하기
+            let member = memberList[0];
+            
+            //기존의 tag변수에 누적되어 있는 문자열에 이어서 붙이기
+            {
+                tableHTML += '<tr onMouseOver=\"this.style.background='yellow'\" onMouseOut=\"this.style.background=''\">'
+                        tableHTML += '<td>10</td>'
+                        tableHTML += '<td>'+member[0]+'</td>'
+                        tableHTML += '<td>'+member[1]+'</td>'
+                        tableHTML += '<td>'+member[2]+'</td>'
+                        tableHTML += '</td>'
+            }
+
+            tableHTML += '<tr>'
+            tableHTML += '<td align="right" colspan="4"> 총' + memberList.length +'명</td>'
+            tableHTML += '</tr>'
+            tableHTML += '</table>';
+
+            content.innerHTML
+        }
+
+        function regist(){
+            //한 사람에 대한 정보를 담기 위한 비어있는 1차원 배열 준비
+            let member = [];
+            member.push(id.value);
+            member.push(pwd.value);
+            member.push(name.value);
+
+            //2차원 배열에 추가
+            memberList.push(member);
+
+            //등록된 내용 출력
+            getList();
+        }
+
+        function init() {
+            form = document.querySelector('form');
+            id = form.id;
+            pwd = form.pwd;
+            name = form.name;
+        }
+
+        addEventListener('load', function(){
+            init();
+            createTable();
+        });
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="wrapper2">
+            <div id="side">
+                <!-- 입력 양식의 범위를 설정하는 태그
+                1)폼 태그의 범위에 있는 모든 UI 관련 컴포넌트는 서버로 전송할 수 있다.
+                2)폼 태그를 이용하면 요소들간의 접근 방법으로서 부모 자식간 포함 관계로 접근이 가능하다
+                ex) window.document.form1.id -->
+                <form action="" name="form1"> 
+                    <input type="text" name="id" placeholder="id를 입력하세요">
+                    <input type="password" name="pwd" placeholder="패스워드를 입력하세요">
+                    <input type="text" name="name" placeholder="이름을 입력하세요">
+                    <button onclick="regist()">등록하기</button>
+                </form>
+            </div>
+            <div id="content"></div>
+        </div>
+    </div>
+</body>
+</html>

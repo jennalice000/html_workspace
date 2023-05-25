@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'TheJamsil5Bold';
+        }
+
+        @font-face {
+            font-family: 'TheJamsil5Bold';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body{
+            background-color: darkolivegreen;
+        }
+        #wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 760px;
+            height: 600px;
+            border: 1px solid;
+            margin: auto;
+            margin-top: 80px;
+        }
+        #header{
+            width: 100%;
+            height: 50px;
+            background: yellow;
+        }
+        #wrapper2{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 550px;
+        }
+        #side{
+            background: yellowgreen;
+            width: 150px;
+            height: 550px;
+        }
+        #content{
+            background-color: rgb(55, 91, 59);
+            width: 610px;
+            height: 100%;
+            color: white;
+            overflow: scroll;
+        }
+        input, button, select{
+            width: 140px;
+            margin-left: 5px;
+            margin-top: 10px;
+            height: 30px;
+            font-size: 13px;
+            text-align: center;
+        }
+        #pic{
+            width: 85%;
+            margin-top: 12px;
+            margin-left: 11px;
+        }
+    </style>
+    <script>
+        let content; //table 출력될 영역
+        let id, pwd, name; //UI 컨트롤
+        let pic; //미리보기에 사용할 이미지
+        let tag=""; //등록함수, 목록함수 등이 함꼐 공유해야 함
+        let memberList=[]; //회원이 누적되어야 함
+
+        function preview(obj){
+            pic.src=obj.value;
+        }
+
+        function getList(){
+            tag ='';
+            tag +="<table width=\"100%\" border=\"1px\" >";
+            tag +="<tr>"
+            tag +="<td width=\"5%\">No</td>"
+            tag +="<td width=\"20%\">img</td>"
+            tag +="<td width=\"25%\">ID</td>"
+            tag +="<td width=\"25%\">PWD</td>"
+            tag +="<td width=\"25%\">NAME</td>"
+            tag +="</tr>"
+
+            for(let i=memberList.length-1; i>=0; i--){
+                tag +="<table width=\"100%\" border=\"1px\">";
+                tag +="<tr>"
+                tag +="<td width=\"5%\">"+(i+1)+"</td>"
+                tag +="<td width=\"20%\">"+"<img src=\""+memberList[i][3]+"\" width =\"40px\">"+"</td>"
+                tag +="<td width=\"25%\">"+memberList[i][0]+"</td>"
+                tag +="<td width=\"25%\">"+memberList[i][1]+"</td>"
+                tag +="<td width=\"25%\">"+memberList[i][2]+"</td>"
+                tag +="</tr>"
+            }
+
+            tag += "<tr>";
+            tag += "<td colspan='5' align = 'center'>"+memberList.length+"</td>";
+            tag += "</tr>";
+            
+            tag +="</table>";
+
+            content.innerHTML=tag;
+        }
+
+        function regist(){
+            //좌측 UI에서 입력한 데이터를(한 사람) 1차원 배열에 담기
+            let member = new Array(4)
+            member[0] = id.value;
+            member[1] = pwd.value;
+            member[2] = name.value;
+            member[3] = sel.value;
+
+            //완성된 한 사람의 배열을 2차원 배열에 추가하기
+            memberList.push(member);
+            getList()
+
+        }
+
+        function init(){
+            content = document.getElementById('content');
+            id = form1.id;
+            pwd = form1.pwd;
+            name = form1.name;
+            sel = form1.sel;
+            pic = document.getElementById('pic')
+        }
+
+        addEventListener('load', function(){
+            init();
+            getList(); //회원의 목록 가져오기
+        })
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="wrapper2">
+            <div id="side">
+                <form name="form1"> 
+                    <input type="text" name="id" placeholder="id를 입력하세요">
+                    <input type="password" name="pwd" placeholder="패스워드를 입력하세요">
+                    <input type="text" name="name" placeholder="이름을 입력하세요">
+                    <select name="sel" onchange="preview(this)">
+                        <option value="none">프로필 사진 선택</option>
+                        <option value="../images/드캐1.jpg">드캐1</option>
+                        <option value="../images/드캐2.jpg">드캐2</option>
+                        <option value="../images/드캐3.jpg">드캐3</option>
+                        <option value="../images/드캐4.jpg">드캐4</option>
+                    </select>
+                    <img  id="pic">
+                </form>
+                <button onclick="regist()">등록하기</button>
+            </div>
+            <div id="content"></div>
+        </div>
+    </div>
+</body>
+</html>

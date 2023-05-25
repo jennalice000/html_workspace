@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:750px;
+            height:550px;
+            background: yellow;
+            margin: auto;
+        }
+        #side{
+            width:150px;
+            height:550px;
+            background: pink;
+            float:left;          
+            text-align: center;  
+        }
+        #content{
+            width:600px;
+            height:550px;
+            background: salmon;
+            float: left;
+            position: relative;
+        }
+        #score{
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #side input{
+            width:90%;
+            height:45px;
+            margin-top: 10px;
+        }
+        #side button{
+            width:94%;
+            height:25px;
+            margin-top: 10px;
+        }
+        #hp{
+            background: greenyellow;
+            width:140px;
+            height:150px;
+            margin: auto;
+            margin-top:10px;
+            position: relative;
+        }
+    </style>
+    <script>
+        let hp;
+        let size=35;
+        let hpArray=[];
+        let word = ["지유", '시연', '수아', '한동', '가현', '다미', '유현', '샤이니', '드림캐쳐', '키']
+        let content;
+        
+        function createWord(){
+            //각 단어마다 html 요소 중 inline 속성이 있는 태그 중 span을 활용함
+            let span = document.createElement('span')
+            span.innerText = word[0]
+            span.style.position = 'absolute';
+            span.style.left = 50+'px'
+            span.style.top = 100+'px'
+            content.appendChild(span)
+        }
+        
+        function createHp() {
+            for (let i = 0; i < 3; i++) { // 층
+                for (let j = 0; j < 4; j++) { // 호
+                    let box = document.createElement('div');
+                    box.style.width = '40px';
+                    box.style.height = '40px';
+                    box.style.background = 'red';
+                    box.style.border = '1px solid black';
+                    box.style.position = 'absolute';
+                    box.style.left = 15 +  i*size + 'px';
+                    box.style.top = 2 + j*size + 'px';
+                    
+                    hp.appendChild(box);
+                    hpArray.push(box)
+                }
+            }
+        }
+        
+        function init() {
+            hp = document.getElementById('hp');
+            content = document.getElementById('content')
+        }
+        
+        addEventListener('load', function() {
+            init();
+            createHp();
+            createWord();
+
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="side">
+            <div id="score">50 점</div>
+            <div id="hp"></div>
+            <input type="text">
+            <button>Start</button>
+        </div>
+        <div id="content"></div>
+    </div>
+
+</body>
+</html>
