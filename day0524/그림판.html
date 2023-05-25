@@ -87,7 +87,10 @@
         function Play(){
             if(isPlay){
                 createDot(posList[index][0], posList[index][1]);
-                index++;
+                if(index<posList.length-1){
+
+                    index++;
+                }
             }
             //2차원 배열에 있는 1차원 배열을 하나씩 꺼내서 좌표를 추출한 후 이미 정의해놓은  createDot(x, y)에 대입
         }

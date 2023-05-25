@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function getResult(){
+            let t1=document.getElementById("t1");
+            let t2=document.getElementById("t2");
+
+            let result = parseInt(t1.value) + parseInt(t2.value);
+            console.log(result);
+        }
+
+    </script>
+</head>
+<body>
+    <input type="text" id="s1" placeholder="원하는 수 입력">
+    <input type="text" id="s2" placeholder="원하는 수 입력 ">
+    <button onClick="getResult()">결과 보기</button>
+</body>
+</html>
+
+

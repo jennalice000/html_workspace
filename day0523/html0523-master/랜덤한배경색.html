@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width:300px;
+            height:300px;
+            background: gray;
+        }
+    </style>
+    <script>
+        let box;
+        let color=["red","orange","yellow","green","blue","navy","purple"];
+        let n=0; //배열안에 들어있는 요소중 어떤 요소를 접근할지를
+                    //결정하는 index 변수
+        let flag=false; //로직을 수행할지 여부를 결정짓는 논리값
+
+        //box 의 색상을 변경해주는 함수
+        function setBg(){
+            if(flag){
+                box.style.background=color[n];
+                //n++;
+                //n=랜덤으로얻기
+                n=parseInt(Math.random()*color.length);
+            }
+        }
+
+        function init(){
+            box=document.getElementById("box");
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("setBg()",1000);            
+        });
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="ch" onClick="flag=this.checked">
+    <div id="box"></div>    
+</body>
+</html>

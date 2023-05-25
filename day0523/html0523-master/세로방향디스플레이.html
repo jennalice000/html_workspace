@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            width:110px;
+            height:320px;
+            background: yellow;
+            margin: auto;
+            margin-top: 150px;
+            position: relative; /*자식 때문에...*/
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let box;
+        let cell=new Array(5);
+        let flag=false;
+
+        function move(){
+            if(flag){
+                //배열에 담겨진 모든 cell들을 대상으로 처리
+                for(let i=0;i<cell.length;i++){
+                    cell[i].style.top=parseInt(cell[i].style.top)+1+"px";   
+                    //개발에 도움이 될수있도록 현재 cell의 위치를 출력 
+                    cell[i].innerText=cell[i].style.top;
+
+                    //셀이 top의 한계지점인 425를 넘어서면 -105로
+                    //돌려놓자 
+                    if(parseInt(cell[i].style.top) > 425){
+                        cell[i].style.top=-105+"px";
+                    }    
+                    
+                }
+            }
+        }
+
+        //디스플레이에 사용될 사각형 셀들을 생성한다
+        function createRect(){
+            for(let i=0;i<5;i++){
+                cell[i]=document.createElement("div");
+                cell[i].style.width=100+"px";
+                cell[i].style.height=100+"px";
+                cell[i].style.background="skyblue";
+                cell[i].style.position="absolute";
+                cell[i].style.top=-(100+5)+i*(100+5)+"px";
+                cell[i].style.left=5+"px";
+                
+                //box에 cell 부착 
+                box.appendChild(cell[i]);
+            }
+        }
+
+        function init(){
+            box = document.getElementById("box");
+        }
+        addEventListener("load", function(){
+            init();
+            createRect();
+            setInterval("move()", 10);
+        });        
+    </script>
+</head>
+<body>
+    <input type="checkbox" id="ch" onClick="flag=this.checked">
+    <div id="box"></div>
+</body>
+</html>

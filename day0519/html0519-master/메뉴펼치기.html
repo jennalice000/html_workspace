@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box{
+            margin:auto;
+        }
+    </style>
+    <script>
+        let box;
+        let a=0.1;
+        let targetH=40;
+
+        function init(){
+            box = document.getElementById("box");
+            box.style.width=100+"px";
+            box.style.height=40+"px";
+            box.style.background="red";                        
+        }
+
+        function move(){
+            box.style.height=parseFloat(box.style.height)+a*(targetH - parseFloat(box.style.height))+"px";
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("move()", 10);
+            box.addEventListener("mouseover", function(){
+                targetH=500;
+            });
+            box.addEventListener("mouseout", function(){
+                targetH=40;
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div id="box"></div>    
+</body>
+</html>

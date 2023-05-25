@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let fruit=["사과","딸기","포도","멜론"];
+        let car=["벤츠","BMW","제네시스","아우디"];
+        let subject=["Java","JSP","Spring","Oracle"];
+
+        let box=[];
+        box.push(fruit);//새로운 공간을 추가한후 데이터 넣기
+        box.push(car); //2층짜리 이차원배열 
+        box.push(subject);//3층짜리 이차원배열
+
+        //첫번째 층에 있는 모든 과일명을 출력하시오 
+        for(let a=0;a<box.length;a++){
+            for(let i=0;i<box[a].length;i++){
+                document.write(box[a][i]);
+            }
+            document.write("<br>");//층은 바깥쪽과 관련되므로
+        }
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

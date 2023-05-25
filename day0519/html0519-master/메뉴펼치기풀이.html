@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴펼치기 풀이</title>
+    <script>
+        let box;
+        let a=0.1;
+        let targetH=40;
+
+        //목표지점까지 한번에 가는것이 아니라, 일정비율만큼 
+        //다가가게 한다 (감속도 운동)
+        //나의높이=나의높이+a*(목표높이 - 현재나의높이)
+        function move(){
+            box.style.height=parseFloat(box.style.height)+a*(targetH-parseFloat(box.style.height))+"px";
+        }
+
+        //초기화: 사각형을 등장시키고 필요한 스타일도 동적으로 지정...
+        function init(){
+            box=document.createElement("div"); // <div>
+            box.style.width=100+"px";                
+            box.style.height=40+"px";
+            box.style.background="#FF0000"; //RGB
+            box.style.margin="auto";
+
+            document.body.appendChild(box);
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("move()", 10);
+
+            //박스에 이벤트 연결 
+            box.addEventListener("mouseover", function(){
+                //사각형의 높이 늘이기 500 
+                targetH=500;               
+            });
+            box.addEventListener("mouseout", function(){
+                //높이 줄이기 40
+                targetH=40;
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

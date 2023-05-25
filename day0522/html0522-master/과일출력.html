@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*
+        변수 선언의 단점 
+        - 데이터를 메모리에 올릴때, 반드시 중복되지 않은 유일한
+        이름을 이용하여 올려야 함..이 방식이 왜 단점?
+        처리할 대상 데이터의 양이 많을때, 효율적이지 못함
+        즉 반복문 등을 사용할 수 없다.
+        */
+       /*
+        let f1="사과";
+        let f2="딸기";
+        let f3="포도";
+        let f4="복숭아";
+        let f5="멜론";
+        let f6="레몬";
+        let f7="블루베리";
+        let f8="참외";
+        let f9="토마토";
+        let f0="수박";
+    */
+    
+    //1)배열(array)이란? 
+    /*
+        현실에서는 사물을 순서있게 배치하는 것을 의미하며,
+        전산에서는 그 대상이 데이터이다..
+    */
+   //2)js에서 배열을 선언하는 방법
+   //모든 프로그래밍 언어마다 배열을 지원하며 
+   //js에서는 아래와 같은 형식을 갖는다 
+   // let arr=new Array(3);  크기가 즉 길이가 3인 배열을 선언
+   let fruits=new Array(10);
+   fruits[0]="사과";
+   fruits[1]="딸기";
+   fruits[2]="포도";
+   fruits[3]="복숭아";
+   fruits[4]="멜론";
+   fruits[5]="레몬";
+   fruits[6]="블루베리";
+   fruits[7]="참외";
+   fruits[8]="토마토";
+   fruits[9]="수박";
+
+   for(let i=0;i<10;i++){
+        document.write(fruits[i]);
+   }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+

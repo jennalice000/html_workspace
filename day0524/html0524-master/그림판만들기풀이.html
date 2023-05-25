@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:700px;
+            height: 550px;
+            background: yellow;
+            margin: auto;
+        }
+        #header{
+            width:100%;
+            height:50px;
+            background: rebeccapurple;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #content{
+            width:100%;
+            height:500px;
+            background-color:hotpink;
+            position: relative; /*자식 때문에..*/
+        }
+        #header div{
+            width:40px;
+            height:40px;
+            display:inline-block;
+            margin-top: 5px;
+        }
+        select{
+            width:150px;
+            font-size:30px;
+        }
+        button{
+            width:80px;
+            height:35px;
+        }
+    </style>
+    <script>
+        let sel;//select박스 , 연필의 두께 
+        let red,green, blue; //연필의 색상
+        let bt; //재생버튼
+        let content; //그림 그릴 영역
+        let flag=false;
+        let dotWidth=2; //점의 너비를 결정하는 전역변수
+        let dotHeight=2;//점의 높이를 결정하는 전역변수
+        let dotImg=["dot_red.png", "dot_green.png", "dot_blue.png"];
+        let n=0; //어떤 색상을 사용할지를 결정하는 배열의 index
+        let posList=[];//그 크기를 알수없으므로, 그냥 생성만 해놓자
+                            //현재 length=0 이다
+        let isPlay=false; //초기엔 재생하지 않겠다
+        let index=0; //이차원배열 중 몇번째를 접근할지를 결정하는
+                            //index
+
+        //문서내에 점을 표현하는 이미지를 동적으로 생성하여 
+        //content에 붙이자(좌표는 마우스의 좌표로 한다..)
+        function createDot(x, y){
+            let dot=document.createElement("img");
+            dot.src="../images/"+dotImg[n];
+            dot.style.width=dotWidth+"px";
+            dot.style.height=dotHeight+"px";
+            dot.style.position="absolute";
+            dot.style.left=x+"px";
+            dot.style.top=y+"px";
+
+            //content div 에 생성된 dot 를 부착 
+            content.appendChild(dot);
+
+            //생성된 dot변수명이 소멸되기 전에 이차원배열에 쌓자
+            if(isPlay==false){ //재생하지 않을때만 수행해라(수집이니깐..)
+                let pos=[ x, y ];
+                posList.push(pos);
+            }
+        }
+
+        function play(){
+            //2차원배열에 있는 일차원배열을 하나씩 꺼내어 
+            //좌표를 추출한 후, 이미 정의해놓은 createDot(x, y)
+            if(isPlay){
+                createDot(posList[index][0], posList[index][1]);
+
+                //배열의 범위 내에서만...
+                if( index < posList.length-1){
+                    index++;
+                }
+            }            
+        }
+
+        function init(){
+            sel =document.getElementById("sel");
+            red =document.getElementById("red");
+            green =document.getElementById("green");
+            blue =document.getElementById("blue");
+            bt = document.querySelector("button");
+            content = document.getElementById("content");
+        }
+        addEventListener("load", function(){
+            init();
+
+            setInterval("play()", 10);
+
+            //content에게 마우스 눌름과 뗌 이벤트 연결하기 
+            content.addEventListener("mousedown", function(){
+                flag=true;//그릴 의도가 있음을 알림 
+            });
+
+            content.addEventListener("mouseup", function(){
+                flag=false;//그릴 의도가 없음을 알림 
+            });
+
+            //content에게 마우스 움직임 이벤트 연결하기 
+            content.addEventListener("mousemove", function(){
+                if(flag){
+                    console.log("마우스 움직이고 있어?");
+                    
+                    // content라는 div를 기준으로 한 좌표를 넘겨야함
+                    createDot( event.offsetX , event.offsetY );
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <select id="sel" onChange="dotWidth=this.value;dotHeight=this.value">
+                <option value="1">두께선택</option>
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+            <div id="red" style="background:red" onClick="n=0"></div>                
+            <div id="green" style="background:green"  onClick="n=1"></div>                
+            <div id="blue" style="background:blue"  onClick="n=2"></div>                
+            <button onClick="content.innerText='';isPlay=true">재생</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

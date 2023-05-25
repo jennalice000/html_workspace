@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 200px;
+            height: 200px;
+            background:yellow;
+            margin: auto;
+            position: relative;
+        }
+        #mask{
+            width:200px;
+            height: 200px;
+            background: blue;
+            position: absolute;
+            left:0px;
+            top:0px;
+            overflow:hidden;
+        }
+
+    </style>
+    <script>
+        let box;
+        let a=0.1;
+        let targetX=0;
+        let targetY=0;
+        let h1;
+
+        function move(){
+            if(targetX < -400){
+                targetX=-400;
+            }else if(targetX > 0){
+                targetX=0;
+            }
+            if(targetY<-400){
+                targetY=-400;
+            }else if(targetY>0){
+                targetY=0;
+            }
+
+            box.style.left = parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+"px";
+            box.style.top = parseFloat(box.style.top)+a*(targetY-parseFloat(box.style.top))+"px";
+
+            let str="targetX : "+targetX;
+            str = str + "\n";
+            str = str + "targetY : "+targetY;
+            h1.innerText=str;
+        }
+
+        function init(){
+            let mask = document.getElementById("mask");
+            h1=document.querySelector("h1");
+            
+            //동적으로 box생성 
+            box = document.createElement("div");    
+            box.style.width=200*3+"px";
+            box.style.height=200*3+"px";
+            box.style.position="absolute"; //mask를 기준으로 한 절대위치 
+            box.style.left=0+"px";
+            box.style.top=0+"px";
+            //box.style.fontSize=30+"px";
+            
+            let n=0;
+
+            for(let i=0;i<3;i++){
+                for(let k=0;k<3;k++){
+                    //동적으로 이미지 생성 
+                    n++;
+                    let img = document.createElement("img");
+                    img.src="../images/m"+n+".jpg";
+                    console.log(img);
+                    img.style.width=200+"px";
+                    img.style.height=200+"px";
+                    img.style.position="absolute";
+                    img.style.left=(k*200)+"px";
+                    img.style.top=(i*200)+"px";
+                    box.appendChild(img);
+                }
+            }
+            mask.appendChild(box);
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("move()", 10);        
+
+            //키보드 이벤트 연결 
+            document.body.addEventListener("keydown", function(){
+                let key = event.keyCode;
+
+                switch(key){
+                    case 37:targetX=targetX-200;break;
+                    case 38:targetY=targetY-200;break;
+                    case 39:targetX=targetX+200;break;
+                    case 40:targetY=targetY+200;break;                        
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1></h1>
+    <div id="wrapper">
+        <div id="mask"></div>
+    </div>    
+</body>
+</html>

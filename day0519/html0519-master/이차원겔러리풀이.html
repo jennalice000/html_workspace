@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*액자역할의  div*/
+        #wrapper{
+            width:200px;
+            height:200px;
+            background: yellow;
+            margin: auto;
+            position: relative;/*자식 때문에 명시함*/
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let box;
+        let targetX=0;
+        let targetY=0;
+        let h1;//정보창
+        let a=0.1;
+        
+        //키보드 누를때마다  box를 움직일 함수 정의
+        function move(){
+            //아래의 코드가 수행되기 전에, 올바르지 않은 targetX, targetY 값은
+            //걸러내자.. 
+            if(targetX<-400){ //좌측버튼을 아무리 눌러도 -400으로 유지..
+                targetX=-400;
+            }else if(targetX > 0){
+                targetX=0;
+            }
+
+            //위아래
+            if(targetY>0){
+                targetY=0;
+            }else if(targetY< -400){
+                targetY=-400;
+            }
+
+            box.style.left=parseFloat(box.style.left)+a*(targetX-parseFloat(box.style.left))+"px";
+            box.style.top=parseFloat(box.style.top)+a*(targetY-parseFloat(box.style.top))+"px";
+
+            //정보출력 
+            h1.innerText="targetX:"+targetX+" \ntargetY:"+targetY;
+        }
+
+        function init(){
+            //이미지 9개를 감싸안을  div 생성 
+            box=document.createElement("div");
+            box.style.width=200*3+"px";
+            box.style.height=200*3+"px";
+            box.style.background="blue";
+            box.style.position="absolute"; //액자를 부모로 두는 포지션
+            box.style.left=0+"px";
+            box.style.top=0+"px";
+
+            //생성된 박스에 이미지를 동적으로 9개 생성하여 부착 
+            let n=0;//이미지명에 써먹을 변수 1~9
+            for(let k=0;k<3;k++){
+                for(let i=0;i<3;i++){
+                    n++;
+                    let img=document.createElement("img");
+                    img.src="../images/m"+n+".jpg";
+                    img.style.width=200+"px";
+                    img.style.height=200+"px";
+                    img.style.position="absolute";
+                    img.style.left=i*200+"px";
+                    img.style.top=k*200+"px";
+                    box.appendChild(img);
+                }    
+            }
+
+            //액자인 wrapper에 자식요소로 부착 
+            let wrapper=document.getElementById("wrapper");
+            wrapper.appendChild(box);
+
+            h1=document.querySelector("h1");
+        }
+
+        addEventListener("load", function(){
+            init();
+            setInterval("move()", 10);
+
+            //키보드 이벤트 연결하기 
+            document.body.addEventListener("keydown", function(){
+                //console.log("키 눌럿어?");
+                
+                //어떤키를 눌렀느냐에 따라 식을 다르게 적용 
+                //4가지 이상의 다중적인 조건을 따져야 하므로 
+                //else~if 혹은 switch~case문 (본인이 원하는거)
+                let key=event.keyCode; //사용자가 누른 아스키코드값
+                switch(key){
+                    case 37:targetX=targetX-200;break;//좌측
+                    case 39:targetX=targetX+200;break;//우측
+                    case 38:targetY=targetY-200;break;//위쪽
+                    case 40:targetY=targetY+200;break;//아래쪽
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>
+        targetX:0 <br>
+        targetY:200
+    </h1>
+    <div id="wrapper"></div>
+</body>
+</html>

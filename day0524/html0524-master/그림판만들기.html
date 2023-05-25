@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:700px;
+            height: 550px;
+            background: yellow;
+            margin: auto;
+        }
+        #header{
+            width:100%;
+            height:50px;
+            background: rebeccapurple;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #content{
+            width:100%;
+            height:500px;
+            background-color:hotpink;
+            position: relative; /*자식 때문에..*/
+        }
+        #header div{
+            width:40px;
+            height:40px;
+            display:inline-block;
+            margin-top: 5px;
+        }
+        select{
+            width:150px;
+            font-size:30px;
+        }
+        button{
+            width:80px;
+            height:35px;
+        }
+    </style>
+    <script>
+        let sel;//select박스 , 연필의 두께 
+        let red,green, blue; //연필의 색상
+        let bt; //재생버튼
+        let content; //그림 그릴 영역
+        let flag=false;
+        let dotWidth=2; //점의 너비를 결정하는 전역변수
+        let dotHeight=2;//점의 높이를 결정하는 전역변수
+        let dotImg="dot.png";
+
+        //문서내에 점을 표현하는 이미지를 동적으로 생성하여 
+        //content에 붙이자(좌표는 마우스의 좌표로 한다..)
+        function createDot(x, y){
+            let dot=document.createElement("img");
+            dot.src="../images/"+dotImg;
+            dot.style.width=dotWidth+"px";
+            dot.style.height=dotHeight+"px";
+            dot.style.position="absolute";
+            dot.style.left=x+"px";
+            dot.style.top=y+"px";
+
+            //content div 에 생성된 dot 를 부착 
+            content.appendChild(dot);
+        }
+
+        function init(){
+            sel =document.getElementById("sel");
+            red =document.getElementById("red");
+            green =document.getElementById("green");
+            blue =document.getElementById("blue");
+            bt = document.querySelector("button");
+            content = document.getElementById("content");
+        }
+        addEventListener("load", function(){
+            init();
+
+            //content에게 마우스 눌름과 뗌 이벤트 연결하기 
+            content.addEventListener("mousedown", function(){
+                flag=true;//그릴 의도가 있음을 알림 
+            });
+
+            content.addEventListener("mouseup", function(){
+                flag=false;//그릴 의도가 없음을 알림 
+            });
+
+            //content에게 마우스 움직임 이벤트 연결하기 
+            content.addEventListener("mousemove", function(){
+                if(flag){
+                    console.log("마우스 움직이고 있어?");
+                    
+                    // content라는 div를 기준으로 한 좌표를 넘겨야함
+                    createDot( event.offsetX , event.offsetY );
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <select id="sel">
+                <option value="1">두께선택</option>
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="6">6</option>
+                <option value="9">9</option>
+            </select>
+            <div id="red" style="background:red"></div>                
+            <div id="green" style="background:green"></div>                
+            <div id="blue" style="background:blue"></div>                
+            <button>재생</button>
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

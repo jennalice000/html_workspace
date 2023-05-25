@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:120px;
+            height:320px;
+            background: yellow;
+            margin: auto;
+            position: relative;
+            margin-top:110px;
+        }
+    </style>
+    <script>
+        //전역변수가 필요 
+        let arr=new Array(5);
+        let flag=true;
+
+        function move(){
+            if(flag){
+                for(let i=0;i<arr.length;i++){
+                    arr[i].style.top=parseInt(arr[i].style.top)+1+"px";
+                    arr[i].innerText=parseInt(arr[i].style.top);
+                    if(parseInt(arr[i].style.top) > 420){
+                        arr[i].style.top=-105+"px";
+                    }
+                } 
+            }
+        }
+
+        function init(){
+            //5개의 사각형 만들기 
+            for(let i=0;i<5;i++){
+                box=document.createElement("div");
+                box.style.width=100+"px";
+                box.style.height=100+"px";
+                box.style.background="pink";
+                box.style.position="absolute";
+                box.style.top=-105+i*(100+5)+"px";
+                box.innerText=i;
+                arr[i]=box;
+                //wrapper에 붙이기
+                let wrapper=document.getElementById("wrapper");
+                wrapper.appendChild(box);
+            }
+        }
+        addEventListener("load", function(){
+            init(); 
+            setInterval("move()", 100);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

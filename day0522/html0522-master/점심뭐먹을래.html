@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/lib.js"></script>
+    <script>
+        let food=new Array(10);
+        food[0]="제육볶음";
+        food[1]="카레";
+        food[2]="돈까스";
+        food[3]="치즈김밥";
+        food[4]="백반";
+        food[5]="짜장면";
+        food[6]="김치찌게";
+        food[7]="된장찌게";
+        food[8]="순대국";
+        food[9]="파스타";
+
+        //자바스크립트의 내장객체 중 수학과 관련된 객체를 Math
+        //객체라 하며, Math.random() 를 이용하면 랜덤값을 
+        //구할 수 있다.. 
+        //Math.random() 은 0.0xxx ~~ 0.9xxx 사이의 값을 반환
+        //해준다..즉 언제나 1보다 작은 실수를 반환해준다 
+        //따라 let r = Math.random(); //0.0xx ~  0.9xx 즉 보다 작다
+        //let n=r*food.length;
+        //console.log("n is ", parseInt(n));
+        //let result=parseInt(n); //배열에 사용할 인덱스..서 1보다 작은 랜덤값에 n을 곱하면 언제나 n보다는
+        //작은 실수가 반환됨..
+        //결론 0~9 사이의 값을 반환받고 싶을때 
+        //Math.random() * (9+1) 연산을 해야 9가 반환됨..
+        
+        console.log("오늘 제가 추천하는 메뉴는 ", food[getRandom(food.length)]);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

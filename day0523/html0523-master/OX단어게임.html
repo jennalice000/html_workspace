@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:300px;
+            height:400px;
+            background: yellow;
+            margin: auto;        
+        }
+        #content{
+            width:100%;
+            height:150px;
+            background: skyblue;
+            font-size: 65px;
+            text-align: center;
+            box-sizing: border-box;
+            padding:20px 20px;
+        }
+        #t_wrapper{
+            width:100%;
+            height:100px;
+            background: red;  
+            box-sizing: border-box;          
+            padding:2px;
+        }
+        #t_wrapper input{
+            width:96%;
+            height:96%;
+            font-size:60px;
+            text-align: center;
+        }
+        #result{
+            width:100%;
+            height:100px;
+            background:greenyellow;
+            font-size: 80px;
+            text-align: center;
+        }
+        #footer{
+            width:100%;
+            height:100px;
+            background: aqua;
+            font-size: 70px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        let content; //단어출력 부
+        let result; // 피드백 출력부(O,X)
+        let footer; //점수 출력부 
+        let keyword; // input 
+        let index=0; //배열의 요소들을 접근할 index
+                            //이 변수에 의해  등장할 단어가 결정..
+        let score=0;//게임이 진행되는 동안 점수는 누적되어야 하므로
+                        //전역변수로 선언
+
+        let wordArray=[
+            "리모콘",
+            "바나나",
+            "2호선",
+            "송파구",
+            "개나리",
+            "태양",
+            "구조선",
+            "불가사리",
+            "책상",
+            "온난화"
+        ];
+
+        //단어등장 시키기
+        function showWord(){
+            content.innerText=wordArray[index];
+            if(index< wordArray.length-1){//배열의 범위 내에서만...
+                index++;
+            }
+        }
+        
+        //점수 출력하기
+        function showScore(){
+            footer.innerText=score+" 점";
+        }
+
+        function init(){
+            content=document.getElementById("content");
+            result=document.getElementById("result");
+            footer=document.getElementById("footer");
+            keyword=document.getElementById("keyword");
+            
+            keyword.focus();//커서 올리기
+            
+        }
+        addEventListener("load", function(){
+            init();
+            showWord();//단어 등장
+            showScore();//점수 출력
+            
+            //텍스트박스에 이벤트 연결 
+            keyword.addEventListener("keyup", function(){
+                console.log("키보드 눌렀어?", event.keyCode);
+
+                //유저가 누른 키코드 값이 13일때(엔터) 다음 단어
+                //나오게 하자
+                if(event.keyCode==13){
+                    //단어끼리 일치한다면 다음 단어 나오게..
+                    //단어가일치하면..
+                    //content div의 innerText와 keyword 텍스트박스
+                    //의 value 값이 동일하다면..
+                    if(content.innerText == keyword.value){
+                        showWord();
+                        result.innerText="O";
+                        score+=10;//기존 점수에 10추가 
+                        showScore();
+                    }else{
+                        result.innerText="X";
+                    }   
+                    keyword.value="";//입력한 단어 초기화 
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">광화문</div>
+        <div id="t_wrapper">
+            <input type="text" id="keyword">
+        </div>
+        <div id="result">X</div>
+        <div id="footer">10 점</div>
+    </div>
+</body>
+</html>

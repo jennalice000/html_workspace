@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:440px;
+            height: 120px;
+            background: yellow;
+            margin: auto;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        let arr=[
+            "img0.jpg"
+            ,"img1.jpg"
+            ,"img2.jpg"
+            ,"img3.jpg"
+            ,"img4.jpg"
+            ,"img5.jpg"
+        ];
+        
+        //전역변수를 6개 확보하자!!
+        //이미지를 담게될 6개의 변수는 이름없는 배열로 선언해야
+        //반복문 등으로 사용될수 있다..즉 규칙이나 순서가 잇어야
+        //한다 
+        let imgArray=[];//배열을 선언하되 그 크기를 결정하지 않음
+
+        //6개의 배열에 담긴 이미지를 각각 left값을 감소시키자 
+        function move(){
+            //console.log("move() 호출...");
+            //imgArray 가 배열이므로, 반복문을 적용할 수 있다..
+            for(let i=0;i<imgArray.length;i++){
+                
+                imgArray[i].style.left=parseInt(imgArray[i].style.left)-1+"px";
+                //만약 이미지들의 위치가 -100보다 작아지면 
+                //우측 끝으로 보내자(525)
+                if(parseInt(imgArray[i].style.left)<=-100){
+                    imgArray[i].style.left=530+"px";
+                }
+            }
+         }
+
+        //이미지 6개를 wrapper의 자식요소로 등록하되, 
+        //position은 absolute로 두자 
+        function init(){
+            for(let i=0;i<arr.length;i++){
+                let img=document.createElement("img");
+                img.src="../images/shurek/"+arr[i];
+                img.style.width=100+"px";
+                img.style.height=100+"px";
+                img.style.boxSizing="border-box";
+                //img.style.border="5px solid red";
+                img.style.position="absolute";
+                img.style.left=(i*105)+"px";
+                
+                let wrapper=document.getElementById("wrapper");
+                wrapper.appendChild(img);
+
+                //생성된 이미지를 배열에 담자 !!
+                imgArray.push(img);
+            }
+        }
+
+        addEventListener("load", function(){
+            init();
+
+            setInterval("move()", 10);
+
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
