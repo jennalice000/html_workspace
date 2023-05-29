@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        let bulletArray=[]; //태어난 총알을 보관할 전역변수 undefined..
+        let colorArray=["red","orange","yellow","green","blue","navy","purple"];
+
+        //버튼을 누를때 마다 총알을 생성해야 하므로, 즉 다수의 사물을 생성할
+        //예정이므로, 총알을 하나만 정의하는 것이 아니라 장차 총알을 무한대로
+        //생성할 수 있는 틀을 정의해 버리자!!(즉 클래스로 정의해 놓자)
+        class Bullet{
+
+                 //이 브레이스 올 수 있는 코드(변수-사물의 상태, 함수-사물의동작)
+            //생성자란? 해당 클래스로부터 사물이 생성될때 ,어떤 스타일로 생성할지
+            //초기화할때 사용되는 함수 즉 메서드를 의미..즉 이 코드에서는 어떠한 
+            //총알을 생성하고 싶은지 개발자의 의도를 작성할 수 있는 함수 영역..
+            //특히 사물이 태어날때 호출된다고 하여 생성자라 한다... 
+            //ex)    new  Bullet()
+            constructor(y, c){
+                this.x=0;//총알이 보유한 멤버변수
+                this.y=y;
+                this.color=c;
+
+                this.div=document.createElement("div");
+                this.div.style.width=50+"px";
+                this.div.style.height=50+"px";
+
+                this.div.style.position="absolute";
+                this.div.style.top=this.y+"px";
+                this.div.style.left=0+"px";
+
+                this.div.style.background=this.color;
+                document.body.appendChild(this.div);
+            }
+
+            //메서드정의시 기존의 function 키워드는 붙이지 않는다..
+            //왜? 메서드는 일반 함수가 아니라, 클래스에 소속되므로...
+            move(){
+                this.x = this.x + 5;
+                this.div.style.left=this.x+"px";
+            }
+        }
+
+        //아래의 fire()는 함수라 불러야 한다. 
+        //why?  어떠한 클래스 영역에도 포함시킨 적이 없으므로..
+        function fire(){
+            //window.alert();
+            //왜 new 연산자 뒤에 생성자 호출을 강제할까? 
+            //이유? 사물이 태어날때 어떻게 태어날지에 대한 개성이 생성자메서드
+            //담겨 잇으므로, 즉 사물이 태어날때 생성자가 호출되어야 하지만 해당
+            //객체는 어떤 모습으로 태어날지 결정될 수 잇다..따라서 클래스가
+            //보유한 그 어떤 메서드 보다 먼저 생성자의 호출이 우선되어야 하므로
+            //new 연산자 사물을 생성하는 시점이므로 이 시점을 놓치지 않고 생성자
+            //메서드의 호출을 강제하고 있다..(모든객체지향 프로그래밍 언어에서...)
+            let r =parseInt(Math.random()*(400+1)); //0.0xxx ~0.9xx 1보다 작은 수
+            let c=parseInt(Math.random()*colorArray.length); // 0.xxx ~ 6.xxx
+
+            let b = new Bullet(r, colorArray[c]); //Bullet이라는 클래스가 보유한 constructor()
+            bulletArray.push(b); //생성된 총알인 b를 배열에 추가 
+        }
+
+        function loop(){
+            //화면에 등장한 총알의 move() 메서드 호출하자
+
+            //배열에 들어있는 총알 수 만큼 move() 호출
+            for(let i=0;i<bulletArray.length;i++){ 
+                bulletArray[i].move();
+            }                            
+        }
+
+        addEventListener("load", function(){
+            document.querySelector("button").addEventListener("click", function(){
+                fire();  
+            });
+            setInterval("loop()", 10);
+        });
+    </script>
+</head>
+<body>
+    <button>발사</button>
+
+</body>
+</html>

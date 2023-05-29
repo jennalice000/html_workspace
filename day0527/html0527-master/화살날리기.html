@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*Javascript의 정식명칭= ECMAScript = ES2015
+        2015년에 발표된 js는 클래스를 지원하기 시작함. let...
+        Class란? 
+          - 사물 자체가 아니라, 사물을 생성해 낼수 있는 틀 
+          - 새로운 기술이 아니라, 현실을 반영하는 방법에 변화...
+
+        class 정의하는 방법 
+          하나의 사물에 해당하는 코드들에 대해 {} 로 감싸고, 이름을 붙인다
+          이때 클래스의 이름은 사물의 명칭으로 한다..해당 명칭은 반드시 대문자로
+          시작한다..원칙 어겨도 에러는 안난다...관습(개발자들간의 전해내려오는 약속)
+        
+        class로 대표되는 객체지향언어는 신 기술이 아니라, 기존의 절차지향 
+        프로그래밍 언어로 현실을 반영함에 있어, 한계가 있기 때문에 
+        절차지향 언어에서의 변수, 함수를 하나로 묶은 단위로 현실을 표현함..              
+
+        객체지향이란 객체중심의 프로그래밍 언어
+        */
+       let arr;  //생성된 화살의 인스턴스를 보관하는 전역변수 
+
+       class Arrow{
+            //클래스가 보유한 변수들을 가리켜 멤버변수라 한다 
+
+            //java,c# 등과 같은 객체지향 언어에서는 멤버변수를 클래스안에 두기만
+            //하면 되지만, js는 완벽한 객체지향 언어가 아닌 스크립트 언어이기에 
+            //멤버변수는 반드시 constructor() 라 불리는 메서드안에 두어야 한다
+            //메서드란?  기존의 함수가 클래스안에 선언될때 이 함수를 특히나 메서드
+            //              라 한다.
+            constructor(){//생성자 메서드..
+                this.div; //함수들간 공유하기 위해 전역변수로
+                this.x=0;  // 화살표의 x축 값
+                console.log("new 연산자로 constructor() 호출함");
+                
+                this.createArrow(); //나의 createArrow() 호출 
+            }
+            
+            //div를 동적으로 생성하여, 화살표 문자를 넣고 동적으로 body부착 후 날리기
+            createArrow(){
+                this.div=document.createElement("div");
+                this.div.innerText="→";
+
+                this.div.style.width=30+"px";
+                this.div.style.height=25+"px";
+                this.div.style.color="red";
+
+                this.div.style.position="absolute";
+                this.div.style.left=0+"px";
+                this.div.style.top=100+"px";
+
+                document.body.appendChild(this.div);
+            }
+            //움직이기
+            move(){
+                this.x=this.x+5;
+                this.div.style.left=this.x+"px";    
+            }
+        }
+
+        function init(){
+            //위에서 정의한 Arrow이름을 갖는 거부집(틀)에 쇳물을 부어 
+            //화살을 생성하자 
+            //new 거푸집(틀)이름
+            arr=new Arrow(); //틀이 보유한 constructor() 생성자 호출해야함
+            arr.move();
+        }
+
+        addEventListener("load", function(){
+            init();
+            //setInterval("move()", 50);
+        });
+    </script>
+
+</head>
+<body>
+    
+</body>
+</html>

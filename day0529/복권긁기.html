@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복권긁기</title>
+    <script>
+        let wrapper; //사각형 셀들이 붙여질 곳
+        let size = 20; //정사각형 한 변 사이즈;
+        let cols = 60; //열의 개수
+        let rows = 90; //행의 개수
+        let cellArray = new Array(rows);
+
+        //셀을 정의함
+        class Cell {
+            constructor(x, y){
+                this.div;
+                this.x=x;
+                this.y=y;
+
+                this.div = document.createElement('div')
+                this.div.style.width = size + 'px'
+                this.div.style.height = size + 'px'
+                this.div.style.background = 'blue'
+                this.div.style.position = 'absolute'
+                this.div.style.left = this.x +'px'
+                this.div.style.top = this.y +'px'
+                this.div.style.border = '1px solid black'
+                this.div.style.boxSizing = 'border-box'
+
+                wrapper.appendChild(this.div)
+
+                this.div.addEventListener('mouseover', function(){
+                    this.style.opacity = 0;
+                })
+            }
+        }
+
+        function createWrapper(){
+            wrapper = document.createElement('div');
+            wrapper.style.width= size*cols+'px'
+            wrapper.style.height = size*rows+'px'
+            wrapper.style.margin = 'auto'
+            wrapper.style.position = 'relative'
+            wrapper.style.background = 'yellow'
+            wrapper.style.backgroundImage = 'url(../images/me.png)'
+            wrapper.style.backgroundSize = (size*cols)+'px '+(size*rows)+'px'
+
+            document.body.appendChild(wrapper)
+        }
+
+        //전역변수에 선언한 셀의 수만큼 반복문 돌리면서 셀 생성(new)
+        function createCell(){
+            for(let i=0; i<rows; i++){
+                //셀들을 담기 위한 1차원 배열
+                let arr = new Array(cols);
+                let a;
+
+                for(let j=0; j<cols; j++){
+                    let cell = new Cell(j*size, i*size)
+                    arr[j] = cell;
+                }
+                cellArray[i] = arr;
+            }
+        }
+
+        function init(){
+            createWrapper()
+            createCell();
+        }
+
+        addEventListener('load', function(){
+            init()
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

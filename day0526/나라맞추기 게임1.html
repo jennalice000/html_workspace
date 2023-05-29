@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>국기와 수도 맞추기 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .flag {
+            margin-top: 30px;
+        }
+
+        #capital-input {
+            margin-top: 20px;
+        }
+
+        #submit-btn {
+            margin-top: 10px;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>국기와 수도 맞추기 게임</h1>
+    <div class="flag">
+        <img id="flag-img" src="" alt="국기 이미지">
+    </div>
+    <div id="capital-input">
+        <input type="text" id="capital" placeholder="수도를 입력하세요">
+        <button id="submit-btn">제출</button>
+    </div>
+    <div id="score">점수: 0</div>
+    <div id="result"></div>
+
+    <script>
+        // 국기와 수도 정보
+        var countries = [
+            { flag: 'flag_a.png', capital: '수도A', related: '연관어A' },
+            { flag: 'flag_b.png', capital: '수도B', related: '연관어B' },
+            { flag: 'flag_c.png', capital: '수도C', related: '연관어C' },
+            // 다른 국기와 수도 정보 추가
+        ];
+
+        var currentCountryIndex = 0;
+        var score = 0;
+
+        var flagImg = document.getElementById('flag-img');
+        var capitalInput = document.getElementById('capital');
+        var submitBtn = document.getElementById('submit-btn');
+        var scoreDiv = document.getElementById('score');
+        var resultDiv = document.getElementById('result');
+
+        function initGame() {
+            flagImg.src = countries[currentCountryIndex].flag;
+            capitalInput.value = '';
+            resultDiv.innerHTML = '';
+        }
+
+        function submitAnswer() {
+            var userCapital = capitalInput.value.toLowerCase();
+            var correctCapital = countries[currentCountryIndex].capital.toLowerCase();
+            var relatedWord = countries[currentCountryIndex].related;
+
+            if (userCapital === correctCapital) {
+                score += 10;
+                resultDiv.innerHTML = '정답입니다! 연관어: ' + relatedWord;
+            } else {
+                resultDiv.innerHTML = '오답입니다! 정답은 ' + correctCapital + '입니다.';
+            }
+
+            currentCountryIndex++;
+            scoreDiv.innerHTML = '점수: ' + score;
+
+            if (currentCountryIndex < countries.length) {
+                setTimeout(initGame, 2000);
+            } else {
+                resultDiv.innerHTML += '<br>게임 종료! 총 점수: ' + score;
+                submitBtn.disabled = true;
+            }
+        }
+
+        initGame();
+
+        submitBtn.addEventListener('click', submitAnswer);
+        capitalInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                submitAnswer();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+{flag: '../images/countries/미국.png', capital: '워싱턴 D.C.', related: 'great', nation: '미국'},
+{flag: '../images/countries/세르비아.png', capital: '베오그라드', related: '니슈', nation: '세르비아'},
+{flag: '../images/countries/슬로바키아.png', capital: '브라티슬라바', related: '타트라산맥', nation: '슬로바키아'},
+{flag: '../images/countries/아이슬란드.png', capital: '레이캬비크', related: '신서유기', nation: '아이슬란드'},
+{flag: '../images/countries/아이티.png', capital: '포르토프랭스', related: '라바디', nation: '아이티'},
+{flag: '../images/countries/우간다.png', capital: '캄팔라', related: '스와힐리어', nation: '우간다'},
+{flag: '../images/countries/우크라이나.png', capital: '키이우', related: '도네츠크', nation: '우크라이나'},
+{flag: '../images/countries/이스라엘.png', capital: '예루살렘', related: '히브리어', nation: '이스라엘'},
+{flag: '../images/countries/카타르.png', capital: '도하', related: '알와크라', nation: '카타르'},
+{flag: '../images/countries/헝가리.png', capital: '부다페스트', related: '세체니온천', nation: '헝가리'}

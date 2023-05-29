@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:400px;
+            height:450px;
+            background-color: yellow;
+            margin: auto;
+        }
+        #header{
+            width:100%;
+            height:50px;
+            background-color: greenyellow;
+            font-size: 40px;
+            text-align: center;
+        }
+        
+        #content{
+            width:100%;
+            height:300px;
+            background: hotpink;
+        }
+        #content img{
+            width:100%;
+            height:200px;
+        }
+        #content #info1, #info2{
+            font-size:20px;
+            margin:10px;        
+        }
+        #footer{
+            width:100%;
+            height:100px;
+            background-color: aqua;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        #footer input{
+            width:90%;
+            height:90%;
+            font-size: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">0점</div>
+        <div id="content">
+            <img id="pic" src="">
+            <div id="info1">서울</div>
+            <div id="info2">김치</div>
+        </div>
+        <div id="footer">
+            <input type="text" id="keyword">
+        </div>
+    </div>
+    
+</body>
+    <script>
+        let index = -1;
+        let score = 0;
+        let status = true;
+        let pic;
+        let header;
+        let info1;
+        let info2;
+        let keyword;
+        let nationArray=[
+            ["../images/flags/america.png","수도:워싱턴","특색:초강대국", "미국"],
+            ["../images/flags/aust.png","캔버라","특색:코알라", "호주"],
+            ["../images/flags/canada.jfif","오타와","특색:북아메리카 연방국","캐나다"]
+            // ["../images/flags/england.png","런던","특색:버킹엄궁전","영국"],
+            // ["../images/flags/france.png","파리","특색:에펠탑","프랑스"],
+            // ["../images/flags/german.png","베를린","특색:맥주","독일"],
+            // ["../images/flags/korea.png","서울","특색:김치,한복","한국"],
+            // ["../images/flags/north.jfif","평양","특색:핵실험","북한"],
+            // ["../images/flags/spain.png","마드리드","특색:투우","스페인"],
+            // ["../images/flags/sweden.png","스톡홀름","이케아","스웨덴"]
+        ]
+
+        function next(){
+            index++
+            if(index>nationArray.length-1){
+                pic.src = nationArray[index][0];
+                info1.innerText = nationArray[index][1];
+                info2.innerText = nationArray[index][2];
+            }
+        }
+
+        function confirmKeyword(){
+            if(keyword.value == nationArray[index][3]){
+                if(status)score +=10;
+                next()
+            }
+            keyword.value="";
+            header.innerText = score + '점'
+        }
+
+
+        function init(){
+            header=document.getElementById('header');
+            pic=document.getElementById('pic');
+            info1=document.getElementById('info1');
+            info2=document.getElementById('info2');
+            keyword=document.getElementById('keyword');
+        }
+
+        addEventListener('load', function(){
+            init()
+            next()
+            keyword.focus()
+
+            keyword.addEventListener('keyup', function(e){
+                if(e.keyCode ==13){
+                    console.log('dafsdf')
+                    confirmKeyword()
+
+                }
+            })
+        })
+    </script>
+</html>

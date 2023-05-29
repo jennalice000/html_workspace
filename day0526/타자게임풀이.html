@@ -52,22 +52,41 @@
         }
     </style>
     <script>
+        // stage통과조검
+        // 화면에 있는 모든 단어가 제거되었을 때 어떤 방법을 쓰던 1stage가 종료되었음을 알리고 초기화할 것이 있다면 초기화하기 (ex) 
+
+        //stage가 바뀔 때 배경도 전환되기
+
+        //11시까지 제출, github에 올리고 링크를 메일로 보내기
+        // zino1187@naver.com
+        //송파 조수빈 -> 메일제목
+
+        let h = -1; //hpArray index접근
         let hp;
         let size=35;
         let hpArray=[];
-        let word = ["지유", '시연', '수아', '한동', '가현', '다미', '유현', '샤이니', '드림캐쳐', '키']
+        let wordArray = [
+            ["지유", '시연', '수아', '한동', '가현', '다미', '유현', '샤이니', '드림캐쳐', '키'],
+            ["종현", '기범', '온유', '태민', '진기', '민호', '데미안', '본보야지', '비전', '메종'],
+            ["오기", '후기', '오리', '영웅', '경사', '기우', '영화', '매드맥스', '원더랜드', '앨리스']
+        ];
+        let stage1 = wordArray[0]
+        let stage2 = wordArray[1]
+        let stage3 = wordArray[2]
+        
         let spanArray = [] //span들을 담고 있을 배열 선언
         let content;
         let velY = 5
         let span;
         let flag=false;
         let keyword;//텍스트박스
+        let score;
 
         function createWord(){
             //각 단어마다 html 요소 중 inline 속성이 있는 태그 중 span을 활용함
-           for(let i=0; i<word.length; i++){
+           for(let i=0; i<wordArray.length; i++){
                 span = document.createElement('span')
-                span.innerText = word[i]
+                span.innerText = wordArray[stage1][i]
                 span.style.position = 'absolute';
                 span.style.left = 60+ (Math.random()) * 400 + 'px';
                 span.style.top = -70+ Math.random() * 100 + 'px';
@@ -99,11 +118,36 @@
             }
         }
 
+        function showPos(n){
+            spanArray[n].innerText = spanArray[n].style.top;
+        }
+
+        function penalty(){
+            for(let i=0; i<hpArray.length; i++){
+
+            }
+
+        }
+
         function move(){
             //텍스트를 담고 있는 span이 내려오게 하는 함수
            if(flag){
                 for(let i=0; i<spanArray.length;i++){
                     spanArray[i].style.top = parseInt(spanArray[i].style.top)+velY+'px';
+
+                    //개발의 목적상 각 단어의 좌표 출력하기
+                    showPos(i);
+
+                    //내려오다가 한계점에 도달하면 hp깎임
+                    if(parseInt(spanArray[i].style.top) >=540){
+                        penalty();
+                        content.removeChild(spanArray[i]);
+                        spanArray.splice(i, 1);
+                        // 화면에서 제거, 배열에서 제거
+                        //hp박스를 회색으로 전환
+                        h++
+                        hpArray[h].style.background = 'gray'
+                    }
                 }
            }
         }
@@ -117,27 +161,25 @@
             // 화면에 등장하는 spanArray에 들어있는 span들을 대상으로 반복문을 돌리면서 한 요소씩 접근하면서 사용자가 입력한 단어와 span에 들어있는 단어의 일치성 여부를 따져보고 일치하면 피드백함
             for (let i = 0; i < spanArray.length; i++) {
                 if (keyword.value === spanArray[i].innerText) {
-                    content.removeChild(spanArray[i]); // 일치하는 span 요소를 content에서 제거
-                    spanArray.splice(i, 1); // spanArray에서 해당 요소 제거
-                    break; // 일치하는 첫 번째 단어만 처리하고 반복문 종료
-                }
+                    content.removeChild(spanArray[i]); 
+                    spanArray.splice(i, 1);
+                    plusScore(10)
+                }             
             }
             keyword.value = ''; // 입력값 초기화
         }
 
-        function plusScore(){
-            
+        function plusScore(point){
+            let currentScore = parseInt(score.innerText);
+            let newScore = currentScore + point
+            score.innerText = newScore + '점'
         }
-
-        function miusScore(){
-            
-        }
-
         
         function init() {
             hp = document.getElementById('hp');
             content = document.getElementById('content')
             keyword = document.querySelector('input');
+            score = document.getElementById('score')
         }
         
         addEventListener('load', function() {
@@ -152,7 +194,7 @@
                    confirmKeyword()
                 }
             })
-            setInterval("move()", 1000)
+            setInterval("move()", 10)
 
         });
     </script>
@@ -160,7 +202,7 @@
 <body>
     <div id="wrapper">
         <div id="side">
-            <div id="score">50 점</div>
+            <div id="score">0 점</div>
             <div id="hp"></div>
             <input type="text">
             <button onclick="setFlag()">Start</button>

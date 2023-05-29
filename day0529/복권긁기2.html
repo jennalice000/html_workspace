@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>복권긁기</title>
+    <script>
+   let wrapper; // 사각형 셀들이 붙여질 곳
+        let size = 20; // 정사각형 한 변의 크기
+        let cols = 40; // 열의 개수
+        let rows = 30; // 행의 개수
+        let cellArray = new Array(rows);
+        let a = 0.1;
+
+        // 셀을 정의함
+        class Cell {
+            constructor(x, y) {
+                this.div;
+                this.x = x;
+                this.y = y;
+                this.targetO = 1;
+
+                this.div = document.createElement('div');
+                this.div.className = 'cell';
+                this.div.style.left = this.x + 'px';
+                this.div.style.top = this.y + 'px';
+
+                wrapper.appendChild(this.div);
+
+                let self = this;
+                this.div.addEventListener('mouseover', function() {
+                    self.targetO = 0;
+                });
+            }
+
+            move() {
+                // 부드럽게 사라지기 (opacity에 감속도 공식을 적용)
+                this.div.style.opacity = parseFloat(this.div.style.opacity) + a * (this.targetO - parseFloat(this.div.style.opacity));
+            }
+        }
+
+        function createWrapper() {
+            wrapper = document.createElement('div');
+            wrapper.className = 'wrapper';
+            document.body.appendChild(wrapper);
+        }
+
+        // 전역변수에 선언한 셀의 수만큼 반복문을 돌리면서 셀 생성 (new)
+        function createCell() {
+            for (let i = 0; i < rows; i++) {
+                // 셀들을 담기 위한 1차원 배열
+                let arr = new Array(cols);
+                for (let j = 0; j < cols; j++) {
+                    let cell = new Cell(j * size, i * size);
+                    arr[j] = cell;
+                }
+                cellArray[i] = arr;
+            }
+        }
+
+        function init() {
+            createWrapper();
+            createCell();
+        }
+
+        function loop() {
+            for (let i = 0; i < cellArray.length; i++) {
+                for (let j = 0; j < cellArray[i].length; j++) {
+                    cellArray[i][j].move();
+                }
+            }
+        }
+
+        addEventListener('load', function() {
+            init();
+            setInterval(loop, 1000);
+        });
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:750px;
+            height:550px;
+            background: yellow;
+            margin: auto;
+        }
+        #side{
+            width:150px;
+            height:550px;
+            background: pink;
+            float:left;          
+            text-align: center;  
+        }
+        #content{
+            width:600px;
+            height:550px;
+            background: salmon;
+            float: left;
+            position: relative; /*자식때문에...*/
+        }
+        #score{
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+        #side input{
+            width:90%;
+            height:45px;
+            margin-top: 10px;
+        }
+        #side button{
+            width:94%;
+            height:25px;
+            margin-top: 10px;
+        }
+        #hp{
+            background: greenyellow;
+            width:140px;
+            height:150px;
+            margin: auto;
+            margin-top:10px;
+            position: relative; /*자식때문에...*/
+        }
+    </style>
+    <script src="../JS/03_랜덤값구하기.js"></script>
+    <script>
+        let hp;
+        let size=35; //상자의 크기
+        let hpArray=[];//체력상자가 모아질 배열
+        let content; //게임이 진행될 stage
+        let game_score=0;//게임점수
+
+        //게임에 사용할 단어 
+        let wordArray=[
+            ["광화문","바구니","태양","저수지","팝송","저녁","송사리","서울대","3호선","마우스"],
+            ["자바","개구리","구름","파인애플","볼펜","철학","스피커","과학","메모장","파란색"],
+            ["숙제내서죄송해요","동굴","자동차","기쁨","음악","시계","무지개","파도","지도","가자미"]
+        ];
+
+        let bg = ['yellow', 'red', 'blue']
+
+        
+        //span 들을 담고 있을 배열선언
+        let spanArray=[];
+        let velY=5; //좌표 아니라 몇걸음씩 내려올지 그 폭을 결정하는 변수
+        let flag=false;
+        let keyword; //텍스트박스
+        let h=-1;//hpArray를 접근할 index 
+        let stage=0; //1 stage부터 게임이 진행되어야 하므로 0
+
+        //게임에 사용될 체력을 표현할 12개의 사각형 박스만들기
+        function createHp(){
+            for(let a=0;a<4;a++){ //층
+                for(let i=0;i<3;i++){//호
+                    let box=document.createElement("div");
+                    box.style.width=size+"px";
+                    box.style.height=size+"px";
+                    box.style.background="red";
+                    box.style.border="2px solid black";
+                    
+                    //hp에 부착하기 (절대위치로..)
+                    box.style.position="absolute";
+                    box.style.left=15+i*size+"px"; //호수와 관련
+                    box.style.top=4+a*size+"px";//층수완 관련
+                
+                    hp.appendChild(box);
+                    
+                    //생성된 hp를 일차원배열에 담아두자 
+                    hpArray.push(box);
+                }
+            }
+        }
+        
+        function createWord(){
+            //각 단어마다  html  요소중  inline 속성이 있는 태그중
+            //span을 활용해본다 
+            for(let i=0;i<wordArray[stage].length;i++){
+                let span=document.createElement("span");
+                span.innerText=wordArray[stage][i];
+                span.style.position="absolute";
+                span.style.left=i*50+"px";
+                span.style.top=getRandomByRange(-50, -200) +"px";
+                
+                content.appendChild(span);
+
+                //생성된  span요소를 배열에 담아놓자 
+                //왜? 순서가 생기므로 반복문, 랜덤..활용도 높다
+                //우리의 경우 타자입력값과  span들을 반복문으로 
+                //돌려가며 비교해야 하므로 배열화 되어야 한다..                
+                spanArray.push(span);
+            }
+        }
+
+        function nextStage(){
+            stage++;
+
+            for(let i=0; i<spanArray.length; i++){
+                content.removeChild(spanArray[i]);
+            }
+            spanArray=[];
+            createWord();
+            changeBG()
+
+        }
+
+        //각  span의 좌표를 출력하는 함수
+        function showPos(n){
+            spanArray[n].innerText=spanArray[n].style.top;
+        }
+
+        //단어를 못맞추었을때 처리~~
+        function penalty(){
+            //내려오다가 한계점에 도달하면..단어제거,hp배경바꾸기... 
+            content.style.background = 'red'
+
+        }
+
+        function changeBG(){
+            if(spanArray.length ===0){
+                
+            }
+        }
+        //텍스트를 담고 있는 span이 내려오게 하는 함수
+        function move(){
+            if(flag){
+                //spanArray에 들어있는 span 수만큼..즉 모든 단어만큼
+                for(let i=0;i<spanArray.length;i++){                 
+                    spanArray[i].style.top=parseInt(spanArray[i].style.top)+velY+"px";
+                    
+                    //개발목적상 각 단어의 좌표 출력하기
+                    //showPos(i);
+                    
+                    //spanArray[i].style.top  는 사실  '00px' 문자이므로
+                    //정수화 시켜서 비교해야 한다
+                    if(parseInt(spanArray[i].style.top) >=525){
+                        //penalty();         
+                        content.removeChild(spanArray[i]);//화면에서 제거                   
+                        spanArray.splice(i, 1);//배열제거
+                        //hp박스를 회색으로 전환~~~
+                        h++;
+                        hpArray[h].style.background="gray";
+                    }
+                }                        
+                
+            }
+            
+            if(spanArray.length===0){
+                nextStage();
+                for(let j=0; j<2; j++){
+                    content.style.background=bg[j];
+                    j++
+                }
+                }
+            }
+        
+
+        function setFlag(){
+            flag=!flag;
+            keyword.focus();
+        }
+        
+        //화면에 등장하는 spanArray 에 들어있는 span들을 대상으로
+        //반복문 돌리면서 즉 한요소씩 접근하면서 사용자가 입력한
+        //단어와  span에 들어있는 단어의 일치성 여부를 따져보고
+        //일치하면  피드백~~(점수 증가, span 화면에서 제거)
+        function confirmKeyword(){
+            //alert("엔터쳤지?");
+
+            for(let i=0;i<spanArray.length;i++){ //모든 span을 대상으로~~~
+                if(spanArray[i].innerText==keyword.value){
+                    
+                    //게임 사용자를 위해 화면에서 제거 
+                    content.removeChild(spanArray[i]);
+
+                    //화면에서 제거한다고 하여 배열이 자동으로 줄어드는 것은 
+                    //아니므로, 배열의 요소도 제거하자 splice(지울대상index, 지울개수) 
+                    spanArray.splice(i , 1);     
+                    
+                    //점수증가 
+                    game_score+=10; 
+                    
+                    //점수출력 
+                    setScore();
+                }
+            }
+            //단어끼리 비교가 끝난 다음에, 입력한 텍스트박스는 초기화
+            keyword.value="";
+        }
+
+        //점수처리는 게임을 진행하는 동안 자주 사용되는 코드이므로
+        //여기저기 파편화시키지 말고, 하나의 함수로 몰아서 즉 
+        //공통화시켜서 관리하는 편이 유지보수성을 높여준다.. 
+        function setScore(){
+            score.innerText=game_score+" 점"; 
+        }
+
+        function init(){
+            hp = document.getElementById("hp");
+            content=document.getElementById("content");
+            keyword=document.querySelector("input");
+            score = document.getElementById("score");            
+        }
+
+        addEventListener("load", function(){
+            init();
+            setScore();
+            createHp();
+            createWord(); //단어 수만큼의 요소 생성
+            
+            //keyword 텍스트박스를 대상으로 이벤트 연결
+            //익명함수에는 내부적으로 event 객체가 전달되므로 
+            //개발자가 익명함수 선언시 매개변수를 명시하면, 
+            //event 객체를 전달받을 수 있다 
+            keyword.addEventListener("keyup", function(e){
+                //엔터를 쳤을때~~         
+                //console.log("입력한 키값은 ", e.keyCode);    
+                if(e.keyCode==13){ //엔터쳤다면..
+                   confirmKeyword();                         
+                }                   
+            });
+
+
+            //초기화가 완료된 다음에 즉 요소들이 존재한 이후부터
+            //게임이 진행되어야 하므로, 제일 마지막에 호출하자
+            setInterval("move()", 50);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="side">
+            <div id="score"></div>
+            <div id="hp"></div>
+            <input type="text">
+            <button onClick="setFlag()">Start</button>
+        </div>
+        <div id="content"></div>
+    </div>
+
+</body>
+</html>

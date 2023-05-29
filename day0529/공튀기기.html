@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width: 500px;
+            height: 500px;
+            background-color: yellow;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <script src="../JS/03_랜덤값구하기.js"></script>
+    <script>
+        let wrapper;
+        let ballArray = [];
+        
+
+        class Ball{
+            // 다수의 공을 생성할거니까 클래스 사용함
+            constructor(velX, velY){
+                this.div;
+                this.x = 0;
+                this.y = 0;
+                this.velX=velX; 
+                this.velY=velY;
+                
+                this.div=document.createElement('div');
+                this.div.style.width = 25 + 'px'
+                this.div.style.height = 25 + 'px'
+                this.div.style.background = 'red'
+                this.div.style.borderRadius =  50 + '%'
+
+                this.div.style.position = 'absolute'
+                this.div.style.left = 0 +'px'
+                this.div.style.top = 0 +'px'
+
+                wrapper.appendChild(this.div)
+
+            }
+            move(){
+                this.x = this.x + this.velX;
+                this.y = this.y + this.velY;
+
+                if (this.x <= 0 || this.x >= 500-35) {
+                    this.velX = -this.velX;
+                }
+                if (this.y <= 0 || this.y >= 500-35) {
+                    this.velY = -this.velY; 
+                }
+
+                this.div.style.left = this.x + "px";
+                this.div.style.top = this.y + "px";
+            }
+        }
+
+        function createBall(){
+            ballArray.push(new Ball(getRandomByRange(1, 30), getRandomByRange(1, 30)))
+        }
+
+        function init(){
+            wrapper = document.getElementById('wrapper')
+        }
+
+        function loop(){
+            // 화면에 등장하는 모든 볼을 대상으로(배열의 크기만큼)반복문 수행하며 move()호출
+            for(let i=0; i<ballArray.length; i++){
+                ballArray[i].move()
+            }
+        }
+
+        addEventListener('load', function(){
+            init();
+            setInterval('loop()', 50)
+            // 키보드에 이벤트 연결
+            document.body.addEventListener('keydown', function(){
+                if(event.keyCode === 32){
+                    createBall()
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

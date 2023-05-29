@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../JS/03_랜덤값구하기.js"></script>
+    <script>
+        let ballArray=[];
+        let colorArray=["red","orange","yellow","green","blue","navy","purple"];
+        let textArray=["★","＠","◎","d","e","f","g"];
+
+        //아래의 단위는 물체 자체가 아니라, 장차 물체를 생성해
+        //낼 수 있는 거푸집이다!!
+        //IT분야에서는 이러한 거푸집을 클래스라 한다..
+        class Ball{
+            //객체중심 적인 측면에서 본다면 아래의 변수들은
+            //Ball 꺼다! 그리고 Ball은 사람도 아니고 생물이 아니므로
+            //this 대명사를 이용한다..
+            //Java, C# 등의 완전한 언어에서는 아래의 코드가 올바
+            //르지만, js에서는 객체가 보유한 멤버변수의 선언은 
+            //constructor() 생성자 메서드에 정의할 것을 강제하고 있다
+            
+            //문서내에 공을 생성하여 날아가게~
+            //일반적으로 객체지향에서의 생성자 메서드란, 객체가 
+            //거푸집으로 부터 태어날때 호출되는 메서드이며, 
+            //이 메서드는 해당 객체의 개성을 부여할 수 있는 
+            //역할을 수행한다..
+            constructor(bg, x, y, velX, velY, txt){
+                //멤버변수 3개를 정의한다
+                //객체가 보유한 변수를 멤버변수라 하고, 이 멤버변수
+                //전역, 지역이라는 말을 붙이지 않는다....
+                //그럼 멤버변수는 언제 태어나서? 언제까지 살아갈까?
+                //객체의 인스턴스와 그 생명을 함께한다..
+                this.div; 
+                this.x=x;
+                this.y=y;
+                this.bg=bg;
+                this.velX=velX; //x축으로의 속도
+                this.velY=velY; //y축으로의 속도
+                this.txt=txt;
+                this.ro=0;
+
+                this.div=document.createElement("div");
+                this.div.style.width=50+"px";
+                this.div.style.height=50+"px";
+                this.div.style.background=this.bg;
+                this.div.style.borderRadius=50+"%";
+                this.div.innerText=this.txt;
+                this.div.style.fontSize=45+"px";
+
+                this.div.style.position="absolute";
+                this.div.style.left=this.x+"px";
+                this.div.style.top=this.y+"px";
+
+                //문서에 부착 
+                document.body.appendChild(this.div);
+            }
+
+            //생성된 공을 움직이자 
+            move() {
+                this.x = this.x + this.velX;
+                this.y = this.y + this.velY;
+
+                // Check if the ball reaches the edges of the wrapper
+                if (this.x <= 0 || this.x >= 500 - 50) {
+                    this.velX = -this.velX; // Reverse the x-axis velocity
+                }
+                if (this.y <= 0 || this.y >= 500 - 50) {
+                    this.velY = -this.velY; // Reverse the y-axis velocity
+                }
+
+                this.div.style.left = this.x + "px";
+                this.div.style.top = this.y + "px";
+                this.ro += 2;
+                this.div.style.transform = "rotate(" + this.ro + "deg)";
+            }
+        }
+
+        //우리가 위에서 정의한 거푸집인 Ball 클래스로부터 버튼을
+        //누를때 마다 인스턴스를 생성하자!!
+        //인스턴스를 생성할때 사용되는 연산자를 new 연산자라한다
+        //Java, C# 현존하는 대부분의 객체지향 언어에서도 마찬가지
+        function createBall(){
+            //객체라 할지라도 기존 언어의 문자,숫자,논리값을 그대로
+            //보유하며 단지 여기에다가 함수가 추가된 것 뿐이다...
+
+            //과거에 또 써먹을려고 정의해놓은 라이브러리중 
+            //랜덤관련된 함수를 사용하자
+            let x=getRandom(50+1);//랜덤한 x축값 
+            let y=100+getRandom(100+1);//랜덤한 y축값 
+            let r=getRandom(colorArray.length);
+            let velX=getRandomByRange(1, 5);
+            let velY=getRandomByRange(1, 5);
+            let t=getRandom(textArray.length);
+
+            let ball=new Ball(colorArray[r], x , y, velX, velY, textArray[t]);
+            ballArray.push(ball);
+        }
+
+        function loop(){
+            //문서에 등장한 모든 공을 대상으로 반복문 돌리면서 
+            //각 공이 보유한 move() 메서드를 호출~~
+            for(let i=0;i<ballArray.length;i++){
+                ballArray[i].move();
+            }                            
+        }
+
+        addEventListener("load", function(){
+            setInterval("loop()", 10);
+        });
+
+    </script>
+</head>
+<body>
+    
+    <button onClick="createBall()">공생성</button>
+
+</body>
+</html>
+
+
+
+
+
+
+

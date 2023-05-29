@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나라맞추기</title>
+
+    <style>
+        #wrapper{
+            width: 500px;
+            height: 700px;
+            background-color: beige;
+            margin: auto;
+            margin-top: 100px;
+        }
+        #content{
+            width: 100%;
+            height: 550px;
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        img{
+            width: 100%;
+            height: 500px;
+            background-color: bisque;
+        }
+        #capital, #relateKey, #answer, #submit, #score{
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+        #result{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            width: 92%;
+            height: 110px;
+            padding: 20px;
+        }
+
+    </style>
+    <script>
+        let content;
+        let flagImg;
+        let capital;
+        let relateKey;
+        
+        let result;
+        let answer;
+        let submit;
+        let score= 0;
+
+        let countries = [
+            {flag: '../images/countries/대한민국.png', capital: '서울', related: '광화문', nation: '대한민국'},
+            {flag: '../images/countries/뉴질랜드.png', capital: '웰링턴', related: '피지', nation: '뉴질랜드'},
+            {flag: '../images/countries/도미니카공화국.png', capital: '산토도밍고', related: '산토도밍고', nation: '도미니카공화국'},
+
+        ]
+
+        function gameInit() {
+            for (let i = 0; i < countries.length; i++) {
+                flagImg.src = countries[i].flag;
+                capital.innerText = '수도 : ' + countries[i].capital;
+                relateKey.innerText = '연관어 : ' + countries[i].related;
+            }
+        }
+
+        function plusScore(point) {
+            let currentScore = parseInt(score.innerText);
+            let newScore = currentScore + point;
+            score.innerText = newScore + '점';
+        }
+
+        function confirmKeyword() {
+            for (let i = 0; i < countries.length; i++) {
+                if (answer.value === countries[i].nation) {
+                    plusScore(10);
+                    // content.removeChild(countries[i]);
+                    countries.splice(i, 1);
+                }
+            }
+            answer.value = ''; // 입력값 초기화
+        }
+
+        function init() {
+            content = document.getElementById('content');
+            flagImg = document.getElementById('flag-img');
+            capital = document.getElementById('capital');
+            relateKey = document.getElementById('relateKey');
+            result = document.getElementById('result');
+            answer = document.getElementById('answer');
+            submit = document.getElementById('submit');
+            score = document.getElementById('score');
+        }
+
+        addEventListener('load', function () {
+            init();
+            gameInit();
+
+            submit.addEventListener('click', function () {
+                confirmKeyword();
+            });
+
+            answer.addEventListener('keyup', function (e) {
+                if (e.keyCode === 13) {
+                    confirmKeyword();
+                }
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <img src="" id="flag-img" alt="국기">
+            <div id="capital"></div>
+            <div id="relateKey"></div>
+        </div>
+        <div id="result">
+            <input type="text" id="answer" placeholder="나라를 입력하라">
+            <button id="submit">click</button>
+            <div id="score">점수 : 0</div>
+        </div>
+    </div>
+    
+</body>
+</html>
