@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'DOSPilgiMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/DOSPilgiMedium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            font-weight: 400;
+            font-family: 'DOSPilgiMedium';
+            background-color: black;
+
+        }
+
+        #wrapper {
+            width: 500px;
+            height: 650px;
+            margin: auto;
+            background-color: red;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            margin-top: 100px;
+        }
+
+        #header {
+            width: 500px;
+            height: 50px;
+            background-color: orange;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        #photo {
+            height: 500px;
+            width: 500px;
+            background-color: yellow;
+        }
+
+        #msg {
+            height: 50px;
+            width: 500px;
+            background-color: green;
+            text-align: center;
+        }
+
+        #footer {
+            height: 50px;
+            width: 500px;
+            background-color: blue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding-left: 90px;
+            padding-right: 90px;
+        }
+
+        button {
+            font-size: 20px;
+            background-color: blue;
+            border: 0;
+            color: aliceblue;
+        }
+
+        button:active {
+            font-size: 95%;
+        }
+
+        button:hover {
+            color: aqua;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+    <script>
+                let header;
+        let pic;
+        let msg;
+        let n = -1;
+        let flag = false;
+
+        let a = [
+
+        
+        
+            {
+                title: "뉴질랜드.png",
+                filename: "../images/countries/뉴질랜드.png",
+                content: "ㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴ"
+            },
+            {
+                title: "도미니카공화국.png",
+                filename: "../images/countries/도미니카공화국.png",
+                content: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                title: "대한민국.png",
+                filename: "../images/countries/대한민국.png",
+                content: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                title: "미국.png",
+                filename: "../images/countries/미국.png",
+                content: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+            {
+                title: "세르비아.png",
+                filename: "../images/countries/세르비아.png",
+                content: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                title: "슬로바키아.png",
+                filename: "../images/countries/슬로바키아.png",
+                content: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                title: "아이슬란드.png",
+                filename: "../images/countries/아이슬란드.png",
+                content: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+            {
+                title: "아이티.png",
+                filename: "../images/countries/아이티.png",
+                content: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                title: "우간다.png",
+                filename: "../images/countries/우간다.png",
+                content: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                title: "우크라이나.png",
+                filename: "../images/countries/우크라이나.png",
+                content: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+        ];
+        
+            function prev(){
+                n--;
+                showContent();
+            }
+
+            function next(){
+                n++;
+                showContent();
+            }
+
+        function showContent(){
+            let json = a[n];
+            header.innerText = json.title;
+            pic.src = json.filename;
+            msg.innerText = json.msg
+        }
+
+        function init() {
+            header = document.getElementById("header");
+            pic = document.getElementById("pic");
+            msg = document.getElementById('msg')
+        }
+
+
+        function loop(){
+            if(flag){
+                next();
+            }
+        }
+
+        addEventListener("load", function () {
+            init()
+            next()
+
+            setInterval("loop", 1000)
+            
+        })
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="photo"><img id="pic" src="" alt=""></div>
+        <div id="msg"></div>
+        <div id="footer">
+            <a href="javascript: prev() " id="bt_prev">◀</a>
+            <a href="javascript: loop()" id="bt_auto">play</a>
+            <a href="javascript: " id="bt_stop">stop</a>
+            <a href="javascript: next() " id="bt_next">▶</a>
+        </div>
+    </div>
+</body>
+
+</html>

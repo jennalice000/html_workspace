@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        input[type=text], 
+        input[type=password], 
+        select{
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+
+        input[type=button] {
+            background-color: #04AA6D;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type=button]:hover {
+            background-color: #45a049;
+        }
+
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
+
+    <script>
+        function checkGender(){
+            let jumin2 = document.getElementById('jumin2');
+            let gender = document.getElementsByName('gender')
+            if(jumin2.value.slice(0,1)==1){
+                gender.slice(0,1)=='checked'
+            }else if(jumin2.value.slice(0,1)==2){
+                console.log('female')
+            }
+        }
+
+        function checkValue(){
+            let id = document.getElementById('id')
+            let pass = document.getElementById('pass')
+            let pass2 = document.getElementById('pass2')
+            if(id.value==""){
+                alert('아이디를 입력하세요');
+                id.focus()
+            }else if(pass.value==""){
+                alert('패스워드를 입력하세요');
+                pass.focus();
+            }else if(pass2.value==""){
+                alert('비밀번호가 일치하지 않습니다')
+                pass2.focus()
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 자바스크립트는 프로그래밍 언어이고 HTML프로그래밍 언어가 아니므로, 사실 js가 html을 직접적으로 제어할 수 없다. 따                                                                                         라서 html요소들을 제어하기 위해 모든 tag요소마다 1:1대응하는 DOM객체가 지원된다. -->
+    <!-- 따라서 js는 사실 HTML문서를 직접 제어했던 것이 아니라 돔 객체를 통해 간접적으로 HTML요소들을 제어했던 것이다. -->
+
+    <h3>Contact Form</h3>
+
+    <div class="container">
+        <form action="/action_page.php">
+            <div>
+                <input type="text" id="id" name="id" placeholder="ID를 입력하세요">
+            </div>
+            <div>
+                <input type="password" id="pass" name="pass" placeholder="비밀번호를 입력하세요">
+            </div>
+            <div>
+                <input type="password" id="pass2" placeholder="비밀번호 확인">
+            </div>
+            <div>
+                <input style="width:45%" type="text" id="jumin1" name="jumin1" placeholder="주민번호 앞 6자리 입력" maxlength="6"> - 
+                <input style="width:45%" maxlength="7" type="text" id="jumin2" name="jumin2" placeholder="주민번호 뒤 7자리 입력" onkeyup="checkGender()">
+            </div>
+            
+            <div>
+                남<input type="radio" name="gender">
+                여<input type="radio" name="gender">
+            </div>
+
+            <div>
+                개발<input type="checkbox">
+                등산<input type="checkbox">
+                독서<input type="checkbox">
+                운동<input type="checkbox">
+            </div>
+            <div>
+                <input type="text" style="width:45%">
+                @
+                <select  style="width:45%">
+                    <option value="">이메일 선택</option>
+                    <option value="">네이버</option>
+                    <option value="">다음</option>
+                    <option value="">구글</option>
+                    <option value="">직접입력</option>
+                </select>                    
+            </div>
+            <input type="button" value="Submit" onclick="checkValue()">
+
+        </form>
+    </div>
+
+</body>
+
+</html>

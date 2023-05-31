@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #wrapper {
+            width: 1100px;
+            height: 600px;
+            display: flex;
+            flex-direction: row;
+            margin: auto;
+            background-color: red;
+        }
+
+        #content {
+            width: 800px;
+            height: 600px;
+            background-color: orange;
+        }
+
+        #input_side {
+            width: 150px;
+            height: 600px;
+            background-color: salmon;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            align-items: center;
+
+        }
+
+        #list_bar {
+            width: 150px;
+            height: 600px;
+            background-color: pink;
+        }
+
+        input,
+        textarea,
+        button,
+        select,
+        option,
+        form {
+            text-align: center;
+            font-size: 25px;
+            width: 140px;
+
+        }
+
+        #food {
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+
+    <script>
+        let content;//맵이 랜더링될 div
+        let map;  //구글의 맵 객체 , 맵을 표현
+        let food;
+        let storeList = []; //모든 맛집을 저장해 놓을 배열
+
+        let store;
+        let msg;
+        let lati;
+        let longi;
+        let sel;
+        let list_side; //상점들의 목록이 출력될 div영역
+        let markerArray = [];
+
+        //구글맵을 div에 시각화 시키자
+        function createMap() {
+            //어떤 스타일의 맵을 생성할지 속성정의
+            let mapProp = {
+                //맵의 카메라의 중심점
+                center: new google.maps.LatLng(37.509329, 127.101485),
+
+                //카메라 확대배율
+                zoom: 15,
+            };
+
+            map = new google.maps.Map(content, mapProp);
+        }
+
+        function preview(src) {
+            food.src = sel.value;
+        }
+
+        function regist() {
+            let obj = {
+                store: store.value,
+                msg: msg.value,
+                lati: lati.value,
+                longi: longi.value,
+                food: sel.value
+            };
+
+            storeList.push(obj)
+
+            console.log("현재까지 등록된 상점은 " + storeList.length + " 개 이며 다음은 그 내용입니다!" + storeList)
+            getList()
+            drawShowIcon()
+        }
+
+        function getList() {
+            let tag = ""; //테이블을 쌓아둘 변수
+            tag += "<table border = \"1px\" width=\"100%\">"
+            for (let i = 0; i < storeList.length; i++) {
+                let store = storeList[i]
+                console.log(store)
+                tag += "<tr>"
+                tag += "<td><img src=\"" + store.food + "\" width= \"25px\"></td>"
+                tag += "<td>" + store.store + "</td>"
+                tag += "</tr>"
+            }
+            tag += "</table>"
+            list_side.innerHTML = tag
+        }
+
+        function drawShowIcon() {
+            if (storeList.length === 0) {
+                return;
+            }
+
+            let store = storeList[storeList.length - 1];
+
+            let pos = new google.maps.LatLng(store.lati, store.longi);
+
+            let marker = new google.maps.Marker({
+                position: pos,
+                animation: google.maps.Animation.BOUNCE,
+                icon: {
+                    url: store.food,
+                    scaledSize: new google.maps.Size(35, 35)
+                }
+            });
+            markerArray.push(marker)
+
+            marker.setMap(map);
+
+            let infoWindow = new google.maps.InfoWindow({
+                content: store.msg
+            });
+        }
+
+
+
+        //문서와 맵이 모두 로드되면..
+        function init() {
+            content = document.getElementById("content");
+            list_side = document.getElementById("list_bar")
+            food = document.getElementById('food')
+            store = form1.store
+            msg = form1.msg
+            lati = form1.lati
+            longi = form1.longi
+            sel = form1.sel
+            createMap();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="input_side">
+            <!-- 맛집 등록폼 -->
+            <form action="" name="form1">
+                <input type="text" placeholder="상호 입력" name="store">
+                <textarea name="msg" id="" cols="19" rows="4" name="msg"></textarea>
+                <input type="text" placeholder="위도 입력" name="lati">
+                <input type="text" placeholder="경도 입력" name="longi">
+                <select onChange='preview()' name="sel">
+                    <option value="../images/plate.png">plate</option>
+                    <option value="../images/chicken.png">치킨</option>
+                    <option value="../images/hamberger.png">햄버거</option>
+                    <option value="../images/pizza.png">피자</option>
+                    <option value="../images/steak.png">스테이크</option>
+                </select>
+                <img id="food" src="../images/드캐1.jpg" alt="">
+                <button type="button" onClick='regist()'>SUBMIT</button>
+                <!--버튼누르면 그냥 폼 전송해버림. 그래서 버튼에 타입을 주면 리로드가 안되게(자동전송놉)할 수 이씀-->
+            </form>
+        </div>
+        <div id="content"></div>
+        <div id="list_bar"></div>
+    </div>
+</body>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL5elFTcyXZG54fkwEMhMUJ13AocvASVw&callback=init"></script>
+
+</html>

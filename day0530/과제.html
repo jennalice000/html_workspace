@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'DOSPilgiMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/DOSPilgiMedium.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            font-weight: 400;
+            font-family: 'DOSPilgiMedium';
+            background-color: black;
+
+        }
+
+        #wrapper {
+            width: 500px;
+            height: 650px;
+            margin: auto;
+            background-color: red;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid black;
+            margin-top: 100px;
+        }
+
+        #header {
+            width: 500px;
+            height: 50px;
+            background-color: orange;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        #photo {
+            height: 500px;
+            background-color: yellow;
+        }
+
+        #msg {
+            height: 50px;
+            background-color: green;
+            text-align: center;
+        }
+
+        #footer {
+            height: 50px;
+            background-color: blue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding-left: 90px;
+            padding-right: 90px;
+        }
+
+        button {
+            font-size: 20px;
+            background-color: blue;
+            border: 0;
+            color: aliceblue;
+        }
+
+        button:active {
+            font-size: 95%;
+        }
+
+        button:hover {
+            color: aqua;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+    <script>
+        let header;
+        let photo;
+        let msg;
+        let footer;
+        let img;
+        let st;
+        let index = 0;
+        let flag = true;
+
+        let galleryArr = [
+            {
+                header: "드캐1.png",
+                photo: "../images/드캐1.jpg",
+                msg: "ㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴㄴㄹㄷㅈㄹㅇㄹㄴㄹㄴㅇㄹㅓㄷㅈ멀;ㄴ"
+            },
+            {
+                header: "드캐2.png",
+                photo: "../images/드캐2.jpg",
+                msg: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐3.png",
+                photo: "../images/드캐3.jpg",
+                msg: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐4.png",
+                photo: "../images/드캐4.jpg",
+                msg: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+            {
+                header: "드캐2.png",
+                photo: "../images/드캐2.jpg",
+                msg: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐3.png",
+                photo: "../images/드캐3.jpg",
+                msg: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐4.png",
+                photo: "../images/드캐4.jpg",
+                msg: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+            {
+                header: "드캐2.png",
+                photo: "../images/드캐2.jpg",
+                msg: "엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ엥 ㅣ넝ㄷㅈㄱㄱㄱㄷㅈ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐3.png",
+                photo: "../images/드캐3.jpg",
+                msg: "ㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷㅈㄷㅈㄱㅎㅇ류ㅠ멀;ㅁㄷ"
+            },
+            {
+                header: "드캐4.png",
+                photo: "../images/드캐4.jpg",
+                msg: "ㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷㄴㄹㅇ쿨율ㅁㄷ"
+            },
+        ];
+
+
+
+
+        function putInBtn() {
+            img = document.createElement("img");
+
+            if (flag) {
+                index++;
+                if (index >= galleryArr.length) {
+                    alert('엥 사진없음');
+                    clearTimeout(st);
+                    index = galleryArr.length - 1;
+                }
+            } else {
+                index--;
+                if (index < 0) {
+                    alert('아 없다고');
+                    index = 0;
+                    clearTimeout(st);
+                }
+            }
+
+            header.innerText = galleryArr[index].header;
+            img.src = galleryArr[index].photo;
+            msg.innerText = galleryArr[index].msg;
+
+            photo.innerHTML = '';
+            photo.appendChild(img);
+        }
+
+
+
+
+
+        function init() {
+            header = document.getElementById("header");
+            photo = document.getElementById("photo");
+            msg = document.getElementById('msg')
+            footer = document.getElementById('footer')
+        }
+
+        addEventListener("load", function () {
+            init()
+
+            document.getElementById("bt_prev").addEventListener("click", function () {
+                flag = false;
+                putInBtn();
+            });
+            document.getElementById("bt_auto").addEventListener("click", function () {
+                st = setInterval("putInBtn()", 1000);
+                this.disabled = true;
+                document.getElementById("bt_stop").disabled = false;
+            });
+
+            document.getElementById("bt_stop").addEventListener("click", function () {
+                document.getElementById("bt_auto").disabled = false;
+                this.disabled = true;
+                clearTimeout(st);
+            });
+
+            document.getElementById('bt_next').addEventListener('click', function () {
+                flag = true;
+                putInBtn()
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header"></div>
+        <div id="photo"></div>
+        <div id="msg"></div>
+        <div id="footer">
+            <button id="bt_prev">◀</button>
+            <button id="bt_auto">play</button>
+            <button id="bt_stop">stop</button>
+            <button id="bt_next">▶</button>
+        </div>
+    </div>
+</body>
+
+</html>
