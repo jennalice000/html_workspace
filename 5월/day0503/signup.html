@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<style>			
+			td{
+				font-size: 12px;
+			}
+
+			table{
+				border: 1px solid #d6d2d7;
+				background-image: url("../images/flower.png");
+			}
+
+			.title {
+				font-size: 20px;
+				botton: 10px;
+				background-color: #006699;
+			}
+
+			input,textarea {
+				background-color: #006666;
+				border: 1px solid orange;
+				margin: 5px;
+			}
+
+		</style>
+		<title>signup</title>
+	</head>
+	<body>
+
+		<table align="center" width="500px">
+			<tr align="center">
+				<td colspan="2" class="title">Sign Up</td>
+			</tr>
+			<tr>
+				<td  align="center">ID</td>
+				<td><input type="text" placeholder="write your ID"></td>
+			</tr>
+			<tr>
+				<td  align="center">password</td>
+				<td><input type="password" placeholder="write your password" maxlength="12"></td>
+			</tr>
+			<tr>
+				<td align="center">name</td>
+				<td><input type="text" placeholder="write your Name"></td>
+			</tr>
+			<tr>
+				<td align="center">우편번호다</td>
+				<td><input type="text" readonly ><button>search</button></td>
+			</tr>
+			<tr>
+				<td align="center">address</td>
+				<td>
+					<input type="text" placeholder="your Address"> <br>
+					<input type="text"  placeholder="write your Address">
+				</td>
+			</tr>
+			<tr>
+				<td align="center">이메일 수신 여부</td>
+				<td><input type="radio" name="receive">Yes <input type="radio" name="receive">No</td>
+			</tr>
+			<tr>
+				<td align="center">email</td>
+				<td><input type="text" placeholder="write your email">@<select>
+					<option>naver.com</option>
+					<option>daum.net</option>
+					<option>hanmail.net</option>
+					<option>직접입력</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td align="center">hobby</td>
+				<td>
+					<input type="checkbox">제과
+					<input type="checkbox">제빵
+					<input type="checkbox">애니
+					<input type="checkbox">프라모델
+				</td>
+			</tr>
+			<tr>
+				<td align="center">메세지</td>
+				<td>
+					<textarea  placeholder="write your messages"></textarea>
+				</td>
+			</tr>
+			<tr align="center">
+				<td colspan="2">
+					<button>가입</button>
+					<button>로그인</button>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

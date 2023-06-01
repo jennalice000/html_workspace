@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>CSS의 문법구성</title>
+<style>
+body {
+	background:yellow;
+}
+
+/* css의 클래스앞에 누구를 대상으로 하는지를 명시하는 방법을
+선택자라 하며 선택자에 대한 표현은 상당히 다양하게 지원됨
+아래의 경우 a, #mylink 둘가 가능했음..
+
+선택자의 표현방법은 상당히 다양한데, 그중 특정 태그 요소의 포함관계를
+이용한 선택방법도 있다..아래의 경우 "p안에 들어잇는 a태그에 대해"
+*/
+p a{
+	text-decoration:none; /*링크의 밑줄 제거*/
+}
+</style>
+</head>
+<body>
+	<a id="mylink" href="http://google.com">구글</a> 로 가기 
+
+	<p>
+		<a href="http://naver.com">네이버</a> 로 가기
+	</p>
+
+</body>
+</html>

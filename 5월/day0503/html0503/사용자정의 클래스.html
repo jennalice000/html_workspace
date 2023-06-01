@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>사용자정의 클래스</title>
+<style>
+/*해당 클래스의 사용자가 임의의 이름을 붙일수 있다..
+즉 나만의 클래스를 정의하고 이름을 붙일수잇다..*/
+.yellow-bt{
+	background:yellow;
+}
+
+/*클래스명을 red-bt 로 지정*/
+.red-bt{
+	background:red;
+}
+
+input[name='t1']{
+	background:pink;
+}
+
+input[name='t2']{
+	background:blue;
+}
+
+</style>
+</head>
+<body>
+	<button class="yellow-bt">버튼</button>
+	<button class="yellow-bt">버튼</button>
+	<button class="yellow-bt">버튼</button>
+	<button class="yellow-bt">버튼</button>
+	<button class="yellow-bt">버튼</button>
+
+	<button class="red-bt">버튼</button>
+	<button class="red-bt">버튼</button>
+	<button class="red-bt">버튼</button>
+	<button class="red-bt">버튼</button>
+	<button class="red-bt">버튼</button>
+	
+	<!--
+		id와 name의 공통점 및 차이점
+		공통점) 둘다 여러 태그 요소들 사이의 구분을 짓기 위한 방법
+		차이점)  id는 중복을 허용하지 않는다 , 따라서 name은
+		         중복을 허용해줌..마치 현실에서는 동명이인이 있을수
+				 있지만, 회원가입시 이름 이외에 id를 입력받는 이유와
+				 같다..
+	-->
+	<p>
+		<input type="text" name="t1">	
+		<br>
+		<input type="text" name="t2">
+	</p>
+
+</body>
+</html>

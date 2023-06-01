@@ -1,0 +1,13 @@
+/* CSS의 주석은 html 주석과는 틀림 
+	style 태그안에서 개발자는 원하는 디자인 코드를 작성할 수 있다
+*/
+button {
+	background:green;/*배경색*/
+	font-size:30px; /*폰트크기*/
+	color:white;/*폰트색상*/
+}
+
+/*CSS에서 아이디를 접근할때는 #을 이용함 */
+#bt3{
+	background:yellow;
+}

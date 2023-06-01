@@ -1,0 +1,15 @@
+font {
+color : red;
+font-size: 300px;
+}
+
+button {
+background-color : yellow;
+border: 1px solid green;
+font-size: 30px;
+color: green;
+}
+
+#btn3 {
+color: red;
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+/*모든 td안에 있는 텍스트에 대해 폰트크기를 10px로 지정*/
+td{
+	font-size:12px;
+}
+
+/*table 태그의 보더(외곽선)를 1픽실의 회색으로..*/
+table{
+	border:5px solid #CCCCCC;
+	background:url(../images/bg.jpg);
+}
+
+/*회원가입 제목을 나만의 클래스로 정의하여 적용해보기*/
+.formTitle{
+	font-size:20px;
+	font-weight:bold;
+	background:#ccffff;
+	color:blue;
+}
+
+/*,쉼표는 and 의 의미*/
+input , textarea {
+	background:yellow;
+	border:1px solid orange;
+}
+
+</style>
+<title>회원가입양식</title>
+</head>
+<body>
+	<!-- 현재 html문서에서 한단계 위로 나감을 표현하기 위해
+	    ..(부모 디렉토리를 의미)
+		img 사용하면 안되는 이유  물리적으로 공간을 차지해버린다
+		즉 회원가입 테이블을 밀어내버린다..
+		우리가 원하는 효과는 테이블의 배경으로 지정하길 원함..
+		<img src="../images/bg.jpg">
+	-->
+	<table width="500px" align="center">
+		<tr>
+			<td colspan="2" align="center" class="formTitle">회원가입</td>
+		</tr>
+
+		<tr>
+			<td>ID</td>
+			<td>
+				<input type="text" placeholder="Your ID...">
+			</td>
+		</tr>
+
+		<tr>
+			<td>Password</td>
+			<td>
+				<input type="password" placeholder="비번입력.." maxlength="12">
+				* 12이하로 입력
+			</td>
+		</tr>
+
+		<tr>
+			<td>이름</td>
+			<td>
+				<input type="text" placeholder="Your Name.">
+			</td>
+		</tr>
+		
+		<tr>
+			<td>우편번호</td>
+			<td>
+				<input type="text" readonly> 
+				<button>우편번호 검색</button>
+			</td>
+		</tr>
+
+		<tr>
+			<td>주소</td>
+			<td>
+				<input type="text" placeholder="주소"> <br>
+				<input type="text" placeholder="나머지 주소"> 
+			</td>
+		</tr>
+
+		<tr>
+			<td>메일수신</td>
+			<td>
+				Yes<input type="radio" name="receive">
+				No<input type="radio" name="receive"> 
+			</td>
+		</tr>
+
+		<tr>
+			<td>이메일</td>
+			<td>
+				<input type="text" placeholder="메일 아이디">
+				@
+				<select>
+					<option>naver</option>
+					<option>daum</option>
+					<option>google</option>
+					<option>직접입력</option>
+				</select>
+			</td>
+		</tr>
+
+		<tr>
+			<td>취미</td>
+			<td>
+				영화<input type="checkbox">
+				수영<input type="checkbox">
+				독서<input type="checkbox">
+				프로그래밍<input type="checkbox">
+			</td>
+		</tr>
+	
+		<tr>
+			<td>가입메시지</td>
+			<td>
+				<textarea cols="45" rows="7" placeholder="가입시 하고픈 말"></textarea>				
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="2" align="center">
+				<button>가입</button>
+				<button>로그인</button>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
