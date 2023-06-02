@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력만들기</title>
+
+    <style>
+        @font-face {
+            font-family: 'RixMomsBlanketR';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/RixMomsBlanketR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'RixMomsBlanketR';
+        }
+
+        #wrapper {
+            margin: auto;
+            width: 700px;
+            height: 700px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #day_title {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            justify-content: center;
+        }
+
+        #content {
+            width: 100%;
+            height: 600px;
+            position: relative;
+        }
+
+        button {
+            margin: 50px;
+            font-size: 20px;
+            border: 0;
+            background-color: black;
+            color: violet;
+            padding: 5px;
+        }
+
+        button:active {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #title {
+            font-size: 30px;
+            font-weight: 600;
+        }
+    </style>
+    <script src="./dayBox.js"></script>
+    <script src="./DateBox.js"></script>
+    <script src="../JS/lib.js"></script>
+    <script>
+        let title; // 연도, 월
+        let day_title; // 요일
+        let content; // 날짜
+        let days = ['일', '월', '화', '수', '목', '금', '토']
+        let nowDate;
+        let boxArray = [];
+
+        function createDay() {
+            //일 ~ 토 요일 박스 생성
+            for (let i = 0; i < 7; i++) {
+                new DayBox(day_title, i * 100, days[i]);
+            }
+        }
+
+        function createDate() {
+            let num = 0;
+
+            let b = nowDate.getDate()
+            let n = 0;
+            for (let i = 0; i < 6; i++) {
+                let arr = new Array(7)
+
+                for (let k = 0; k < 7; k++) {
+
+                    let box = new DateBox(content, k * 100, i * 100, " ")
+                    arr[i] = box
+                    n++;
+                }
+                boxArray.push(arr)
+            }
+
+            function setTitle() {
+                nowDate = new Date();
+                let year = nowDate.getFullYear();
+                let month = new Date().getMonth();
+
+                title.innerText = year + "년 " + (month + 1) + '월'
+            }
+
+            function prev() {
+                let month = nowDate.getMonth();
+                nowDate.setMonth(month - 1);
+                setTitle();
+                printDateNum();
+            }
+
+            function next() {
+                let month = nowDate.getMonth();
+                nowDate.setMonth(month + 1);
+                setTitle();
+                printDateNum();
+            }
+
+            //해당 월의 마지막날 구하기 (즉 각 월이 몇일까지인지)
+            function getLastDateOfMonth() {
+                let year = nowDate.getFullYear();
+                let month = nowDate.getMonth();
+                let date = 0;
+                let d = new Date(year, month + 1, date)
+
+                return d.getDate()//일을 반환함
+            }
+
+
+            function printDateNum() {
+                let count = 0;
+                let num = 0; //날짜역할의 변수
+                //이미 생성된 박스에 날짜 출력
+                //현재 월이 무슨 요일부터 시작하는지 알아야 함
+
+                let startDate = nowDate.getDay();
+                console.log(nowDate.getMonth() + 1 + '월은' + days[startDate] + "요일에서 시작함");
+                for (let i = 0; i < boxArray.length; i++) {
+                    for (let k = 0; k < boxArray[i].length; k++) {
+                        // boxArray[층][호]
+                        // 1일의 요일을 넘어설 때
+                        if (num >= startDate && count < nowDate.getMonth() + 1) {
+                            num++;
+                            boxArray[i][k].div.innerText = num;
+                            count++;
+
+                            if(count>startDate&&lastDate){
+                                //1일의 요일을 넘어설 때
+                                num++;
+                                boxArray[a][i].div.innerText=num
+                            }else{
+                                boxArray[a][i].div.innerText="";
+                            }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            function init() {
+                title = document.getElementById('title');
+                day_title = document.getElementById('day_title');
+                content = document.getElementById('content');
+            }
+
+
+            addEventListener('load', function () {
+                init();
+
+
+                setTitle()
+
+                createDay(); //요일박스 생성
+                createDate();
+            });
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <button onclick="prev()">asdfsadf</button>
+            <span id="title">2023년 5월</span>
+            <button onclick="next()">asdfasdf</button>
+        </div>
+        <div id="day_title">
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+
+</html>

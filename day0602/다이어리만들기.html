@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'RixMomsBlanketR';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/RixMomsBlanketR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: 'RixMomsBlanketR';
+        }
+
+        #wrapper {
+            margin: auto;
+            width: 700px;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #day_title {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            border: 1px solid black;
+            justify-content: space-around;
+            justify-content: center;
+        }
+
+        #content {
+            width: 100%;
+            height: 600px;
+            min-height: 600px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        button {
+            margin: 50px;
+            font-size: 20px;
+            border: 0;
+            background-color: black;
+            color: white;
+            padding: 5px;
+        }
+
+        button:active {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #title {
+            font-size: 30px;
+            font-weight: 600;
+        }
+    </style>
+    <script src="./Box.js"></script>
+    <script src="./DayBox.js"></script>
+    <script src="./DateBox.js"></script>
+    <script>
+        let dayArray = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+        let content; //날짜
+        let dayTitle; //요일
+        let title;
+        let nowDate;
+        let boxArray = [];
+
+
+        function createDayBox() {
+            for (let i = 0; i < dayArray.length; i++) {
+                // container, width, height, x, y, text, bg
+                new DayBox(day_title, 100, 50, i * 100, 0, dayArray[i], "")
+            }
+        };
+
+        function createDateBox() {
+            for (let j = 0; j < 6; j++) { // 층
+                let dateArray = [];
+                // let dateArray = new Array(7);
+                for (let i = 0; i < dayArray.length; i++) { //호
+                    // container, width, height, x, y, text, bg
+                    let dateBox = new DateBox(content, 100, 100, i * 100, j * 100, "", "")
+                    // dateArray[i] = dateBox
+                    dateArray.push(dateBox)
+                    // dateBox.div.addEventListener('click', function(){
+                    //     console.log(dateArray[j][i])
+                    dateArray[j][i].div.addEventListener('click', function () {
+                        alert('저는 ' + this.innerText + "일입니다")
+                    })
+                    // })
+                }
+                boxArray.push(dateArray)
+            }
+
+        }
+
+        //달력의 제목 출력
+        function setTitle() {
+            let year = nowDate.getFullYear();
+            let month = nowDate.getMonth();
+
+            title.innerText = year + "년 " + (month + 1) + "월";
+        }
+
+        function prev() {
+            nowDate.setMonth(nowDate.getMonth() - 1);
+            nowDate.setDate(1);
+            setTitle();
+            printDateNum();
+        }
+        //현재 공유되고 있는 전역변수인 nowDate의
+        //월 정보를 +1 증가시키고, setTitle() 호출...
+        function next() {
+            nowDate.setMonth(nowDate.getMonth() + 1);
+            nowDate.setDate(1);
+            setTitle();
+            printDateNum();
+        }
+
+        /*이미 생성되어진 사각형 42개위에 현재 날짜객체인
+        nowDate를 통해 
+        1) 무슨 요일부터 1일이 시작되는가? 
+        2) 몇일까지 있는지?
+        */
+        function getLastDateOfMonth() {
+            let d = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1);
+            d.setDate(0); //0일로 조작
+            return d.getDate();
+        }
+
+        function printDateNum() {
+            console.log("현재는 ", nowDate.getMonth() + 1, "월 ", nowDate.getDate(), "일 ", dayArray[nowDate.getDay()]);
+
+            let startDay = nowDate.getDay(); //해당월의 시작요일
+            let lastDate = getLastDateOfMonth();
+            console.log(startDay, lastDate);
+
+            let n = 0;
+            let count = 0;
+            // 42개의 셀이 이차원 배열에 들어있기 때문에 아래의 이중포문을 이용해 각 셀의 div에 날짜를 대입
+
+            for (let j = 0; j < boxArray.length; j++) {
+                for (let i = 0; i < boxArray[j].length; i++) {
+                    if (count >= startDay && n < lastDate) {
+                        n++;
+                        boxArray[j][i].setText(n);
+
+                    } else {
+                        boxArray[j][i].setText("");
+                    }
+
+                    count++;
+
+                }
+            }
+
+        }
+
+
+        function init() {
+            title = document.getElementById("title");
+            day_title = document.getElementById("day_title");
+            content = document.getElementById("content");
+
+            createDayBox();
+            createDateBox();
+
+            //현재 날짜 정보가져오기 
+            nowDate = new Date();
+            nowDate.setDate(1);
+            setTitle();
+            printDateNum();
+        }
+
+        addEventListener("load", function () {
+            init();
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <button onclick="prev()">◀</button>
+            <span id="title">2023년 5월</span>
+            <button onclick="next()">▶</button>
+        </div>
+        <div id="day_title">
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @font-face {
+            font-family: 'RixMomsBlanketR';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/RixMomsBlanketR.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'RixMomsBlanketR';
+        }
+
+        #wrapper {
+            margin: auto;
+            width: 700px;
+            height: 700px;
+            border: 1px solid black;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #header {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid black;
+        }
+
+        #day_title {
+            width: 100%;
+            height: 50px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            justify-content: center;
+        }
+
+        #content {
+            width: 100%;
+            height: 600px;
+            position: relative;
+        }
+
+        button {
+            margin: 50px;
+            font-size: 20px;
+            border: 0;
+            background-color: black;
+            color: violet;
+            padding: 5px;
+        }
+
+        button:active {
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        #title {
+            font-size: 30px;
+            font-weight: 600;
+        }
+    </style>
+    <script>
+               var currentMonth = 4; // 5월을 나타내는 숫자 (0부터 시작)
+        var currentYear = 2023;
+
+        var weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+        function prev() {
+            if (currentMonth === 0) {
+                currentMonth = 11;
+                currentYear--;
+            } else {
+                currentMonth--;
+            }
+            updateCalendar();
+        }
+
+        function next() {
+            if (currentMonth === 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
+            updateCalendar();
+        }
+
+        function updateCalendar() {
+            var dayTitle = document.getElementById("day_title");
+            dayTitle.innerHTML = "";
+
+            // 요일 추가
+            for (var i = 0; i < weekdays.length; i++) {
+                var day = document.createElement("div");
+                day.className = "day";
+                day.innerText = weekdays[i];
+                dayTitle.appendChild(day);
+            }
+
+            var calendarContent = document.getElementById("content");
+            calendarContent.innerHTML = "";
+
+            var daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            var firstDay = new Date(currentYear, currentMonth, 1).getDay();
+
+            var date = 1;
+            for (var i = 0; i < 6; i++) {
+                var row = document.createElement("div");
+                row.className = "row";
+
+                for (var j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        var cell = document.createElement("div");
+                        cell.className = "cell empty";
+                        row.appendChild(cell);
+                    } else if (date > daysInMonth) {
+                        break;
+                    } else {
+                        var cell = document.createElement("div");
+                        cell.className = "cell";
+                        cell.innerText = date;
+                        row.appendChild(cell);
+                        date++;
+                    }
+                }
+
+                calendarContent.appendChild(row);
+            }
+
+            var title = document.getElementById("title");
+            var monthName = getMonthName(currentMonth);
+            title.innerText = currentYear + "년 " + monthName;
+        }
+
+        function getMonthName(month) {
+            var monthNames = [
+                "1월", "2월", "3월", "4월", "5월", "6월",
+                "7월", "8월", "9월", "10월", "11월", "12월"
+            ];
+            return monthNames[month];
+        }
+
+        updateCalendar();
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <button onclick="prev()">asdfsadf</button>
+            <span id="title">2023년 5월</span>
+            <button onclick="next()">asdfasdf</button>
+        </div>
+        <div id="day_title">
+        </div>
+        <div id="content"></div>
+    </div>
+</body>
+</html>

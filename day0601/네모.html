@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:0px;
+        }
+        #wrapper{
+            width:100%;
+            height:600px;
+            background: yellow;            
+        }
+    </style>
+    <script src="../js/lib.js"></script>
+    <script src="./Rect.js"></script>
+    <script>
+        let red, green;
+        let flag=false;
+
+        function init(){
+            //두개의 사각형 만들기 
+            red = new Rect(document.body, 100, 200,100,100, "red");
+            green = new Rect(document.body, 600, 200,100,100, "green");
+        }
+
+        addEventListener("load", function(){
+            init();
+
+            //문서 전체를 대상으로 마우스 이벤트 연결 
+            document.body.addEventListener("mousemove", function(){
+                //console.log("마우스 움직이고 있군요");
+                
+                // 객체.(소유권)
+                if(true){
+                    red.x=event.clientX;
+                    red.y=event.clientY;
+                    red.move();
+                }
+
+                let result=collisionCheck(red, green);
+                console.log(result);
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>

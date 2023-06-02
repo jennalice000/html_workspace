@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: black;
+        }
+        #wrapper{
+            width: 100%;
+            height: 550px;
+            background-image: url('../images/space.jpg');
+            background-size: 100% 550px; 
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+    <script src="./hero.js"></script>
+    <script src="./Bullet.js"></script>
+    <script>
+        let wrapper;
+        let hero;
+        let bulletArr=[];
+
+        function createHero(){
+            // 주인공 생성
+            hero = new Hero(wrapper, "../images/ship.png", 0, 200, 100, 100);
+        }
+
+        // function createBullet(){
+        //     // bullet = new Bullet(wrapper, "../images/bullet.png", 150, 200, 100, 100, 20, 20)
+        // }
+
+        function init(){
+            wrapper = document.getElementById('wrapper')
+
+            createHero();
+        }
+
+        function loop(){
+            // 게임에 등장하던 물체가 현재 움직이던 아니던 게임은 루프가 돌아간다.
+            // 배열에 담긴 총알수만큼 move()
+            hero.move()
+            for(let i=0; i<bulletArr.length; i++){
+                bulletArr[i].move();
+            }
+        }
+
+        function moveX(n){
+            hero.velX = n
+        }
+
+        function moveY(n){
+            hero.velY = n
+        }
+
+        function fire(){
+            // 총알 생성해 날리자
+            let b = new Bullet(wrapper, "../images/bullet.png", hero.x, hero.y, 100, 100, 15, 0)
+
+            bulletArr.push(b)
+        }
+
+        addEventListener('load', function(){
+            init()
+            setInterval('loop()', 10)
+            document.body.addEventListener('keydown', function(e){
+                switch(e.keyCode){
+                    case 37: moveX(-2); break;
+                    case 38: moveY(-2); break;
+                    case 39: moveX(2); break;
+                    case 40: moveY(2); break;
+                }
+                console.log(e.keyCode)
+            })
+            document.body.addEventListener('keyup', function(e){
+                switch(e.keyCode){
+                    case 37: moveX(0); break;
+                    case 38: moveY(0); break;
+                    case 39: moveX(0); break;
+                    case 40: moveY(0); break;
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
