@@ -1,0 +1,65 @@
+<script>
+    
+function setTitle(){
+
+let year = nowDate.getFullYear();
+let month = nowDate.getMonth();
+
+title.innerText=year + "년 " + (month+1) + "월";
+}
+
+function next(){
+// 현재 공유되고 있는 전역변수인 nowDate의 month정보를 1증가시키고 setTitle호출
+nowDate.setMonth(nowDate.getMonth()+1)
+nowDate.setDate(1);
+setTitle();
+printDateNum()
+}
+
+function prev(){
+nowDate.setMonth(nowDate.getMonth()-1)
+nowDate.setDate(1);
+setTitle();
+printDateNum()
+}
+
+// 이미 생성된 42개 박스 위에 현재 날짜 객체인 nowDate를 통해 
+// 1. 무슨 요일부터 1일이 시작되는가
+// 2. 달마다 몇 일까지 있는가
+//고려해야함.
+
+function getLastDateOfMonth(){
+let d = new Date(nowDate.getFullYear(), nowDate.getMonth()+1);
+d.setDate(0)
+return d.getDate;
+}
+
+
+function printDateNum(){
+
+console.log('현재는 '+(nowDate.getMonth()+1)+"월이고 " + nowDate.getDate()+'일이며 '+ dayArray[nowDate.getDay()]+'요일입니다.')
+
+let startDay = nowDate.getDay()
+let lastDate = getLastDateOfMonth()
+console.log(startDay, lastDate);
+}
+
+function init(){
+content = document.getElementById('content')
+dayTitle = document.getElementById('day_title')
+title = document.getElementById('title')
+createDayBox();
+createDateBox();
+
+nowDate = new Date();
+nowDate.setDate(1);
+
+setTitle();
+printDateNum()
+
+};
+
+addEventListener('load', function(){
+init();
+});
+</script>
