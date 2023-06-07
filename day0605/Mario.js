@@ -60,11 +60,81 @@ class Mario extends GameObject {
 
     }
 
+    //블럭과 마리오와 충돌체크
+    hit2Check(){
+        for(let i=0; i<brickArray.length;i++){ //모든 벽돌 수 만큼...
+                
+            //우측센서 충돌검사
+            let result=collisionCheck(this, brickArray[i]);
+
+            if(result){ //마주쳤다면..
+                console.log(i , "번째 벽돌과 닿았어");
+
+                //주인공의 x속도를 0으로 둔다 
+                //[벽돌의 좌측에 닿으면]
+                //현재 마주친 벽돌의 x 좌표보다, 주인공의 너비만큼
+                //좌측으로 x위치를 설정...
+                this.x=brickArray[i].x + brickArray[i].width+1;
+                break;
+                //[벽돌의 우측에 닿으면 ]
+                //우측에 닿았을때는 현재 닿은 벽돌의 x의 좌표값에
+                //벽돌의 width를 더한값을 주인공의 x위치로 설정
+
+
+                //[벽돌의 위에 닿으면]
+                //지금 닿은 벽돌의 y값에서 주인공의  height 만큼 
+                //위로 올려서 주인공의 y값을 결정
+
+                //[벽돌의 아래에 닿으면]
+                //지금 닿은 벽돌의 y값에서 벽돌의 높이 만큼을 더한값을
+                //주인공의 y값으로 설정 
+            }  
+        }
+
+    }
+
+
+    hitCheck(){
+        for(let i=0; i<brickArray.length;i++){ //모든 벽돌 수 만큼...
+                
+            //우측센서 충돌검사
+            let result=collisionCheck(this, brickArray[i]);
+
+            if(result){ //마주쳤다면..
+                console.log(i , "번째 벽돌과 닿았어");
+
+                //주인공의 x속도를 0으로 둔다 
+                //[벽돌의 좌측에 닿으면]
+                //현재 마주친 벽돌의 x 좌표보다, 주인공의 너비만큼
+                //좌측으로 x위치를 설정...
+                this.x=brickArray[i].x - this.width;
+                break;
+                //[벽돌의 우측에 닿으면 ]
+                //우측에 닿았을때는 현재 닿은 벽돌의 x의 좌표값에
+                //벽돌의 width를 더한값을 주인공의 x위치로 설정
+
+
+                //[벽돌의 위에 닿으면]
+                //지금 닿은 벽돌의 y값에서 주인공의  height 만큼 
+                //위로 올려서 주인공의 y값을 결정
+
+                //[벽돌의 아래에 닿으면]
+                //지금 닿은 벽돌의 y값에서 벽돌의 높이 만큼을 더한값을
+                //주인공의 y값으로 설정 
+            }  
+        }
+
+    }
+
+
     tick(){
         this.x+=this.velX;
         this.y+=this.velY;
 
         this.setSensor();
+
+        this.hitCheck()
+        this.hit2Check();
 
         // 마리오는 자신의 x가 변하면 본인이 보유한 센서의 위치값도 갱신시킬 의무가 있는 거다 
     }
