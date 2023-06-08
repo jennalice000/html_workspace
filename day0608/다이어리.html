@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #wrapper{
+            width:1000px;
+            height:700px;
+            background: yellow;
+            margin: auto;
+        }
+        #leftSide{
+            width:150px;
+            height:100%;
+            background: lawngreen;
+            float: left;
+        }
+        #leftSide select, #leftSide button{
+            width:98%;
+            margin-top:5px;
+        }
+        #leftSide img{
+            width:98%;
+            height:100px;
+            margin-top: 5px;
+        }
+        textarea{
+            width:95%;
+            height:150px;
+            margin-top: 5px;
+        }
+        #center{
+            width:700px;
+            height:100%;
+            background: darkcyan;
+            float:left;
+        }
+        #header{
+            width:100%;
+            height:50px;
+            background: skyblue;
+            text-align: center;
+            font-size:28px;
+        }
+        #dayTitle{
+            width:100%;
+            height:50px;
+            background: antiquewhite;
+            position: relative;
+        }
+        #content{
+            width:100%;
+            height:600px;
+            background: pink;
+            position: relative;
+        }
+        #rightSide{
+            width:150px;
+            height:100%;
+            background: salmon;
+            float:left;
+        }
+        #rightSide select,#rightSide button{
+            width:98%;
+            margin-top:5px;
+        }        
+        #rightSide img{
+            width:98%;
+            height:100px;
+            margin-top: 5px;
+        }    
+    </style>
+    <script src="../js/lib.js"></script>
+    <script src="./DayBox.js"></script>
+    <script src="./DateBox.js"></script>
+    <script src="Rect.js"></script>
+    <script>
+        let sel_yy, sel_mm, sel_dd, sel_icon, pic, detail1; //좌측 입력 컴포넌트들
+        let sel_yy2, sel_mm2, sel_dd2, sel_icon2, pic2, detail2; //우측 입력컴포넌트들
+        let title;
+        let dayTitle; //요일이 붙여질 div
+        let content;
+
+
+        let iconArray=[
+            "./images/pin.png",
+            "./images/pencil.png",
+            "./images/drug.png"
+        ];
+        let nowDate; //달력에 사용될 공유 날짜 객체 
+        //이 객체는 다음, 이전 버튼에 의해 변화된 날짜를 적용할것이며
+        //이 날짜는 공유될 예정..
+
+        let dayArray=["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+
+        //사각형 포인터의 목표지점
+        let targetX=-400;
+        let targetY=-400;
+
+        //42개의 박스를 제어하기 위한 배열 선언 
+        let dateBoxArray=[];
+
+        //특정 날짜의 다이어리내용을 기록한 json들을
+        //모아놓을 배열 선언 (오라클을 대신함.)
+        let diaryArray=[];
+
+        let rect;
+
+
+        //select 박스에 날짜 채워넣기
+        //select_yy 매개변수 - 연도 출력 대상 select박스의 id를 넘기면 됨
+        function initSel(select_yy, select_mm, select_icon){
+            //연도에 옵션들 채우기 
+            for(let i=2020;i<=2030;i++){
+                let op=document.createElement("option");
+                op.text=i; //사용자게 보게될 디자인 
+                op.value=i;//실제 값
+                select_yy.add(op); //sel_yy라는 select 박스에 자식으로 추가 
+            }
+
+            //월 채우기 
+            for(let i=1;i<=12;i++){
+                let op=document.createElement("option");
+                op.text=i; //사용자게 보게될 디자인 
+                op.value=i;//실제 값
+                select_mm.add(op); //sel_yy라는 select 박스에 자식으로 추가 
+            }
+
+            //아이콘 채우기 
+            for(let i=0;i<iconArray.length;i++){
+                let op=document.createElement("option");
+                op.text=iconArray[i];
+                op.value=iconArray[i];
+                select_icon.add(op);
+            }
+        }
+
+        //이미지 미리보기
+        function preview(photo , src){
+            photo.src=src;//사용자가 선택한 option의 값
+        }
+
+        //유저가 월을 선택하면, 해당 월에 소속된 날짜를 생성하여 
+        //select박스에 동적으로 부착!!
+        //주의) 사용자가 값을 변경할때마다, 기존의  select박스에 채워
+        //져 있떤 option이 있다면 모두 제거 후 추가!!
+        function dropDate(){
+            //옵션을 모두 삭제할때, 주의할 점
+            //배열을 지워나가면서 반복문 내에 배열의 길이를 사용하게
+            //되면 위험하다.. 길이가 동적으로 변하므로...
+            let n=sel_dd.options.length;
+
+            for(let i=0;i<n;i++){
+                sel_dd.remove(1);    
+            };
+        }
+
+        //사용자가 선택한 연도를 넘겨받아, 현재 날짜 객체인 
+        //nowDate 에 반영하고, 제목도 변경하자 
+        function setYear(yy){
+            nowDate.setFullYear(yy);//연도 변경!!
+            setTitle();
+            printNum();
+        }
+
+        //사용자가 선택한 월을 넘겨받자
+        function createDate(month){
+            //사용자가 선택한 월을 이용하여, nowDate변경한다
+            //즉 현재 날짜를 변경해준다... 
+            nowDate.setMonth(month-1);
+            setTitle();
+
+            dropDate();//싹~~ 비우고
+
+            //비워진 날짜 select박스에는, 실제 사용자가 선택한 월을
+            //구성하는 총 날짜수를 구하여 채워넣자    
+            let totalDate=getLastDateOfMonth();
+
+            for(let i=1;i<=totalDate;i++){
+                let op=document.createElement("option");
+                op.text=i;
+                op.value=i;
+                sel_dd.add(op);
+                let op2=document.createElement("option");
+                op2.text=i;
+                op2.value=i;
+                sel_dd.add(op2);
+            }
+
+            printNum();
+        }
+
+        //날짜 제목출력하기  2023년 05월
+        function setTitle(){
+            let yy=nowDate.getFullYear(); //년
+            let mm=nowDate.getMonth();//월 0부터~~
+
+            //월을 화면에 출력할때는 반드시 1 을 더하자
+            title.innerText=yy+"년 "+numString(mm+1) +"월";
+        }
+
+        //해당 월이 무슨요일부터 시작하는지 반환해주는 함수
+        function getStartDayOfWeek(){
+            //조작을 가해도 현재 달력에 영향을 미치지 않는 별도의 
+            //날짜 객체를 생성하자 
+            let yy=nowDate.getFullYear();
+            let mm=nowDate.getMonth();
+            let d = new Date(yy, mm , 1);
+            return d.getDay();
+        }
+
+        //현재 유저가 보고 있는 월에 소속된 날짜 수 구하기 
+        //1월: 31일까지..
+        function getLastDateOfMonth(){
+            //날짜를 조작한다
+            let d = new Date(nowDate.getFullYear(), nowDate.getMonth()+1, 0);  
+
+            //조작된 날짜 객체에게 몇일인지 물어본다 
+            return d.getDate();    
+        }
+
+        //현재  nowDate 객체를 추가된 월로 변경한다
+        //그리고 제목도 변경해야 함... 
+        //좌측 select 영역에도 동기화..
+        function prev(){
+            let month=nowDate.getMonth(); //현재 월 구한다
+            nowDate.setMonth(month-1);//다음달로 조작
+            setTitle();
+
+            //좌측 영역에 동기화
+            sel_yy.value=nowDate.getFullYear();
+            sel_mm.value=nowDate.getMonth()+1;
+            createDate(sel_mm.value);
+
+            printNum();
+
+            removeData();//기존 화면 초기화
+            loadData();//정보 불러오기
+        }
+
+        function next(){
+            let month=nowDate.getMonth(); //현재 월 구한다
+            nowDate.setMonth(month+1);//다음달로 조작
+            setTitle();
+
+            //좌측 영역에 동기화
+            sel_yy.value=nowDate.getFullYear();
+            sel_mm.value=nowDate.getMonth()+1;
+            createDate(sel_mm.value);
+
+            printNum();
+            removeData();//기존 화면 초기화
+            loadData();//정보 불러오기
+
+        }
+
+        //일요일~~ 토요일까지 7개의 박스 생성
+        function createDay(){
+            for(let i=0;i<dayArray.length;i++){
+                new DayBox(dayTitle, 100,50, i*100, 0, dayArray[i]);
+            }
+        }
+        
+        function createDateBox(){
+            for(let a=0;a<6;a++){ //층수
+                //일차원 배열 준비 
+                let arr=new Array(7);
+                for(let i=0;i<7;i++){ //호수
+                    //container, width, height, x, y, num, src, text
+                    let box=new DateBox(content, 100, 100,i*100, a*100,nowDate.getFullYear(),nowDate.getMonth(), 0, "" , "");                        
+                    arr[i]=box;
+                }
+                dateBoxArray.push(arr);
+            }
+        }
+
+        //이미 생성되어진 박스들을 대상으로, 해당 박스의 날짜를 
+        //출력해주는 함수 
+        function printNum(){
+            let count=0;
+            //현재 날짜의 '월'은 무슨요일부터 시작하는지 조사하자 
+            //그 후, 그 요일부터 1일~말일까지 출력하기 
+            let startDay=getStartDayOfWeek(); //무슨요일부터~
+            let lastDate=getLastDateOfMonth();//몇일까지~
+            let n=0; //날짜 변수 
+
+            for(let a=0;a<dateBoxArray.length;a++){ //층
+                for(let i=0; i<dateBoxArray[a].length;i++){
+
+                    if(count>=startDay &&  n<lastDate ){
+                        n++;
+                        dateBoxArray[a][i].span.innerText=n;
+                        //멤버변수에도 날짜 정보를 추가해놓아야 추후 
+                        //비교가 가능하다 
+                        dateBoxArray[a][i].yy=nowDate.getFullYear();
+                        dateBoxArray[a][i].mm=nowDate.getMonth();
+                        dateBoxArray[a][i].dd=n;    
+
+                    }else{
+                        dateBoxArray[a][i].span.innerText="";
+                    }
+                    count++;
+                }
+            }
+        }
+
+        //다이어리를 출력하기 전에, 기존의 자료들은 모두 제거..
+        function removeData(){
+            //현재 보고있는 달력을 대상으로...
+            for(let a=0;a<dateBoxArray.length;a++){
+                for(let i=0;i < dateBoxArray[a].length;i++){
+                    
+                    //아이콘 관련
+                    dateBoxArray[a][i].src=""; //정보
+                    dateBoxArray[a][i].icon.src="";//렌더링
+
+                    //내용관련 
+                    dateBoxArray[a][i].text=""; 
+                    dateBoxArray[a][i].detail.innerText="";
+                }
+            }
+        }
+
+        /*다이어리 기록 불러오기*/
+        function loadData(){
+            //날짜수 만큼 반복하면서, 각 날짜와 다이어리가
+            //기록되어 있는 diaryArray의 요소들을 일일이
+            //비교하여, 연,월,일이 일치하는 경우 해당 셀에
+            //렌더링 처리...
+            for(let a=0;a<dateBoxArray.length;a++){ //층수
+                for(let i=0;i<dateBoxArray[a].length;i++){//호수
+                    //다이어리의 배열수만큼...
+                    for(let k=0; k<diaryArray.length;k++){
+                        //날짜셀과 json객체가 서로 보유한 
+                        //yy, mm, dd를 비교하자 
+                        if(nowDate.getFullYear()==diaryArray[k].yy 
+                            && nowDate.getMonth()==diaryArray[k].mm 
+                            && dateBoxArray[a][i].dd==diaryArray[k].dd){
+
+                            console.log(diaryArray[k].dd, " 발견되었어");    
+
+                            //아이콘 등장 
+                            dateBoxArray[a][i].icon.src=diaryArray[k].src;
+
+                            //상세내용 등장
+                            dateBoxArray[a][i].detail.innerText=diaryArray[k].content, 6;
+
+                        }                            
+                    }
+                }
+            }               
+        }
+
+        /*좌측 영역의 입력 내용들을 우측 달력에 반영하기*/
+        function regist(){
+            /*
+            한 날의 기록된 정보를 담기 위한 저장소인 json 을 하나
+            생성한다..
+            */
+            let json={
+                "yy":nowDate.getFullYear(),
+                "mm":nowDate.getMonth(),
+                "dd":sel_dd.value, 
+                "src":sel_icon.value, 
+                "content" : detail1.value
+            }
+            diaryArray.push(json);
+
+            removeData(); //화면싹 지우고 
+            loadData();//정보 불러오기 
+        }
+
+        //사용자가 달력의 날짜 박스를 선택하면, 해당 날짜에 대한 
+        //다이어리 기록 정보를 우측 폼 영역에 반영하자 
+        function getContent(obj){ //매개변수의 값으로 DateBox인스턴스가 전달됨
+            // alert("상세 내용원해?");
+            console.log("yy"+obj.yy)
+            console.log("mm"+obj.mm)
+            console.log("dd"+obj.dd)
+            // console.log("src"+src)
+            // console.log("text"+text)
+        
+            console.log(obj)
+            // yy, mm, dd와 diaryArray에 들어있는 json들을 비교하여 같을 경우 우측 영역에 json에 들어있는 다이어리 출력
+
+            for(let i=0; i<diaryArray.length; i++){
+                let json = diaryArray[i] 
+                if(json.yy == obj.yy && json.mm == obj.mm && json.dd == obj.dd){
+                    console.log(json.dd, json.src, json.content)
+                    // 우측 영역 채워넣기
+                    sel_yy2.value=json.yy // 연
+                    sel_mm2.value=json.mm+1// 월
+                    sel_dd2.value=json.dd// 일
+                    sel_icon2.value=json.src// 아이콘select box
+                    preview(pic2, json.src)// 아이콘미리보기
+                    sel_detail2.value=json.content// 상세내용
+                }
+            }
+
+            targetX=obj.x;
+            targetY=obj.y;
+        }
+        
+        function createRect(){
+            rect=new Rect(content, 100, 100, targetX, targetY, 8, 8);
+            //container, width, height, x, y, velX, velY
+            
+        }
+
+        function loop(){
+            rect.tick();
+            rect.render();
+        }
+
+        function init(){
+            sel_yy=document.getElementById("sel_yy");
+            sel_mm=document.getElementById("sel_mm");
+            sel_dd=document.getElementById("sel_dd");
+            sel_icon=document.getElementById("sel_icon");
+            pic=document.getElementById("pic");
+
+            detail1=document.getElementById("detail1");
+            sel_yy2=document.getElementById("sel_yy2");
+            sel_mm2=document.getElementById("sel_mm2");
+            sel_dd2=document.getElementById("sel_dd2");
+            sel_icon2=document.getElementById("sel_icon2");
+            pic2=document.getElementById("pic2");
+            detail2=document.getElementById("detail2");
+            
+            title=document.getElementById("title");//년,월 제목
+            dayTitle=document.getElementById("dayTitle");
+            content=document.getElementById("content");
+
+            initSel(sel_yy, sel_mm, sel_icon); //좌측 영역의  select 들 채우기 
+            initSel(sel_yy2, sel_mm2, sel_icon2); //우측 영역의  select 들 채우기 
+        }
+
+        addEventListener("load", function(){
+            init();
+            nowDate=new Date();
+            setTitle();
+            
+            //좌측의  select 박스에도 현재 날짜 동기화 시키기 
+            sel_yy.value=nowDate.getFullYear();
+            sel_mm.value=nowDate.getMonth()+1;
+            
+            //createDate() 함수를 정의할때, select박스의 디자인텍스트
+            //가 넘어오는 것을 전제로 정의하는 바람에, 아래의 코드에서
+            //월을 매개변수값으로 넘길때는 select박스의 디자인 데이터를
+            //염두해두고 값을 넘겨야 한다..
+            createDate(nowDate.getMonth()+1);
+            sel_dd.value=nowDate.getDate();//현재 몇일인지..
+
+            createDay();//요일 생성 
+            createDateBox();//날짜 생성 
+            printNum(); //박스 생성 후에 호출한다
+
+                    
+                    createRect();
+                    setInterval("loop()", 10);
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="leftSide">
+            <select id="sel_yy" onChange="setYear(this.value)">
+                <option value="">년도</option>                
+            </select>
+            <select id="sel_mm" onChange="createDate(this.value);">
+                <option value="">월</option>
+            </select>
+            <select id="sel_dd">
+                <option value="">일</option>
+            </select>
+
+            <select id="sel_icon" onChange="preview(pic, this.value)">
+                <option value="">아이콘</option>
+            </select>
+
+            <img id="pic">
+
+            <textarea cols="13" rows="7" id="detail1"></textarea>
+
+            <button onClick="regist()">등록</button>
+
+        </div>
+
+        <div id="center">
+            <div id="header">
+                <button onClick="prev()">◀</button>
+                <span id="title">2023-09</span>
+                <button onClick="next()">▶</button>
+            </div>
+            <div id="dayTitle"></div>
+            <div id="content"></div>
+        </div>
+
+
+        <div id="rightSide">
+            <select id="sel_yy2">
+                <option value="">년도</option>
+            </select>
+            <select id="sel_mm2">
+                <option value="">월</option>
+            </select>
+            <select id="sel_dd2">
+                <option value="">일</option>
+            </select>
+
+            <select id="sel_icon2" onChange="preview(pic2, this.value)">
+                <option value="">아이콘</option>
+            </select>
+
+            <img id="pic2">
+
+            <textarea cols="13" rows="7" id="detail2"></textarea>
+
+            <button>수정</button>
+            <button>삭제</button>
+
+        </div>
+    </div>
+
+</body>
+</html>

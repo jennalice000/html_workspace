@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<style>
+    #game-container {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  background-color: blue;
+}
+
+.word {
+  position: absolute;
+  width: auto;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+#word-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  text-align: center;
+}
+
+</style>
+<body>
+  <div id="game-container">
+    <div id="player"></div>
+    <div id="word-container"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+<script>
+const gameContainer = document.getElementById('game-container');
+const player = document.getElementById('player');
+const wordContainer = document.getElementById('word-container');
+let playerX = 125; // Initial player X position
+let score = 0;
+let gameOver = false;
+
+document.addEventListener('keydown', function(event) {
+  if (gameOver) {
+    return;
+  }
+
+  let wordMatched = false;
+  const words = document.getElementsByClassName('word');
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
+    if (word.textContent === event.key) {
+      word.remove();
+      score++;
+      wordMatched = true;
+      if (score === 100) {
+        gameOver = true;
+        gameContainer.innerHTML = '<div class="game-over">You Win!</div>';
+        return;
+      }
+    }
+  }
+
+  if (!wordMatched) {
+    gameOver = true;
+    gameContainer.innerHTML = '<div class="game-over">Game Over!</div>';
+  }
+});
+
+function createWord() {
+  if (gameOver) {
+    return;
+  }
+  
+  const word = document.createElement('div');
+  word.className = 'word';
+  word.textContent = getRandomLetter();
+  word.style.left = Math.floor(Math.random() * (gameContainer.offsetWidth - 20)) + 'px';
+  wordContainer.appendChild(word);
+
+  const animation = word.animate([
+    { top: '0', opacity: '1' },
+    { top: gameContainer.offsetHeight + 'px', opacity: '1' }
+  ], {
+    duration: 5000, // Increase the duration to slow down the falling speed
+    easing: 'linear'
+  });
+
+  animation.onfinish = function() {
+    if (!gameOver) {
+      gameOver = true;
+      gameContainer.innerHTML = '<div class="game-over">Game Over!</div>';
+    }
+  };
+
+  setTimeout(createWord, Math.random() * 2000); // Increase the delay between word creation
+}
+
+function getRandomLetter() {
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  return alphabet[Math.floor(Math.random() * alphabet.length)];
+}
+
+createWord();
+
+</script>
+</html>

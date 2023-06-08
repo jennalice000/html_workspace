@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            color: rgb(70, 70, 70);
+        }
+
+        #wrapper {
+            margin: auto;
+            width: 1000px;
+            height: 700px;
+            display: flex;
+            flex-direction: row;
+            background-color: palevioletred;
+        }
+
+        #leftSide {
+            width: 150PX;
+            height: 700PX;
+            /* background-image: url("../images/space.jpg"); */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #rightSide {
+            width: 150PX;
+            height: 700PX;
+            /* background-image: url("../images/space.jpg"); */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #center {
+            width: 700px;
+            height: 700px;
+            /* background-color: green; */
+        }
+
+        #header,
+        #dayTitle {
+            width: 700px;
+            height: 50px;
+            border: 1px solid rgb(71, 71, 71);
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #title {
+            font-size: 25px;
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        #content {
+            width: 700px;
+            height: 600px;
+            /* background-image: url("../images/orora.jpg"); */
+            background-size: cover;
+            position: relative;
+
+        }
+
+        #leftSide>select,
+        button {
+            width: 130px;
+            height: 30px;
+            margin-top: 30px;
+        }
+
+        textarea {
+            margin-top: 30px;
+            width: 130px;
+        }
+
+        #rightSide>select,
+        button {
+            width: 130px;
+            height: 30px;
+            margin-top: 30px;
+        }
+
+        #header>button {
+            margin-top: 8px;
+        }
+
+        #btns {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #submit2 {
+            float: left;
+            width: 60px;
+        }
+
+        #edit {
+            float: right;
+            width: 60px;
+            margin-left: 10px;
+        }
+
+        #pic {
+            width: 130px;
+            height: 130px;
+            margin-top: 7px;
+        }
+
+        #pic2 {
+            width: 130px;
+            height: 130px;
+            margin-top: 7px;
+        }
+        #dayTitle{
+            position: relative;
+            display: flex;
+            flex-direction: row;
+        }
+        #dayTitle > div{
+
+        }
+    </style>
+    <script src="./DayBox.js"></script>
+    <script src="./DateBox.js"></script>
+    <script>
+        let nowDate
+        let title, content;
+        let sel_yy, sel_dd, sel_mm, sel_icon, detail1, pic1;
+        let sel_yy2, sel_dd2, sel_m2, sel_ico2, detail2, pic2;
+        let iconArray = ["../images/pin.png", "../images/heart.png", "../images/pencil.png"]
+        let dayTitle;
+        let dayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        let dateBoxArray=[];
+
+        function initSel(select_yy, select_mm, select_icon){
+            //연도에 옵션들 채우기 
+            for(let i=1;i<=10;i++){
+                let op=document.createElement("option");
+                op.text=2020+i; //사용자게 보게될 디자인 
+                op.value=2020+i;//실제 값
+                select_yy.add(op); //sel_yy라는 select 박스에 자식으로 추가 
+            }
+
+            //월 채우기 
+            for(let i=1;i<=12;i++){
+                let op=document.createElement("option");
+                op.text=i; //사용자게 보게될 디자인 
+                op.value=i;//실제 값
+                select_mm.add(op); //sel_yy라는 select 박스에 자식으로 추가 
+            }
+
+            //아이콘 채우기 
+            for(let i=0;i<iconArray.length;i++){
+                let op=document.createElement("option");
+                op.text=iconArray[i];
+                op.value=iconArray[i];
+                select_icon.add(op);
+            }
+        }
+
+        //이미지 미리보기
+        function preview(photo , src){
+            photo.src=src;//사용자가 선택한 option의 값
+        }
+
+        function dropDate(){
+            let n=sel_dd.options.length;
+            for(let i=0;i<n;i++){
+                sel_dd.remove(1);    
+            };
+        }
+
+        function setYear(yy){
+            nowDate.setFullYear(yy);
+            setTitle()
+        }
+
+        function createDate(month){
+            nowDate.setMonth(month-1);
+            setTitle();
+
+            dropDate();//싹~~ 비우고
+            let totalDate=getLastDateOfMonth();
+
+            for(let i=1;i<=totalDate;i++){
+                let op=document.createElement("option");
+                op.text=i;
+                op.value=i;
+                sel_dd.add(op);
+            }
+            printNum()
+        }
+
+        function setTitle(){
+            let yy=nowDate.getFullYear(); //년
+            let mm=nowDate.getMonth();//월 0부터~~
+            title.innerText=yy+"년 "+(mm+1)+"월";
+        }
+
+        function getStartDayOfWeek(){
+            let yy=nowDate.getFullYear();
+            let mm=nowDate.getMonth();
+            let d = new Date(yy, mm, 1);
+            return d.getDay();
+        }
+
+        function getLastDateOfMonth(){
+            let d = new Date(nowDate.getFullYear(), nowDate.getMonth()+1, 0);  
+            return d.getDate();    
+        }
+
+        function prev(){
+            let month = nowDate.getMonth();
+            nowDate.setMonth(month-1)
+            setTitle();
+
+            sel_yy.value = nowDate.getFullYear();
+            sel_mm.value = nowDate.getMonth()+1;
+            createDate(sel_mm.value);
+            printNum()
+        }
+
+        function next(){
+            let month = nowDate.getMonth();
+            nowDate.setMonth(month+1)
+            setTitle();
+
+            sel_yy.value = nowDate.getFullYear();
+            sel_mm.value = nowDate.getMonth()+1;
+            createDate(sel_mm.value);
+            printNum()
+        }
+
+        function createDay(){
+            for(let i=0;i<dayArray.length;i++){
+                new DayBox(dayTitle, 100,50, i*100, 0, dayArray[i]);
+            }
+        }
+        function createDateBox(){
+            for(let a=0;a<6;a++){ //층수
+                //일차원 배열 준비 
+                let arr=new Array(7);
+                for(let i=0;i<7;i++){ //호수
+                    //container, width, height, x, y, num, src, text
+                    let box=new DateBox(content, 100, 100,i*100, a*100, 0, "" , "무");                        
+                    arr[i]=box;
+                }
+                dateBoxArray.push(arr);
+            }
+        }
+
+        function printNum(){
+            let count=1;
+
+            let startDay = getStartDayOfWeek();
+            let lastDay = getLastDateOfMonth()-1;
+            let n=0;
+
+            for(let a=0;a<dateBoxArray.length;a++){ //층
+                for(let i=0; i<dateBoxArray[a].length;i++){
+                    if(count>=startDay && n<=lastDay){
+                        n++;
+                        dateBoxArray[a][i].span.innerText=n;
+                    }else{
+                        dateBoxArray[a][i].span.innerText="";
+                    }
+                    count++;
+                }
+            }
+        }
+
+        function init(){
+            sel_yy=document.getElementById("sel_yy");
+            sel_mm=document.getElementById("sel_mm");
+            sel_dd=document.getElementById("sel_dd");
+            sel_icon=document.getElementById("sel_icon");
+            pic=document.getElementById("pic");
+
+            detail1=document.getElementById("detail1");
+            sel_yy2=document.getElementById("sel_yy2");
+            sel_mm2=document.getElementById("sel_mm2");
+            sel_dd2=document.getElementById("sel_dd2");
+            sel_icon2=document.getElementById("sel_icon2");
+            pic2=document.getElementById("pic2");
+            detail2=document.getElementById("detail2");
+            
+            title=document.getElementById("title");//년,월 제목
+            content=document.getElementById('content')
+
+            dayTitle = document.getElementById('dayTitle')
+
+
+
+            initSel(sel_yy, sel_mm, sel_icon); //좌측 영역의  select 들 채우기 
+            initSel(sel_yy2, sel_mm2, sel_icon2); //우측 영역의  select 들 채우기 
+        }
+
+        addEventListener("load", function(){
+            init();
+            nowDate=new Date();
+            setTitle();
+            
+            //좌측의  select 박스에도 현재 날짜 동기화 시키기 
+            sel_yy.value=nowDate.getFullYear();
+            sel_mm.value=nowDate.getMonth()+1;
+            
+            createDate(nowDate.getMonth()+1);
+            sel_dd.value=nowDate.getDate();//현재 몇일인지..
+
+            //요일 생성 
+            createDay();
+            createDateBox();
+            printNum()
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="leftSide">
+            <select id="sel_yy" onchange="setYear(this.value)">
+                <option value="">년</option>
+            </select>
+            <select id="sel_mm" onchange="createDate(this.value)">
+                <option value="">월</option>
+            </select>
+            <select id="sel_dd">
+                <option value="">일</option>
+            </select>
+            <select id="sel_icon" onchange="preview(pic, this.value)">
+                <option value="">아이콘</option>
+            </select>
+            <img id="pic" src="../images/드캐1.jpg" alt="img">
+            <textarea id="detail" cols="30" rows="10"></textarea>
+            <button id="submit1">SUBMIT</button>
+        </div>
+        <div id="center">
+            <div id="header">
+                <button onclick="prev()">◀</button>
+                <span id="title">2023-06</span>
+                <button onclick="next()">▶</button>
+            </div>
+            <div id="dayTitle"></div>
+            <div id="content"></div>
+        </div>
+        <div id="rightSide">
+            <select id="sel_yy2">
+                <option value="">년</option>
+            </select>
+            <select id="sel_mm2">
+                <option value="">월</option>
+            </select>
+            <select id="sel_dd2">
+                <option value="">일</option>
+            </select>
+            <select id="sel_icon2" onchange="preview(pic2, this.value)">
+                <option value="">아이콘</option>
+            </select>
+            <img id="pic2" src="../images/드캐3.jpg" alt="img">
+            <textarea id="detail12" cols="30" rows="10"></textarea>
+            <div id="btns">
+                <button id="submit2">SUBMIT</button>
+                <button id="edit">EDIT</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
