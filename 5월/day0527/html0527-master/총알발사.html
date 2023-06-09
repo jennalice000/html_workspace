@@ -73,8 +73,10 @@
         }
 
         addEventListener("load", function(){
-            document.querySelector("button").addEventListener("click", function(){
-                fire();  
+            addEventListener("keydown", function(e){
+                if(e.keyCode==37){
+                    fire();  
+                }
             });
             setInterval("loop()", 10);
         });

@@ -1,0 +1,43 @@
+body{
+    position: relative;
+}
+
+  #wrapper{
+    width: 500px;
+    height: 500px;
+    background-color: yellow;
+  }
+
+  ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  
+  .word-item {
+    position: absolute;
+    color: #000;
+    font-size: 18px;
+  }
+  
+  /* .word-item.animated {
+    animation: moveAnimation 4s ease-in-out;
+  } */
+
+  #matchingWordInput2, #wordInput2, #addWord2, #checkMatchingWord2{
+    position: absolute;
+    top: 3200px;
+    
+  }
+  
+  /* @keyframes moveAnimation {
+    0% {
+      transform: translate(0, 0);
+    }
+    50% {
+      transform: translate(200px, 200px);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  } */
+  

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슈퍼마리오</title>
+    <style>
+        body{margin:0px}
+
+        #wrapper{
+            width:1000px;
+            height:800px;
+            background: yellow;
+            margin: auto;
+            position: relative;
+        }
+    </style>
+    <script src="./GameObject.js"></script>
+    <script src="./Brick.js"></script>
+    <script src="./Mario.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="../js/lib.js"></script>
+    <script>
+        let wrapper;
+        let mario;
+        let g=0.03; // 중력을 표현한 전역변수
+        let flag=true;//루프 수행 여부를 결정짓는 논리값
+        let brickArray=[];  //충돌체크를 반복문으로 처리하려면 벽돌은
+                                    //배열에 들어있어야 한다..
+        let sensors;
+
+        function createBrick(){
+            for(let i=0;i<25;i++){
+                //container, src, width, height,x,y,velX,velY
+                brickArray.push(new Brick(wrapper, "../images/brick.png",40,40,i*40, 600, 0,0));
+            }
+        }
+        
+        function createMario(){
+            mario=new Mario(wrapper, "../images/mario.png",50,70, 200,10,0,5);
+        }
+
+        //게임에 등장하는 객체 중, 움직임이 있는 객체의
+        //tick(), render() 호출..
+        function loop(){
+            if(flag){
+                mario.tick();
+                mario.render();
+            }
+        }
+
+        function jump(){
+            mario.velY=-3;
+        }
+
+        function moveX(n){
+            mario.velX=n;
+            sensor()
+        }
+
+        function init(){
+            wrapper = document.getElementById("wrapper");
+            createBrick();//벽돌 생성하기
+            createMario();//마리오 생성하기
+            
+        }
+
+        function sensor(){
+            sensors=new Sensor(wrapper, 70, 90, 20, 20, 'red')
+            
+            //container, width, height, x, y, bg
+        }
+
+        $(function(){
+            init();
+            setInterval("loop()",10);
+
+            $(document.body).on("keydown", function(e){
+                switch(e.keyCode){
+                    case 27:flag=!flag;break;
+                    case 37:moveX(-3);break;
+                    case 39:moveX(3);break;
+                    case 32:jump();break;
+                }
+            });
+        });
+    </script>    
+</head>
+<body>
+    <div id="wrapper"></div>
+</body>
+</html>
+
+
+
+
+
+
