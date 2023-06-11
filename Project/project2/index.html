@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Typing Game</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #game-container {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            position: relative;
+            border: 2px solid #fff;
+        }
+
+        .word {
+            position: absolute;
+            font-size: 24px;
+        }
+
+        #input-text {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Typing Game</h1>
+
+    <div id="game-container">
+        <div id="input-text"></div>
+    </div>
+
+    <script>
+        // List of words
+        var words = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "jackfruit", "kiwi"];
+
+        // Game variables
+        var fallingWords = [];
+        var score = 0;
+        var inputText = "";
+
+        // Game container
+        var gameContainer = document.getElementById("game-container");
+
+        // Input text element
+        var inputTextElement = document.getElementById("input-text");
+
+        // Function to create a new falling word
+        function createFallingWord() {
+            var newWord = document.createElement("div");
+            newWord.className = "word";
+            newWord.innerText = words[Math.floor(Math.random() * words.length)];
+            newWord.style.left = Math.floor(Math.random() * (gameContainer.offsetWidth - 100)) + "px";
+            gameContainer.appendChild(newWord);
+            fallingWords.push(newWord);
+        }
+
+        // Function to update and draw the falling words
+        function updateFallingWords() {
+            for (var i = 0; i < fallingWords.length; i++) {
+                var word = fallingWords[i];
+                var top = parseInt(word.style.top) || 0;
+                top += 5;
+                word.style.top = top + "px";
+
+                // Check if the word reached the bottom of the screen
+                if (top > gameContainer.offsetHeight) {
+                    gameContainer.removeChild(word);
+                    fallingWords.splice(i, 1);
+                    score -= 1;
+                }
+            }
+        }
+
+        // Function to handle key press
+        function handleKeyPress(event) {
+            var key = event.key;
+
+            if (key === "Enter" || key === "Backspace" || key === "Escape" || key === " " || key === "Capslock" || key === "Shift") {
+                event.preventDefault();
+                inputText=" ";
+            } else {
+                inputText += key;
+                inputTextElement.innerText = inputText;
+            }
+
+            // Check if the typed word matches any falling word
+            for (var i = 0; i < fallingWords.length; i++) {
+                var word = fallingWords[i];
+                if (inputText === word.innerText) {
+                    gameContainer.removeChild(word);
+                    fallingWords.splice(i, 1);
+                    score += 1;
+                    inputText = "";
+                    break;
+                }
+            }
+
+            // Check if the typed word is 'pwd' to redirect to a new page
+            if (inputText === "pwd") {
+                window.location.href = "./index2.html";
+            }
+        }
+
+        // Start the game
+        setInterval(createFallingWord, 2000);
+        setInterval(updateFallingWords, 30);
+        document.addEventListener("keydown", handleKeyPress);
+    </script>
+</body>
+</html>

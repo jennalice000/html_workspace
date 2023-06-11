@@ -1,0 +1,40 @@
+#wrapper0{
+    width: 500px;
+    height: 500px;
+    background-color: #ff0000;
+}
+#wrapper1{
+    width: 500px;
+    height: 500px;
+    background-color: #ff7b00;
+}
+#wrapper2{
+    width: 500px;
+    height: 500px;
+    background-color: #ffdd00;
+}
+#wrapper3{
+    width: 500px;
+    height: 500px;
+    background-color: #09ff00;
+}
+
+#notepad {
+    width: 300px;
+    height: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+  }
+  
+  #saveButton {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  #noteList {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  

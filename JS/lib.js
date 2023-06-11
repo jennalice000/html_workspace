@@ -84,3 +84,17 @@ function collisionCheck(me , you){
     */
 
 }
+
+
+
+function getStringOutOfRange(str, limit){
+    //let str="동해물과 백두산이 마르고";        
+    //console.log("문자열의 길이는 ",  str.length);
+    let result=str;
+
+    if(str.length>limit){ //...처리의 대상이 된다면..
+        result=str.substring(0, limit)+"..";        
+        //console.log(result+"..");       
+    }     
+    return result;
+}
