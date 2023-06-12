@@ -1,4 +1,4 @@
-const iconSection = document.querySelector('.icon');
+const icon = document.querySelector('.icon');
 const button = document.querySelector('.button');
 
 //navigator.geolocation.getCurrentPosition()-> 현재위치에 대한 정보를 끌어올 수 있다. (버튼은 실행부일뿐)
@@ -14,7 +14,7 @@ const success = (position) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 
-    getWeather(latitude, longitude);
+    getWeather(37.2750804, 126.9540775);
 };
 
 //API이용해서 위도, 경도를 인수로 넣어 날씨에 대해 원하는 값 구하기 (아직 신규가입이라 인증안됨)
@@ -25,7 +25,9 @@ const getWeather = (lat, lon) => {
         .then((json) => {
             const icon = json.weather[0].icon;
             const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-            iconSection.setAttribute('src', iconURL); //속성추가
+            icon.setAttribute('src', iconURL); //속성추가
+            icon.style.width = 50+'px'
+            icon.style.height = 50+'px'
 
         })
         .catch((error) => {
