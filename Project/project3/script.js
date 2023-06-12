@@ -3,12 +3,15 @@ const passwordWindow = document.getElementById('passwordWindow');
 const pwd = document.getElementById('pwd');
 
 function popUp() {
+    background.style.filter = '';
   if (pwd.value !== 'apple') {
     passwordWindow.classList.add('show');
     passwordWindow.classList.remove('hide');
+
   } else {
     passwordWindow.classList.add('hide');
     passwordWindow.classList.remove('show');
+    background.style.filter = 'none';
   }
 }
 
@@ -17,6 +20,7 @@ function reLock() {
     if (e.ctrlKey && e.altKey && e.shiftKey) {
       passwordWindow.classList.remove('hide');
       passwordWindow.classList.add('show');
+      background.style.filter = '';
       e.preventDefault();
     }
   });
@@ -42,7 +46,7 @@ function createWords() {
     newWord.style.position = 'absolute';
     newWord.style.left = getRandomByRange(800, 1000) + 'px'; 
     newWord.style.top = '250px';
-    newWord.style.fontSize = 17+'px'
+    newWord.style.fontSize = 20+'px'
   
     wrapper.appendChild(newWord);
     fallingWords.push(newWord);
