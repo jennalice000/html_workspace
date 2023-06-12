@@ -1,20 +1,24 @@
 const background = document.getElementById('background');
 const passwordWindow = document.getElementById('passwordWindow');
 const pwd = document.getElementById('pwd');
+let pwdBackGround=background.querySelector=('.passwordBackground')
 
 function popUp() {
+  background.style.filter = ''
   if (pwd.value !== 'apple') {
     passwordWindow.classList.add('show');
     passwordWindow.classList.remove('hide');
   } else {
     passwordWindow.classList.add('hide');
     passwordWindow.classList.remove('show');
+    background.style.filter = 'none'
   }
 }
 
 function reLock() {
   document.addEventListener('keydown', function(e) {
     if (e.ctrlKey && e.altKey && e.shiftKey) {
+      background.style.filter = ''
       passwordWindow.classList.remove('hide');
       passwordWindow.classList.add('show');
       e.preventDefault();
