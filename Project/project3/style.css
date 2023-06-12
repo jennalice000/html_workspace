@@ -1,0 +1,40 @@
+
+#passwordWindow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.8);
+    opacity: 50%;
+  }
+
+  .show{
+    visibility: visible;
+  }
+  .hide{
+    visibility: hidden;
+  }
+  
+  #passwordModal {
+    background-color: white;
+    padding: 20px;
+    position: fixed;
+  }
+  
+  .passwordBackGround{
+    width: 100%;
+    height: 100%;
+    filter: blur(5px); 
+  }
+
+  #pwd{
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 15px;
+    border: 0px;
+    
+  }
