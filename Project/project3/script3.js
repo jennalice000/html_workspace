@@ -3,7 +3,6 @@ let dayTitle;
 let content;
 let dayArray = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 let dateArray = [];
-let nowDate;
 let weather;
 
 //1. 요일박스를 만들어 붙인다
@@ -54,32 +53,69 @@ function getLastDateOfMonth(){
 }
 
 //날짜박스에 날짜넣기
-function printDateNum(){
-    let startDay=nowDate.getDay(); //오늘 요일구하기 (init에서 오늘을 1일로 세팅해둠)
-    let lastDay=getLastDateOfMonth();
+// function printDateNum(){
+//     let startDay=nowDate.getDay(); //오늘 요일구하기 (init에서 오늘을 1일로 세팅해둠)
+//     let lastDay=getLastDateOfMonth();
 
-    let count=0;
-    let n=0;
+//     let count=0;
+//     let n=0;
 
-    for(let i=0; i<dateArray.length; i++){
-        for(let j=0; j<dateArray[i].length;j++){
-            if(count>=startDay && n<lastDay){
+//     for(let i=0; i<dateArray.length; i++){
+//         for(let j=0; j<dateArray[i].length;j++){
+//             if(count>=startDay && n<lastDay){
+//                 n++;
+//                 let dateBox=dateArray[i][j];
+//                 dateBox.setText(n);
+//                 dateBox.div.style.fontSize="17px"
+//                 dateBox.div.style.fontWeight=400
+//                 if(n === new Date().getDate()){
+//                     dateBox.div.setAttribute('id', 'today')
+//                     dateBox.div.style.border="5px solid #2f5a2d";
+//                 }
+//             }else{
+//                 dateArray[i][j].setText("");
+//             }
+//             count++;
+//         }
+//     }
+// }
+
+function printDateNum() {
+    let startDay = nowDate.getDay(); // Get today's day (I set today as 1st in init)
+    let lastDay = getLastDateOfMonth();
+
+    let count = 0;
+    let n = 0;
+
+    const currentDate = new Date(); // Current date
+
+    for (let i = 0; i < dateArray.length; i++) {
+        for (let j = 0; j < dateArray[i].length; j++) {
+            if (count >= startDay && n < lastDay) {
                 n++;
-                let dateBox=dateArray[i][j];
+                let dateBox = dateArray[i][j];
                 dateBox.setText(n);
-                dateBox.div.style.fontSize="17px"
-                dateBox.div.style.fontWeight=400
-                if(n === new Date().getDate()){
-                    dateBox.div.setAttribute('id', 'today')
-                    dateBox.div.style.border="5px solid #2f5a2d";
+                dateBox.div.style.fontSize = "17px";
+                dateBox.div.style.fontWeight = 400;
+                if (
+                    nowDate.getMonth() === currentDate.getMonth() &&
+                    n === currentDate.getDate()
+                ) {
+                    dateBox.div.setAttribute("id", "today");
+                    dateBox.div.style.border = "5px solid #2f5a2d";
+                } else {
+                    dateBox.div.style.border = "1px solid #000";
                 }
-            }else{
+            } else {
                 dateArray[i][j].setText("");
+                dateArray[i][j].div.style.border = "1px solid #000";
             }
             count++;
         }
     }
 }
+
+
 
 
 //날씨 api구해오기
@@ -115,7 +151,10 @@ const getWeather = () => {
         image.style.width = "150px";
         image.style.height = "150px";
         const description = data.weather[0].description;
-        div.textContent = "오늘은! "+description+"!";
+        div.textContent = description;
+        div.style.position="relative"
+        div.style.top="-25px"
+        div.style.fontSize="22px"
         weather.appendChild(div);
         rightSide.style.fontSize=20+'px';
         rightSide.style.fontWeight=600

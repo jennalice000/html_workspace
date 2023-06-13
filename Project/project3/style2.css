@@ -109,3 +109,15 @@ button{
     margin-top: 30px;
     box-shadow : 0px 4px 5px 2px #c7c7c755;
 }
+
+.getSticker{
+    top: 13px;
+    position: relative;
+}
+
+#today-weather{
+    font-size: 25px;
+    font-weight: 600;
+    top: 20px;
+    position: relative;
+}
