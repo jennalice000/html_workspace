@@ -34,6 +34,7 @@ body{
 #content{
     width: 100%;
     height: 600px;
+    background-color: #ece7d2;
 
 }
 
@@ -42,4 +43,17 @@ body{
     height: 50px;
     background-color: #2f5a2d;
     border-radius: 0 0 15px 15px;
+}
+
+#day_title{
+    position: relative;
+    left: 250px;
+    top: 48px;
+    color: #ece9e1;
+
+}
+
+#days{
+    position: relative;
+    left: 250px;
 }
