@@ -4,6 +4,7 @@ let content;
 let dayArray = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 let dateArray = [];
 let nowDate;
+let weather;
 
 //1. 요일박스를 만들어 붙인다
 //2. 날짜박스를 만들어 붙인다
@@ -30,8 +31,9 @@ function createDateBox() {
             arr[i] = dateBox;
 
             dateBox.div.addEventListener("click", function () {
-                console.log(innerText + '다');
+                alert(`${nowDate.getMonth()+1}월 ${dateBox.text}일 메모로 이동합니다`)
             })
+            
         };
         dateArray.push(arr);
     }
@@ -63,7 +65,14 @@ function printDateNum(){
         for(let j=0; j<dateArray[i].length;j++){
             if(count>=startDay && n<lastDay){
                 n++;
-                dateArray[i][j].setText(n);
+                let dateBox=dateArray[i][j];
+                dateBox.setText(n);
+                dateBox.div.style.fontSize="17px"
+                dateBox.div.style.fontWeight=400
+                if(n === new Date().getDate()){
+                    dateBox.div.setAttribute('id', 'today')
+                    dateBox.div.style.border="5px solid #2f5a2d";
+                }
             }else{
                 dateArray[i][j].setText("");
             }
@@ -73,6 +82,61 @@ function printDateNum(){
 }
 
 
+//날씨 api구해오기
+
+
+const icon = document.querySelector('#content #rightSide .icon');
+const image = document.createElement('img');
+const div = document.createElement('div');
+const today = document.getElementById('today');
+
+//navigator.geolocation.getCurrentPosition()-> 현재위치에 대한 정보를 끌어올 수 있다. (버튼은 실행부일뿐)
+addEventListener('load', () => {
+    getWeather();
+});
+
+//API키 변수로 지정
+const API_KEY = '75e0fa0f573bccc184d63daabf91e9ff';
+
+
+//API이용해서 위도, 경도를 인수로 넣어 날씨에 대해 원하는 값 구하기
+
+//axios버전 (내가 더 선호하기 때문에 이거 씀, 이유 : 간편하고 보기 편해서)
+const getWeather = () => {
+    axios
+      .get(`http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${API_KEY}`)
+      .then((response) => {
+        const data = response.data;
+        const iconImg = data.weather[0].icon;
+        icon.src = `./weather/icons/${iconImg}.png`;
+        icon.style.width = "150px";
+        icon.style.height = "150px";
+        image.src = `./weather/icons/${iconImg}.png`;
+        image.style.width = "150px";
+        image.style.height = "150px";
+        const description = data.weather[0].description;
+        div.textContent = "오늘은! "+description+"!";
+        weather.appendChild(div);
+        rightSide.style.fontSize=20+'px';
+        rightSide.style.fontWeight=600
+        rightSide.style.color='#2f5a2d';
+        if (today) {
+            today.appendChild(image);
+        }
+      })
+      .catch((error) => {
+        alert(error);
+      });
+};
+
+
+
+
+
+
+
+
+
 //초기화
 function init() {
     //html의 요소들을 js로 가져온다.
@@ -80,6 +144,7 @@ function init() {
     dayTitle = document.getElementById('day_title')
     content = document.getElementById('content')
     days = document.getElementById('days')
+    weather = document.getElementById('weather')
 
     nowDate= new Date();
     nowDate.setDate(1);

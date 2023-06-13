@@ -51,7 +51,7 @@ function createWords() {
   newWord.style.height = 'auto';
   newWord.style.width = 'auto';
 
-  wrapper.appendChild(newWord);
+  passwordWindow.appendChild(newWord);
   fallingWords.push(newWord);
 }
 
