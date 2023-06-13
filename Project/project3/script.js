@@ -27,7 +27,7 @@ function reLock() {
 }
 
 function passwordWindowInterval() {
-  setInterval(popUp, 100000);
+  setInterval(popUp, 1000000);
 }
 
 //게임 단어들

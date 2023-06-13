@@ -4,32 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel="stylesheet" href="./style2.css">
 </head>
 <body>
     
-    <div id="passwordWindow" class="show">
+    <!-- <div id="passwordWindow" class="show">
         <input type="password" id="pwd" placeholder="비밀번호를 입력하세요"/>
         <div id="wrapper"></div>
-    </div>
+    </div> -->
     <div id="background" class="passwordBackGround">
         <!-- 비밀번호화면 생성될 때, passwordBackGround 생성,  사라질 때 제거-->
-        <!-- 메인 콘텐트 -->
-        <button type="button" class="button"></button>
-        <img src="" class="icon">
 
+        <!-- 메인 콘텐트 -->
         <div id="calendar">
             <div id="header">
+                <button type="button" class="button"></button>
+                <img src="" class="icon">
                 <div id="title"> 2023년 6월</div>
+                <div id="day_title"></div>
             </div>
             <div id="content">
-                <div id="day_title"></div>
                 <div id="days"></div>
             </div>
+            <div id="footer"></div>
         </div>
 
     </div>
 </body>
-<script src="./script.js"></script>
-<!-- <script src="./script2.js"></script> -->
+<!-- 1: 화면보호기 -->
+<!-- 2: 날씨API -->
+<!-- 3: 달력 --->
+<!-- Box, DayBox, DateBox: 달력 내부 클래스 -->
+<!-- 그외: axios (API받아오기 위한 비동기통신라이브러리) -->
+<script src="./script.js"></script> 
+<script src="./script2.js"></script>
+<script src="./script3.js"></script>
+<script src="./Box.js"></script>
+<script src="./DayBox.js"></script>
+<script src="./DateBox.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </html>
