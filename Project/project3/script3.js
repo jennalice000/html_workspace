@@ -43,7 +43,7 @@ function createDateBox() {
 function setTitle() {
     let year = nowDate.getFullYear();
     let month = nowDate.getMonth();
-    title.innerText = year + "년 " + (month + 1) + "월";
+    title.innerText = year + " / " + (month + 1);
 }
 
 //마지막 날짜 구하기
