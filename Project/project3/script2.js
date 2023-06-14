@@ -1,71 +1,89 @@
-// Create and add 10 images to the leftSide
+let nowDate = new Date();
+let storedStickers = {};
+
 function getRandomByRange(min, max) {
-    let result = min + parseInt(((max - min) + 1) * Math.random());
-    return result;
+  return min + Math.floor(Math.random() * (max - min + 1));
 }
 
 function createStickerImages() {
-    const leftSide = document.getElementById('leftSide');
-    const imageNames = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png', '18.png', '19.png', '20.png', '21.png', '22.png'];
+  const leftSide = document.getElementById('leftSide');
+  const imageNames = Array.from({ length: 22 }, (_, i) => `${i + 1}.png`);
 
-    for (let i = 0; i < 22; i++) {
-        const img = document.createElement('img');
-        img.src = './sticker/' + imageNames[i];
-        img.classList.add('sticker');
-        img.style.position = 'absolute';
+  const storedStickersKey = `stickers_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`;
+  storedStickers = JSON.parse(localStorage.getItem(storedStickersKey)) || {};
 
+  for (let i = 0; i < imageNames.length; i++) {
+    const stickerId = i + 1;
+    const stickerData = storedStickers[stickerId.toString()] || {};
 
-        const storedStickers = JSON.parse(localStorage.getItem('stickers')) || {};
-        const stickerData = storedStickers[i.toString()];
-        if (stickerData) {
-            img.style.left = stickerData.left + 'px';
-            img.style.top = stickerData.top + 'px';
-        } else {
-            const maxWidth = leftSide.clientWidth - img.width;
-            const maxHeight = leftSide.clientHeight - img.height;
-            const randomX = getRandomByRange(16, 194);
-            const randomY = getRandomByRange(117, 546);
-            img.style.left = randomX + 'px';
-            img.style.top = randomY + 'px';
-        }
+    const img = document.createElement('img');
+    img.src = `./sticker/${imageNames[i]}`;
+    img.classList.add('sticker');
+    img.style.position = 'absolute';
+    img.style.left = `${stickerData.left || getRandomByRange(16, 194)}px`;
+    img.style.top = `${stickerData.top || getRandomByRange(117, 546)}px`;
+    img.setAttribute('id', stickerId);
+    img.addEventListener('mousedown', startDragging);
+    img.addEventListener('dblclick', removeSticker);
 
-
-
-        img.addEventListener('mousedown', startDragging);
-        img.addEventListener('dblclick', removeSticker);
-
-        leftSide.appendChild(img);
-    }
+    leftSide.appendChild(img);
+  }
 }
 
-function startDragging(event) {
-    const sticker = event.target;
-    const offsetX = event.clientX - sticker.offsetLeft;
-    const offsetY = event.clientY - sticker.offsetTop;
+function startDragging(e) {
+  const sticker = e.target;
+  const offsetX = e.clientX - sticker.offsetLeft;
+  const offsetY = e.clientY - sticker.offsetTop;
 
-    function moveSticker(event) {
-        const x = event.clientX - offsetX;
-        const y = event.clientY - offsetY;
-        sticker.style.left = x + 'px';
-        sticker.style.top = y + 'px';
+  function moveSticker(e) {
+    const x = e.clientX - offsetX;
+    const y = e.clientY - offsetY;
 
-        const storedStickers = JSON.parse(localStorage.getItem('stickers')) || {};
-        storedStickers[sticker.id] = { left: x, top: y };
-        localStorage.setItem('stickers', JSON.stringify(storedStickers));
-    }
-    function stopDragging() {
-        document.removeEventListener('mousemove', moveSticker);
-        document.removeEventListener('mouseup', stopDragging);
-    }
+    const minX = -692;
+    const maxX = -61;
+    const minY = 5;
+    const maxY = 549;
 
-    document.addEventListener('mousemove', moveSticker);
-    document.addEventListener('mouseup', stopDragging);
+    sticker.style.left = `${Math.min(Math.max(x, minX), maxX)}px`;
+    sticker.style.top = `${Math.min(Math.max(y, minY), maxY)}px`;
+  }
+
+  function stopDragging() {
+    document.removeEventListener('mousemove', moveSticker);
+    document.removeEventListener('mouseup', stopDragging);
+
+    const stickerData = {
+      year: nowDate.getFullYear(),
+      month: nowDate.getMonth() + 1,
+      date: nowDate.getDate(),
+      left: parseInt(sticker.style.left),
+      top: parseInt(sticker.style.top),
+      id: sticker.getAttribute('id')
+    };
+
+    storedStickers[stickerData.id] = stickerData;
+    localStorage.setItem(`stickers_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`, JSON.stringify(storedStickers));
+  }
+
+  document.addEventListener('mousemove', moveSticker);
+  document.addEventListener('mouseup', stopDragging, { once: true });
 }
 
-function removeSticker(event) {
-    const sticker = event.target;
-    sticker.remove();
+function removeSticker(e) {
+  const sticker = e.target;
+  sticker.remove();
+
+  const stickerId = sticker.getAttribute('id');
+  delete storedStickers[stickerId];
+  localStorage.setItem(`stickers_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`, JSON.stringify(storedStickers));
 }
 
+function resetStickers() {
+    const stickers = document.getElementsByClassName('sticker');
+    while (stickers.length > 0) {
+      stickers[0].remove();
+    }
+    createStickerImages();
+}
 
 createStickerImages();

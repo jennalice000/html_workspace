@@ -27,67 +27,40 @@ function createDateBox() {
         let arr = new Array(7);//빈 배열 생성
         for (let i = 0; i < dayArray.length; i++) {
             let dateBox = new DateBox(days, 100, 100, i * 100, a * 100, "");
+            dateBox.div.setAttribute("id", `${dateBox.text}`);
             arr[i] = dateBox;
 
             dateBox.div.addEventListener("click", function () {
-                alert(`${nowDate.getMonth()+1}월 ${dateBox.text}일 메모로 이동합니다`)
+                alert(`${nowDate.getMonth() + 1}월 ${dateBox.text}일 메모로 이동합니다`)
             })
-            
+
         };
         dateArray.push(arr);
     }
 }
 
 //달력제목세팅하기
-function setTitle(){
+function setTitle() {
     let year = nowDate.getFullYear();
     let month = nowDate.getMonth();
-    title.innerText=year+"년 "+(month+1)+"월";
+    title.innerText = year + "년 " + (month + 1) + "월";
 }
 
 //마지막 날짜 구하기
-function getLastDateOfMonth(){
-    let d = new Date(nowDate.getFullYear(), nowDate.getMonth()+1); //현재 기준 다음 달
+function getLastDateOfMonth() {
+    let d = new Date(nowDate.getFullYear(), nowDate.getMonth() + 1); //현재 기준 다음 달
     d.setDate(0); //d가 다음달이므로 다음달의 이전달인 이 달의 마지막날짜가 됨
     return d.getDate();
 }
 
-//날짜박스에 날짜넣기
-// function printDateNum(){
-//     let startDay=nowDate.getDay(); //오늘 요일구하기 (init에서 오늘을 1일로 세팅해둠)
-//     let lastDay=getLastDateOfMonth();
-
-//     let count=0;
-//     let n=0;
-
-//     for(let i=0; i<dateArray.length; i++){
-//         for(let j=0; j<dateArray[i].length;j++){
-//             if(count>=startDay && n<lastDay){
-//                 n++;
-//                 let dateBox=dateArray[i][j];
-//                 dateBox.setText(n);
-//                 dateBox.div.style.fontSize="17px"
-//                 dateBox.div.style.fontWeight=400
-//                 if(n === new Date().getDate()){
-//                     dateBox.div.setAttribute('id', 'today')
-//                     dateBox.div.style.border="5px solid #2f5a2d";
-//                 }
-//             }else{
-//                 dateArray[i][j].setText("");
-//             }
-//             count++;
-//         }
-//     }
-// }
-
 function printDateNum() {
-    let startDay = nowDate.getDay(); // Get today's day (I set today as 1st in init)
+    let startDay = nowDate.getDay();
     let lastDay = getLastDateOfMonth();
 
     let count = 0;
     let n = 0;
 
-    const currentDate = new Date(); // Current date
+    const currentDate = new Date();
 
     for (let i = 0; i < dateArray.length; i++) {
         for (let j = 0; j < dateArray[i].length; j++) {
@@ -116,8 +89,6 @@ function printDateNum() {
 }
 
 
-
-
 //날씨 api구해오기
 
 
@@ -140,38 +111,33 @@ const API_KEY = '75e0fa0f573bccc184d63daabf91e9ff';
 //axios버전 (내가 더 선호하기 때문에 이거 씀, 이유 : 간편하고 보기 편해서)
 const getWeather = () => {
     axios
-      .get(`http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${API_KEY}`)
-      .then((response) => {
-        const data = response.data;
-        const iconImg = data.weather[0].icon;
-        icon.src = `./weather/icons/${iconImg}.png`;
-        icon.style.width = "150px";
-        icon.style.height = "150px";
-        image.src = `./weather/icons/${iconImg}.png`;
-        image.style.width = "150px";
-        image.style.height = "150px";
-        const description = data.weather[0].description;
-        div.textContent = description;
-        div.style.position="relative"
-        div.style.top="-25px"
-        div.style.fontSize="22px"
-        weather.appendChild(div);
-        rightSide.style.fontSize=20+'px';
-        rightSide.style.fontWeight=600
-        rightSide.style.color='#2f5a2d';
-        if (today) {
-            today.appendChild(image);
-        }
-      })
-      .catch((error) => {
-        alert(error);
-      });
+        .get(`http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=${API_KEY}`)
+        .then((response) => {
+            const data = response.data;
+            const iconImg = data.weather[0].icon;
+            icon.src = `./weather/icons/${iconImg}.png`;
+            icon.style.width = "130px";
+            icon.style.height = "130px";
+            image.src = `./weather/icons/${iconImg}.png`;
+            image.style.width = "130px";
+            image.style.height = "130px";
+            const description = data.weather[0].description;
+            div.textContent = description;
+            div.style.position = "relative"
+            div.style.top = "-25px"
+            div.style.fontSize = "22px"
+            weather.appendChild(div);
+            rightSide.style.fontSize = 20 + 'px';
+            rightSide.style.fontWeight = 600
+            rightSide.style.color = '#2f5a2d';
+            if (today) {
+                today.appendChild(image);
+            }
+        })
+        .catch((error) => {
+            alert(error);
+        });
 };
-
-
-
-
-
 
 
 
@@ -185,7 +151,7 @@ function init() {
     days = document.getElementById('days')
     weather = document.getElementById('weather')
 
-    nowDate= new Date();
+    nowDate = new Date();
     nowDate.setDate(1);
     setTitle();
     printDateNum();
@@ -197,23 +163,27 @@ addEventListener('load', function () {
     init();
     createDayBox();
     createDateBox();
-    printDateNum()
+    printDateNum();
+    createStickerImages();
 
-    this.addEventListener('keydown', function(e){
-        if(e.key === 'ArrowLeft'){
-            nowDate.setMonth(nowDate.getMonth()-1);
+    this.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+            nowDate.setMonth(nowDate.getMonth() - 1);
             nowDate.setDate(1);
             setTitle();
             printDateNum();
+            resetStickers();
+
         }
     })
-    
-    this.addEventListener('keydown', function(e){
-        if(e.key === 'ArrowRight'){
-            nowDate.setMonth(nowDate.getMonth()+1);
+
+    this.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+            nowDate.setMonth(nowDate.getMonth() + 1);
             nowDate.setDate(1);
             setTitle();
             printDateNum();
+            resetStickers();
         }
     })
 })

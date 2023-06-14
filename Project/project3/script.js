@@ -1,24 +1,24 @@
 const background = document.getElementById('background');
 const passwordWindow = document.getElementById('passwordWindow');
 const pwd = document.getElementById('pwd');
-let pwdBackGround = background.querySelector = ('.passwordBackground')
+const pwdBackGround = background.querySelector('.passwordBackground')
 
 function popUp() {
-  background.style.filter = ''
+  background.style.filter = '';
   if (pwd.value !== 'apple') {
     passwordWindow.classList.add('show');
     passwordWindow.classList.remove('hide');
   } else {
     passwordWindow.classList.add('hide');
     passwordWindow.classList.remove('show');
-    background.style.filter = 'none'
+    background.style.filter = 'none';
   }
 }
 
 function reLock() {
   document.addEventListener('keydown', function (e) {
     if (e.ctrlKey && e.altKey && e.shiftKey) {
-      background.style.filter = ''
+      background.style.filter = '';
       passwordWindow.classList.remove('hide');
       passwordWindow.classList.add('show');
       e.preventDefault();
@@ -32,7 +32,7 @@ function passwordWindowInterval() {
 }
 
 //게임 단어들
-let words = ["Adam", "Fruit", "red", "juicy", "ABC", "Tree", "Pine", "Mango", "Red", "Juicy", "abc", "adam", "hawa", "Hawa", "tree"];
+let words = ["Adam", "Fruit", "red", "juicy", "ABC", "Tree", "Pine", "Mango", "Red", "Juicy", "abc", "adam", "Snake", "snake", "tree"];
 
 // 게임 변수들
 let wrapper = document.getElementById('wrapper');
@@ -92,6 +92,6 @@ pwd.addEventListener('input', function () {
   if (pwd.value === 'apple') {
     passwordWindow.classList.add('hide');
     passwordWindow.classList.remove('show');
-    pwd.value = ""
+    pwd.value = '';
   }
 });
