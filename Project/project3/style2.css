@@ -1,6 +1,15 @@
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 *{
     box-sizing: border-box;
+    font-family: "SBAggroB";
 }
+
 
 body{
     padding: 0;
@@ -52,7 +61,6 @@ body{
     left: 250px;
     top: 26px;
     color: #ece9e1;
-
 }
 
 #days{
@@ -65,7 +73,7 @@ body{
     position: relative;
     color: #ece9e1;
     font-size: 50px;
-    top: 15px;
+    top: 26px;
 }
 
 button{
@@ -103,7 +111,7 @@ button{
     color: #2f5a2d;
     font-weight: 600;
     width: 220px;
-    height: 60px;
+    height: 95px;
     border-radius: 15px;
     text-align: center;
     margin-top: 30px;
@@ -120,4 +128,25 @@ button{
     font-weight: 600;
     top: 20px;
     position: relative;
+}
+
+#box{
+    width: 171px;
+    height: 92px;
+    margin-top: 22px;
+    background-color: #ece7d2;
+    border: 0;
+    border-radius: 15px;
+}
+
+#inputMemo{
+    width: 171px;
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #ece7d2;
+    border: 0;
+    box-shadow : 0px 4px 5px 2px #86868655;
+    text-align: center;
+    font-size: 16px;
 }

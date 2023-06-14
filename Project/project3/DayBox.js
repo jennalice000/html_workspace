@@ -15,7 +15,7 @@ class DayBox{
         this.div.style.height=this.height+"px";
         this.div.style.position="absolute";
         this.div.style.left=this.x+"px"
-        this.div.style.top=this.y+"px"
+        this.div.style.top=this.y+13+"px"
         this.div.style.fontSize=22+'px'
 
         this.div.innerText=this.text; //텍스트
