@@ -31,16 +31,28 @@ addEventListener('load', function() {
       const title = document.getElementById('title').innerText;
       const year = title.slice(0, 4);
       const month = title.slice(7);
-      const storageKey = `${year}_${month}`;
+      const storageKey = `memo_${year}_${month}`;
 
-      const dataToStore = {
+      let storedData = localStorage.getItem(storageKey);
+
+      if (storedData) {
+        storedData = JSON.parse(storedData);
+      } else {
+        storedData = [];
+      }
+
+      let dataToStore = {
         memo: memoText,
         year: currentYear,
         month: currentMonth,
         date: memoInputValue
       };
 
-      localStorage.setItem(storageKey, JSON.stringify(dataToStore));
+      storedData.push(dataToStore);
+
+      localStorage.setItem(storageKey, JSON.stringify(storedData));
+      box.value = "";
+      inputMemo.value = "";
     }
   });
 });

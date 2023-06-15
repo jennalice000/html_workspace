@@ -67,6 +67,7 @@ body{
     position: relative;
     width: 700px;
     height: 100%;
+    cursor: pointer;
 }
 
 #title{
@@ -150,3 +151,34 @@ button{
     text-align: center;
     font-size: 16px;
 }
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  
+  .modal-content {
+    background-color: white;
+    width: 400px;
+    padding: 20px;
+    border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  #myDiv {
+    cursor: pointer;
+    padding: 10px;
+    background-color: lightblue;
+    width: 200px;
+    text-align: center;
+  }
+  

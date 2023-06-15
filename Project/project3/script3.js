@@ -23,21 +23,39 @@ function createDayBox() {
 
 //날짜박스만들기
 function createDateBox() {
-    for (let a = 0; a < 6; a++) { //층
-        let arr = new Array(7);//빈 배열 생성
+    for (let a = 0; a < 6; a++) {
+        let arr = new Array(7);
         for (let i = 0; i < dayArray.length; i++) {
             let dateBox = new DateBox(days, 100, 100, i * 100, a * 100, "");
             dateBox.div.setAttribute("id", `${dateBox.text}`);
             arr[i] = dateBox;
 
             dateBox.div.addEventListener("click", function () {
-                alert(`${nowDate.getMonth() + 1}월 ${dateBox.text}일 메모로 이동합니다`)
-            })
+                alert(`${nowDate.getMonth() + 1}월 ${dateBox.text}일 메모로 이동합니다`);
+                const memoKey = `memo_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`;
+                const storedData = localStorage.getItem(memoKey);
 
-        };
+                const memoData = JSON.parse(storedData);
+                
+                for (let j = 0; j < memoData.length; j++) {
+                    if (Number(dateBox.text) === Number(memoData[j].date)) {
+                        console.log(memoData[j].memo);
+                        console.log(memoData[j].date);
+                        box.value = memoData[j].memo;
+                        inputMemo.value = memoData[j].date;
+
+                    }else if(Number(dateBox.text) !== Number(memoData[j].date)){
+                        box.value = "";
+                        inputMemo.value = "";
+                    }
+                }
+            });
+        }
+
         dateArray.push(arr);
     }
 }
+
 
 //달력제목세팅하기
 function setTitle() {
@@ -150,6 +168,8 @@ function init() {
     content = document.getElementById('content')
     days = document.getElementById('days')
     weather = document.getElementById('weather')
+    box = document.getElementById('box');
+    inputMemo = document.getElementById('inputMemo');
 
     nowDate = new Date();
     nowDate.setDate(1);
