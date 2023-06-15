@@ -19,24 +19,20 @@ addEventListener('load', function() {
   createMemoBox();
   createInputMemo();
 
-  // Get the current date
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1; // Months are zero-based
+  const currentMonth = currentDate.getMonth() + 1; 
 
   inputMemo.addEventListener("keydown", function(e){
     if(e.key === "Enter"){
-      // Get the input values
       const memoText = box.value;
       const memoInputValue = inputMemo.value;
 
-      // Generate the storage key based on the title
       const title = document.getElementById('title').innerText;
       const year = title.slice(0, 4);
       const month = title.slice(7);
       const storageKey = `${year}_${month}`;
 
-      // Create an object with the data to store
       const dataToStore = {
         memo: memoText,
         year: currentYear,
@@ -44,7 +40,6 @@ addEventListener('load', function() {
         date: memoInputValue
       };
 
-      // Store the data in local storage
       localStorage.setItem(storageKey, JSON.stringify(dataToStore));
     }
   });
