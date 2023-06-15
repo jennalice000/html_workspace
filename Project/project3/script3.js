@@ -5,6 +5,8 @@ let dayArray = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 let dateArray = [];
 let weather;
 
+
+
 //1. 요일박스를 만들어 붙인다
 //2. 날짜박스를 만들어 붙인다
 //3. 날짜 정보를 갖다 붙인다.
@@ -24,37 +26,69 @@ function createDayBox() {
 //날짜박스만들기
 function createDateBox() {
     for (let a = 0; a < 6; a++) {
-        let arr = new Array(7);
-        for (let i = 0; i < dayArray.length; i++) {
-            let dateBox = new DateBox(days, 100, 100, i * 100, a * 100, "");
-            dateBox.div.setAttribute("id", `${dateBox.text}`);
-            arr[i] = dateBox;
-
-            dateBox.div.addEventListener("click", function () {
-                alert(`${nowDate.getMonth() + 1}월 ${dateBox.text}일 메모로 이동합니다`);
-                const memoKey = `memo_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`;
-                const storedData = localStorage.getItem(memoKey);
-
-                const memoData = JSON.parse(storedData);
-                
-                for (let j = 0; j < memoData.length; j++) {
-                    if (Number(dateBox.text) === Number(memoData[j].date)) {
-                        console.log(memoData[j].memo);
-                        console.log(memoData[j].date);
-                        box.value = memoData[j].memo;
-                        inputMemo.value = memoData[j].date;
-
-                    }else if(Number(dateBox.text) !== Number(memoData[j].date)){
-                        box.value = "";
-                        inputMemo.value = "";
-                    }
-                }
-            });
-        }
-
-        dateArray.push(arr);
+      let arr = new Array(7);
+      for (let i = 0; i < dayArray.length; i++) {
+        let dateBox = new DateBox(days, 100, 100, i * 100, a * 100, "");
+        dateBox.div.setAttribute("id", `${dateBox.text}`);
+        arr[i] = dateBox;
+  
+        let mark = document.createElement('div');
+        mark.setAttribute('class', 'mark');
+        mark.style.background = "url(red.png)"; // Set the background image to red.png
+        mark.style.backgroundSize = "contain";
+        mark.style.width = "20px";
+        mark.style.height = "20px";
+        mark.style.borderRadius = "50%";
+        mark.style.margin = "5px";
+  
+        dateBox.div.addEventListener("click", function () {
+          alert(`Move to ${nowDate.getMonth() + 1}/${dateBox.text} day memo in month ${nowDate.getMonth() + 1}`);
+          const memoKey = `memo_${nowDate.getFullYear()}_${nowDate.getMonth() + 1}`;
+          const storedData = localStorage.getItem(memoKey);
+          const memoData = JSON.parse(storedData);
+  
+          for (let j = 0; j < memoData.length; j++) {
+            if (Number(dateBox.text) === Number(memoData[j].date)) {
+              console.log(memoData[j].memo);
+              console.log(memoData[j].date);
+              box.value = memoData[j].memo;
+              inputMemo.value = memoData[j].date;
+  
+              dateBox.div.appendChild(mark);
+            } else if (Number(dateBox.text) !== Number(memoData[j].date)) {
+              box.value = "";
+              inputMemo.value = "";
+            }
+          }
+        });
+      }
+  
+      dateArray.push(arr);
     }
-}
+  
+    // Traverse all notes and add marks to corresponding dateBoxes
+    const memoKeys = Object.keys(localStorage).filter(key => key.startsWith('memo_'));
+    for (const memoKey of memoKeys) {
+      const storedData = localStorage.getItem(memoKey);
+      const memoData = JSON.parse(storedData);
+      for (let j = 0; j < memoData.length; j++) {
+        const date = Number(memoData[j].date);
+        const dateBoxId = `${date}`;
+        const dateBox = document.getElementById(dateBoxId);
+        if (dateBox) {
+          const mark = document.createElement('div');
+          mark.setAttribute('class', 'mark');
+          mark.style.background = "url(red.png)"; // Set the background image to red.png
+          mark.style.backgroundSize = "contain";
+          mark.style.width = "20px";
+          mark.style.height = "20px";
+          mark.style.borderRadius = "50%";
+          mark.style.margin = "5px";
+          dateBox.appendChild(mark);
+        }
+      }
+    }
+  }
 
 
 //달력제목세팅하기
@@ -142,7 +176,7 @@ const getWeather = () => {
             const description = data.weather[0].description;
             div.textContent = description;
             div.style.position = "relative"
-            div.style.top = "-25px"
+            div.style.top = "-8px"
             div.style.fontSize = "22px"
             weather.appendChild(div);
             rightSide.style.fontSize = 20 + 'px';
@@ -193,6 +227,8 @@ addEventListener('load', function () {
             setTitle();
             printDateNum();
             resetStickers();
+            inputMemo.value = "";
+            box.value = ""
 
         }
     })
@@ -204,6 +240,8 @@ addEventListener('load', function () {
             setTitle();
             printDateNum();
             resetStickers();
+            inputMemo.value = "";
+            box.value = ""
         }
     })
 })

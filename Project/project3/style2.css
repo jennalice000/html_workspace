@@ -30,7 +30,7 @@ body{
     height: 800px;
     border-radius: 15px;
     background-color: #ece9e1;
-    box-shadow: 0px 4px 5px 2px #D9D9D955;
+    box-shadow: 0px 20px 15px 8px #9e9e9e55;
 }
 
 #header{
@@ -138,7 +138,10 @@ button{
     background-color: #ece7d2;
     border: 0;
     border-radius: 15px;
-}
+    resize: none;
+    padding: 10px;
+  }
+
 
 #inputMemo{
     width: 171px;
@@ -173,12 +176,16 @@ button{
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
   
-  #myDiv {
-    cursor: pointer;
-    padding: 10px;
-    background-color: lightblue;
-    width: 200px;
-    text-align: center;
+  #copyright{
+    left: 482px;
+    top: 13px;
+    position: relative;
+    color: #ece7d2;
+    font-weight: 200;
   }
-  
+
+  #what{
+    position: fixed;
+  }

@@ -37,15 +37,16 @@
     border-radius: 15px;
     border: 0px;
     position: fixed;
-    z-index: 2;
+    z-index: 9999;
   }
 
   #wrapper {
     border: 1px solid black;
     border-radius: 15px;
-    width: 600px;
-    height: 400px;
-    display: block;
+    width: 1200px;
+    height: 800px;
     overflow: hidden;
+    z-index: 5000;
+    position: relative;
   }
 

@@ -1,6 +1,16 @@
 let memo = document.getElementById('memo');
 let box;
 let inputMemo;
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1; 
+
+let mark = document.createElement('div');
+mark.setAttribute('id', "mark")
+mark.style.background = "red"
+mark.style.width = "20px"
+mark.style.height = "20px"
+mark.style.borderRadius=50
 
 let createMemoBox = function() {
   box = document.createElement('textarea');
@@ -15,18 +25,18 @@ let createInputMemo = function() {
   memo.appendChild(inputMemo);
 }
 
+
 addEventListener('load', function() {
   createMemoBox();
   createInputMemo();
 
-  const currentDate = new Date();
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1; 
+
 
   inputMemo.addEventListener("keydown", function(e){
     if(e.key === "Enter"){
       const memoText = box.value;
       const memoInputValue = inputMemo.value;
+
 
       const title = document.getElementById('title').innerText;
       const year = title.slice(0, 4);
@@ -45,7 +55,7 @@ addEventListener('load', function() {
         memo: memoText,
         year: currentYear,
         month: currentMonth,
-        date: memoInputValue
+        date: memoInputValue,
       };
 
       storedData.push(dataToStore);
@@ -53,6 +63,8 @@ addEventListener('load', function() {
       localStorage.setItem(storageKey, JSON.stringify(storedData));
       box.value = "";
       inputMemo.value = "";
+
+      // dateBox.div.appendChild(mark);
     }
   });
 });
