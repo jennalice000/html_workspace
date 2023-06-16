@@ -28,11 +28,11 @@ function reLock() {
 
 function passwordWindowInterval() {
 
-  setInterval(popUp, 100000);
+  setInterval(popUp, 1000000);
 }
 
 //게임 단어들
-let words = ["Adam", "Fruit", "red", "juicy", "ABC", "Tree", "Pine", "Mango", "Red"];
+let words = ["Adam", "Fruit", "red", "juicy", "ABC", "Tree", "Pine", "Mango", "Red", "Juicy", "abc", "adam", "Snake", "snake", "tree"];
 
 // 게임 변수들
 let wrapper = document.getElementById('wrapper');
@@ -45,14 +45,13 @@ function createWords() {
   newWord.className = 'word';
 
   newWord.style.position = 'absolute';
-  newWord.style.left = getRandomByRange(0, 2000) + 'px';
+  newWord.style.left = getRandomByRange(800, 1000) + 'px';
   newWord.style.top = '250px';
-  newWord.style.fontSize = 40 + 'px'
+  newWord.style.fontSize = 17 + 'px'
   newWord.style.height = 'auto';
   newWord.style.width = 'auto';
-  newWord.style.color = 'white';
 
-  wrapper.appendChild(newWord);
+  passwordWindow.appendChild(newWord);
   fallingWords.push(newWord);
 }
 
@@ -69,16 +68,16 @@ function updateWords() {
     let word = fallingWords[i];
     let top = parseInt(word.style.top) || 0;
     top += 5;
-    
-    if (top >= wrapper.offsetHeight - word.offsetHeight) {
-      word.style.top = '0px';
-    } else {
-      word.style.top = top + 'px';
+    word.style.top = top + 'px';
+
+    if (top >= 600) {
+      word.parentNode.removeChild(word);
+      fallingWords.splice(i, 1);
+      i--;
     }
   }
+
 }
-
-
 
 
 addEventListener('load', function () {
